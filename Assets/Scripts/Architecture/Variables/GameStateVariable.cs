@@ -22,56 +22,47 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles Runtimesets of objects/items. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: Creates Sets/Lists of items that may be required by several components.s
+/// Description: [Describe what this class does].
 /// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: Lives in assets.
+/// Deployment: [Where it should live in the Scene, Project, Assets'].
 /// </summary>
 #endregion
 
 
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
-using System.Collections.Generic;
 
-public abstract class RuntimeSet<T> : ScriptableObject
+public enum GameState
+{
+    Exploration,
+    Combat,
+    Paused,
+    GameOver
+}
+
+[CreateAssetMenu(menuName = "Variables/GameState")]
+public class GameStateVariable : ScriptableObject
 {
     #region Inspector
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
-#endif  
-    [SerializeField] private List<T> items = new();
+#endif
+    [SerializeField] private GameState value ;
     
     #endregion
     #region Internal
-    public IReadOnlyList<T> Items => items;
-
-    private void OnEnable()
-    {
-        items.Clear();
-    }
+    public GameState Value => value;
     #endregion
 
-
+    
     #region Methods
-    public void Add(T item)
+    public void SetValue(GameState newValue)
     {
-        if (!items.Contains(item)) items.Add(item);
-    }
-    public void Remove(T item)
-    {
-        if (items.Contains(item)) items.Remove(item);
+        value = newValue;
     }
     #endregion
 }
-#region Implementations
-//Set of coordinates, for example Spawnpoints
-[CreateAssetMenu(menuName = "Sets/Transform Set")]
-public class TransformSet : RuntimeSet<Transform> {}
-
-// Set of GameObjects, generally useful
-[CreateAssetMenu(menuName = "Sets/GameObject Set")]
-public class GameObjectSet : RuntimeSet<GameObject> {}
-#endregion
