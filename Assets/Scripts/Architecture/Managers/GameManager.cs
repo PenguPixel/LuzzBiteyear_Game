@@ -76,7 +76,9 @@ public class GameManager : MonoBehaviour
 
         if(onGameStateChanged != null) onGameStateChanged.Raise();
     }
-
+    public void EnterCombat() => SetGameState(GameState.Combat);
+    public void EnterExploration() => SetGameState(GameState.Exploration);
+    public void GameOver() => SetGameState(GameState.GameOver);
     public void TogglePause()
     {
         if (currentGameState.Value == GameState.Paused)
