@@ -33,11 +33,11 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
-using System;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(menuName = "Variables/Vector3")]
-public class Vector3Variable : MonoBehaviour
+public class Vector3Variable : ScriptableObject
 {
     #region Inspector
 #if UNITY_EDITOR
