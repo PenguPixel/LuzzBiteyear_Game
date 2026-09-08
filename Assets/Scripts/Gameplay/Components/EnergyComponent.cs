@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles the Energy Managemnet of an entity. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
+/// Description: It holds the reference to the data holders if local values are not assigned. Provides functions to be called to manipulate Energy data and raise events.
 /// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Deployment: Can be added at will to GameObjects.
 /// </summary>
 #endregion
 
