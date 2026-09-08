@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "LuzzBiteyear_Game.slnx"
+    "dotnet.defaultSolution": "Luzz_Biteyear.slnx"
 }
