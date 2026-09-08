@@ -22,11 +22,11 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles Vector3 data. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: Like all other variables.
+/// Description: [Describe what this class does].
 /// Coordination: [How it communicates with APIs or other Components].
 /// Deployment: [Where it should live in the Scene, Project, Assets'].
 /// </summary>
@@ -36,31 +36,18 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(menuName = "Variables/Vector3")]
-public class Vector3Variable : ScriptableObject
+[CreateAssetMenu(menuName = "Interaction/InteractionData")]
+public class InteractionData : ScriptableObject
 {
     #region Inspector
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
-    [SerializeField] private Vector3 value;
-    
+    [SerializeField] private string promptMessage = "Interact" ;
+    [SerializeField] private float holdDuration = 0f; // OnClick
     #endregion
     #region Internal
-    public Vector3 Value => value;
+    public string PromptMessage => promptMessage;
+    public float HoldDuration => holdDuration;
     #endregion
-    public void SetValue(Vector3 newValue)
-    {
-        value = newValue;
-    }
-}
-
-[Serializable]
-public class Vector3Reference
-{
-    [SerializeField] private bool useConstant;
-    [SerializeField] private Vector3 constantValue;
-    [SerializeField] private Vector3Variable variable;
-
-    public Vector3 Value => useConstant ? constantValue : variable.Value;
 }

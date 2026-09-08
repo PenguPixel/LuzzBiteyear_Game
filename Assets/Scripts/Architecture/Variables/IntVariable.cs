@@ -62,9 +62,23 @@ public class IntVariable : ScriptableObject
 [Serializable]
 public class IntReference
 {
-    public bool UseConstant = true;
-    public int ConstantValue;
-    public IntVariable Variable;
+    [SerializeField] private bool useConstant = true;
+    [SerializeField] private int constantValue;
+    [SerializeField] private IntVariable variable;
 
-    public int Value => UseConstant ? ConstantValue : Variable.Value;
+    public int Value
+    {
+        get => useConstant ? constantValue : variable.Value;
+        set
+        {
+            if (useConstant)
+            {
+                constantValue = value;
+            }
+            else if(variable != null)
+            {
+                variable.SetValue(value);
+            }
+        }
+    }
 }
