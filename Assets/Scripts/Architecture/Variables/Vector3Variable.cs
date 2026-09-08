@@ -62,5 +62,19 @@ public class Vector3Reference
     [SerializeField] private Vector3 constantValue;
     [SerializeField] private Vector3Variable variable;
 
-    public Vector3 Value => useConstant ? constantValue : variable.Value;
+    public Vector3 Value
+    {
+        get => useConstant ? constantValue : (variable != null ? variable.Value : Vector3.zero);
+        set
+        {
+            if (useConstant)
+            {
+                constantValue = value;
+            }
+            else if(variable != null)
+            {
+                variable.SetValue(value);
+            }
+        }        
+    }
 }
