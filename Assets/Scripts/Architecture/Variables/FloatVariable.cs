@@ -62,9 +62,23 @@ public class FloatVariable : ScriptableObject
 [Serializable]
 public class FloatReference
 {
-    public bool UseConstant = false;
-    public float ConstantValue;
-    public FloatVariable Variable;
+    [SerializeField] private bool useConstant = false;
+    [SerializeField] private float constantValue;
+    [SerializeField] private FloatVariable variable;
 
-    public float Value => UseConstant ? ConstantValue : Variable.Value ;
+    public float Value
+    {
+        get => useConstant ? constantValue : (variable != null ? variable.Value : 0f);
+        set
+        {
+            if (useConstant)
+            {
+                constantValue = value;
+            }
+            else if(variable != null)
+            {
+                variable.SetValue(value);
+            }
+        }        
+    }
 }

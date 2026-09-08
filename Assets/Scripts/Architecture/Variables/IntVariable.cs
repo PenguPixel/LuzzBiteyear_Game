@@ -68,7 +68,7 @@ public class IntReference
 
     public int Value
     {
-        get => useConstant ? constantValue : variable.Value;
+        get => useConstant ? constantValue : (variable != null ? variable.Value : 0);
         set
         {
             if (useConstant)
