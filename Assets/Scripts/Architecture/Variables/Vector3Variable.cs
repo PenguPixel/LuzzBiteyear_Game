@@ -22,20 +22,21 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles Vector3 data. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
+/// Description: Like all other variables.
 /// Coordination: [How it communicates with APIs or other Components].
 /// Deployment: [Where it should live in the Scene, Project, Assets'].
 /// </summary>
 #endregion
 
 
+using System;
 using UnityEngine;
 
-
+[CreateAssetMenu(menuName = "Variables/Vector3")]
 public class Vector3Variable : MonoBehaviour
 {
     #region Inspector
@@ -52,6 +53,14 @@ public class Vector3Variable : MonoBehaviour
     {
         value = newValue;
     }
+}
 
+[Serializable]
+public class Vector3Reference
+{
+    [SerializeField] private bool useConstant;
+    [SerializeField] private Vector3 constantValue;
+    [SerializeField] private Vector3Variable variable;
 
+    public Vector3 Value => useConstant ? constantValue : variable.Value;
 }
