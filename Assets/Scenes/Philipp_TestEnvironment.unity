@@ -291,7 +291,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 53
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -317,13 +317,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326916621}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.19080894, y: 0, z: 0, w: 0.9816273}
+  m_LocalPosition: {x: 0, y: 4.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 22, y: 0, z: 0}
 --- !u!114 &1326916625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,10 +426,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!64 &1494875455
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 1985025162}
   - component: {fileID: 1985025161}
   - component: {fileID: 1985025160}
-  - component: {fileID: 1985025159}
+  - component: {fileID: 1985025163}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -734,31 +734,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1985025159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985025158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a659c13ddc265c249809e829afb1edcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerControler
-  DeveloperDescription: 
-  Position:
-    useConstant: 0
-    constantValue: {x: 0, y: 0, z: 0}
-    variable: {fileID: 0}
-  MaxMoveSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 0}
-  CurrentMoveSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 0}
 --- !u!54 &1985025160
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -782,10 +757,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!143 &1985025161
 CharacterController:
   m_ObjectHideFlags: 0
@@ -802,7 +777,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
@@ -820,13 +795,62 @@ Transform:
   m_GameObject: {fileID: 1985025158}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 386842520}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1985025163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985025158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a659c13ddc265c249809e829afb1edcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControler
+  DeveloperDescription: 
+  MaxMoveSpeed:
+    useConstant: 1
+    constantValue: 5
+    variable: {fileID: 11400000, guid: 3e1916fc3b1118343a9f8fa28646e597, type: 2}
+  CurrentMoveSpeed:
+    useConstant: 0
+    constantValue: 0
+    variable: {fileID: 11400000, guid: c06be124f3cf7964f9c2bb71c564a19f, type: 2}
+  RotationSpeed: 10
+  _jumpForce: 10
+  MoveAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Move
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: adf7d0c4-bd27-4651-aa78-a2df416e0a2b
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 5155097185006618543, guid: 2f83fa13fbf3bc04a926909f1f7dac54, type: 3}
+  JumpAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Jump
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: c19009c8-2e28-4bbb-a4ed-71eceefa049a
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 1240286246309464440, guid: 2f83fa13fbf3bc04a926909f1f7dac54, type: 3}
 --- !u!1 &2091203603
 GameObject:
   m_ObjectHideFlags: 0

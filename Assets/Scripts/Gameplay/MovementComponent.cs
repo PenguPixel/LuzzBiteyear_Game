@@ -48,18 +48,26 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] private FloatReference CurrentMoveSpeed;
     [SerializeField] private float RotationSpeed = 10f;
 
+    [Header("Jump Settings")]
+    [SerializeField] private FloatReference JumpForce;
+
+
     [Header("Input Actions")]
-    [SerializeField] private InputActionProperty MoveAction;  
+    [SerializeField] private InputActionProperty MoveAction; 
+    [SerializeField] private InputActionProperty JumpAction; 
     #endregion
 
     #region Internal
     private Rigidbody _rigidbody;
     private Vector2 _currentMoveInput;
+    private bool _isGrounded = true;
+    private bool _isJumping = false;
+    private bool _jumpRequested = false;
     #endregion
 
     #region For Debugging
-    private float MoveSpeed = 5f;
-    private float _currentMoveSpeed;
+    // private float MoveSpeed = 5f;
+    // private float _currentMoveSpeed;
     #endregion
 
     
@@ -97,14 +105,47 @@ public class MovementComponent : MonoBehaviour
 
     private void Update()
     {
+        // Move input
         if(MoveAction != null)
         {
             _currentMoveInput = MoveAction.action.ReadValue<Vector2>();
-            Debug.Log($"Current Move Input: {_currentMoveInput}");
+        }
+
+        // Jump input
+        if (JumpAction != null && JumpAction.action.WasPressedThisFrame())
+        {
+            if (_isGrounded)
+            {
+                _jumpRequested = true;
+            }
         }
     }
 
     private void FixedUpdate()
+    {
+        Move();
+        Jump();
+    }
+
+    private void Jump()
+    {
+        if (_jumpRequested)
+        {
+            _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0f, _rigidbody.linearVelocity.z);
+            _rigidbody.AddForce(Vector3.up * JumpForce.Value, ForceMode.Impulse);
+            _jumpRequested = false;
+        }
+    }
+
+    private void Move()
+    {
+        Vector3 moveDirection = SetMoveDirection();
+
+        // apply linear velocity
+        ApplyMovement(moveDirection);
+    }
+
+    private Vector3 SetMoveDirection()
     {
         Vector3 moveDirection = new Vector3(_currentMoveInput.x, 0f, _currentMoveInput.y);
 
@@ -119,28 +160,30 @@ public class MovementComponent : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.fixedDeltaTime);
 
             // set/track current move speed
-            // if (CurrentMoveSpeed != null)
-            // {
-            //     CurrentMoveSpeed.Value = targetSpeed;
-            // }
+            if (CurrentMoveSpeed != null)
+            {
+                CurrentMoveSpeed.Value = targetSpeed;
+            }
 
-            _currentMoveSpeed = MoveSpeed;
+            // _currentMoveSpeed = MoveSpeed;
         }
         else
         {
-            // if (CurrentMoveSpeed != null)
-            // {
-            //     CurrentMoveSpeed.Value = 0f;
-            // }
-            _currentMoveSpeed = 0f;
+            if (CurrentMoveSpeed != null)
+            {
+                CurrentMoveSpeed.Value = 0f;
+            }
+            // _currentMoveSpeed = 0f;
         }
 
-        // apply linear velocity
-        Vector3 targetVelocity = moveDirection * _currentMoveSpeed;
-        _rigidbody.linearVelocity = new Vector3(targetVelocity.x, _rigidbody.linearVelocity.y, targetVelocity.z);
+        return moveDirection;
     }
 
-
-
+    private void ApplyMovement(Vector3 moveDirection)
+    {
+        Vector3 targetVelocity = moveDirection * CurrentMoveSpeed.Value;
+        _rigidbody.linearVelocity = new Vector3(targetVelocity.x, _rigidbody.linearVelocity.y, targetVelocity.z);
+    }
+    
     #endregion
 }
