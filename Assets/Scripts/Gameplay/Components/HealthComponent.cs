@@ -22,21 +22,22 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles the health of the entitity it is attached to. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: Holds Data to the health of an entity.
+/// Coordination: Reacts to appropriate events by Damaging or healing the player.
+/// Deployment: Attach a health Component to an entity.
 /// </summary>
 #endregion
 
 
+using System;
 using UnityEngine;
 
-
-public class Health : MonoBehaviour, IDamageable
+[AddComponentMenu("Resources/Health Resource")]
+public class Health : MonoBehaviour, IDamageable, IHealable
 {
     #region Inspector
 #if UNITY_EDITOR
@@ -47,36 +48,39 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private IntReference maxHealth;
 
     [Header("Events")]
-    [SerializeField] private GameEvent onDamaged;
+    [SerializeField] private GameEvent onHealthChanged;
     [SerializeField] private GameEvent onDied;
 
     #endregion
+
+
     #region Internal
-    private void Start()
-    {
-        if (currentHealth != null && maxHealth != null)
-        {
-            currentHealth.Value = maxHealth.Value;
-        }
-    }
     #endregion
 
 
     #region Methods
-    /// <summary>
-    /// Brief description of the method.
-    /// </summary>
-    /// <param name = "parameters">What this parameter represents </param>
-    public void GoodMethod(int parameters)
-    {
-        /* --- CodeBlock: Logic Execution --- */
-        // Description: Describe the intent of this specific block
-        var value = parameters * 2;   // Descriptive comment for specific line, if necessary
-    }
-
     public void TakeDamage(int amount, GameObject damageSource = null)
     {
-        throw new System.NotImplementedException();
+        if (currentHealth.Value <= 0) return;
+        currentHealth.Value -= amount;
+        if (onHealthChanged != null)
+            onHealthChanged.Raise();
+        if (currentHealth.Value <= 0)
+        {
+            Die();
+        }
+    }
+    public void Heal(int amount, GameObject healSource = null)
+    {
+        if (currentHealth.Value >= maxHealth.Value) return;
+        currentHealth.Value = Math.Clamp(currentHealth.Value + amount, 0, maxHealth.Value);
+        if (onHealthChanged != null)
+            onHealthChanged.Raise();
+    }
+    public void Die()
+    {
+        if (onDied != null)
+            onDied.Raise();
     }
     #endregion
 }

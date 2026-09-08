@@ -33,33 +33,43 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System;
 using UnityEngine;
 
 
-public class EnergyComponent : MonoBehaviour
+[AddComponentMenu("Resources/Energy Resource")]
+public class Energy : MonoBehaviour, IUseEnergy, IReplenishEnergy
 {
     #region Inspector
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
-    [SerializeField] private string assetName ;
+    [Header("Energy Data")]
+    [SerializeField] private IntReference currentEnergy;
+    [SerializeField] private IntReference maxEnergy;
+
+    [Header("Energy Events")]
+    [SerializeField] private GameEvent onEnergyChanged;
     
-    #endregion
-    #region Internal
-    private int someValue;
     #endregion
 
-    
+
     #region Methods
-    /// <summary>
-    /// Brief description of the method.
-    /// </summary>
-    /// <param name = "parameters">What this parameter represents </param>
-    public void GoodMethod(int parameters)
+    public void ReplenishEnergy(int amount, GameObject chargeSource)
     {
-        /* --- CodeBlock: Logic Execution --- */
-        // Description: Describe the intent of this specific block
-        var value = parameters * 2;   // Descriptive comment for specific line, if necessary
+        if (currentEnergy.Value >= maxEnergy.Value) return;
+        currentEnergy.Value += Math.Clamp(amount, 0, maxEnergy.Value) ;
+        if (onEnergyChanged != null)
+            onEnergyChanged.Raise();
     }
+
+    public void UseEnergy(int amount, GameObject drainSource)
+    {
+        if (currentEnergy.Value <= 0) return;
+        currentEnergy.Value = Math.Clamp(currentEnergy.Value - amount, 0, maxEnergy.Value);
+        if (onEnergyChanged != null)
+            onEnergyChanged.Raise();
+    }
+
     #endregion
 }

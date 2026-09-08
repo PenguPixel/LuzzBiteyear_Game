@@ -22,22 +22,56 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles the interface of interactables. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles holds Interfaces relevant to the Game. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: its an interface for interactables.
-/// Coordination: Its an interface.
-/// Deployment: apply this interface to interactables.
+/// Description: it defines interfaces that we require.
+/// Coordination: They are in fact interfaces.
+/// Deployment: Scripts/Gameplay.
 /// </summary>
 #endregion
 
 
 using UnityEngine;
 
-
+#region Generalized
+public interface IChangeValue<T>
+{
+    void ApplyChange(T amount);
+}
+public interface ISetValue<T>
+{
+    void SetValue(T newValue);
+}
 public interface IInteractable
 {
     InteractionData InteractionData { get; }
     void Interact(GameObject interactor);
 }
+#endregion
+
+
+#region Specified
+public interface IDamageable
+{
+    void TakeDamage(int amount, GameObject damageSource);
+}
+public interface ITargetable
+{
+    Transform TargetTransform { get; }
+    bool IsTargetable { get; }
+}
+public interface IHealable
+{
+    void Heal(int amount, GameObject healSource);
+}
+public interface IUseEnergy
+{
+    void UseEnergy(int amount, GameObject drainSource);
+}
+public interface IReplenishEnergy
+{
+    void ReplenishEnergy(int amount, GameObject chargeSource);
+}
+#endregion
