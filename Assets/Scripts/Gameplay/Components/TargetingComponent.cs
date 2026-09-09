@@ -80,19 +80,20 @@ public class TargetingComponent : MonoBehaviour
                 }
             }
         }
-        
+        SetTarget(bestTarget);
     }
     protected void SetTarget(ITargetable newTarget)
     {
         if (CurrentTarget == newTarget) return;
+        bool hadTarget = CurrentTarget != null;
         CurrentTarget = newTarget;
         if (CurrentTarget != null)
         {
-            if (onTargetAquired != null) onTargetAquired.Raise();
+            if (onTargetAquired != null && !hadTarget) onTargetAquired.Raise();
         }
         else
         {
-            if (onTargetLost != null) onTargetLost.Raise();
+            if (onTargetLost != null && hadTarget) onTargetLost.Raise();
         }
     }
     public void ClearTarget() => SetTarget(null);

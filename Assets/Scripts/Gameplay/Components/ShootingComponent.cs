@@ -33,6 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System;
 using UnityEngine;
 
 
@@ -46,35 +47,56 @@ public class ShootingComponent : MonoBehaviour
 #endif
     [Header("Dependencies")]
     [SerializeField] private TargetingComponent targetingComponent;
-//    [SerializeField] private ProjectilePoolManager poolManager;
+    [SerializeField] private PoolManager poolManager;
     [SerializeField] private Energy energy;
 
     [Header("Weapon Configuration")]
     [SerializeField] private Transform firePoint;
-    
-    
+    [SerializeField] private GameObject projectilePrefab;
+
+
     #endregion
+
+
     #region Internal
-    private void Awake()
+    private Func<Vector3, Quaternion, GameObject> spawnDelegate;
+    private void Start()
     {
-        if (targetingComponent == null)
-            targetingComponent = GetComponent<TargetingComponent>();
+        if (poolManager != null && projectilePrefab != null)
+        {
+            poolManager.Prewarm(projectilePrefab, 10);
+            spawnDelegate = poolManager.GetSpawnDelegate(projectilePrefab);
+        }
     }
     #endregion
 
-    
+
     #region Methods
-    public void Fire()
+    public void ExecuteFire()
     {
         if (energy != null)
             energy.UseEnergy(1, null);
         
         Transform origin = firePoint != null ? firePoint : transform;
-        Transform target = targetingComponent != null ? targetingComponent.TargetTransform : null;
+        Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
 
-        //    if (poolManager != null)
+        if (targetingComponent != null && targetingComponent.HasValidTarget)
         {
-    //        poolManager.
+            Vector3 targetDir = (targetingComponent.TargetTransform.position - origin.position).normalized;
+            if (targetDir != Vector3.zero)
+            {
+                spawnRotation = Quaternion.LookRotation(targetDir);
+            }
+        }
+
+        if (spawnDelegate != null)
+        {
+            GameObject projectile = spawnDelegate.Invoke(origin.position, spawnRotation);
+            if (projectile.TryGetComponent<Projectile>(out var payload))
+            {
+                Transform target = targetingComponent != null ? targetingComponent.TargetTransform : null;
+                payload.Initialize(poolManager, projectilePrefab, target);
+            }
         }
     }
     #endregion

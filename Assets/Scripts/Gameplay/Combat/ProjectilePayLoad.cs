@@ -33,6 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -51,18 +52,18 @@ public class Projectile : MonoBehaviour
     
     #endregion
     #region Internal
-    private IObjectPool<Projectile> parentPool;
+    private PoolManager poolManager;
+    private GameObject sourcePrefab;
     private float currentLifetime;
     private Transform targetTransform;
     #endregion
 
     
     #region Methods
-    public void Initialize(IObjectPool<Projectile> pool, Vector3 spawnPosition, Quaternion spawnRotation, Transform target = null)
+    public void Initialize(PoolManager manager, GameObject prefab, Transform target = null)
     {
-        parentPool = pool;
-        transform.position = spawnPosition;
-        transform.rotation = spawnRotation;
+        poolManager = manager;
+        sourcePrefab = prefab;
         targetTransform = target;
         currentLifetime = 0f;
     }
@@ -104,8 +105,8 @@ public class Projectile : MonoBehaviour
     #region Helpers
     private void ReleaseToPool()
     {
-        if (parentPool != null)
-            parentPool.Release(this);
+        if (poolManager != null && sourcePrefab != null)
+            poolManager.Release(sourcePrefab, gameObject);
         else
             gameObject.SetActive(false);
     }
