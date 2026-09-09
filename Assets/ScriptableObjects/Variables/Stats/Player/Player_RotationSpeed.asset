@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player_RotationSpeed
   m_EditorClassIdentifier: Assembly-CSharp::FloatVariable
   DeveloperDescription: 
-  value: 0
+  value: 10

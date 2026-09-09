@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player_MaxMoveSpeed
   m_EditorClassIdentifier: Assembly-CSharp::FloatVariable
   DeveloperDescription: 
-  value: 0
+  value: 5
