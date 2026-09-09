@@ -46,10 +46,16 @@ public class MovementComponent : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private FloatReference MaxMoveSpeed;
     [SerializeField] private FloatReference CurrentMoveSpeed;
-    [SerializeField] private float RotationSpeed = 10f;
+    [SerializeField] private FloatReference RotationSpeed;
 
     [Header("Jump Settings")]
     [SerializeField] private FloatReference JumpForce;
+    [SerializeField] private bool doubleJumpUnlocked = false;
+
+    [Header("Ground Check")]
+    [SerializeField] private Transform GroundCheckTransform;
+    [SerializeField] private float GroundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask GroundLayer;
 
 
     [Header("Input Actions")]
@@ -59,11 +65,18 @@ public class MovementComponent : MonoBehaviour
 
     #region Internal
     private Rigidbody _rigidbody;
+
+    // Movement
     private Vector2 _currentMoveInput;
+
+    // Jumping
     private bool _isGrounded = true;
     private bool _isJumping = false;
     private bool _jumpRequested = false;
+    private int _remainingJumps;
+
     #endregion
+
 
     #region For Debugging
     // private float MoveSpeed = 5f;
@@ -96,15 +109,27 @@ public class MovementComponent : MonoBehaviour
     private void OnEnable()
     {
         MoveAction.action?.Enable();
+        JumpAction.action?.Enable();
     }
 
     private void OnDisable()
     {
         MoveAction.action?.Disable();
+        JumpAction.action?.Disable();
     }
 
     private void Update()
     {
+        int totalAvailableJumps = doubleJumpUnlocked? 2 : 1;
+        
+
+        // check if Grounded
+        if (GroundCheckTransform != null)
+        {
+            _isGrounded = Physics.CheckSphere(GroundCheckTransform.position, GroundCheckRadius, GroundLayer);
+        }
+
+
         // Move input
         if(MoveAction != null)
         {
@@ -114,9 +139,23 @@ public class MovementComponent : MonoBehaviour
         // Jump input
         if (JumpAction != null && JumpAction.action.WasPressedThisFrame())
         {
+            if (!_isGrounded && !_isJumping) return; // Prevent jump if not grounded
+
             if (_isGrounded)
             {
+                _remainingJumps = totalAvailableJumps; // Reset remaining jumps when grounded
                 _jumpRequested = true;
+                _remainingJumps--;
+
+                //TODO implement real Grounded Check
+                // _isGrounded = false; 
+                _isJumping = true;
+            }
+            else if (_isJumping && _remainingJumps > 0 && JumpAction.action.WasPressedThisFrame())
+            {
+                _jumpRequested = true;
+                _remainingJumps--;
+                _isJumping = false; // Reset jumping state after double jump
             }
         }
     }
@@ -157,7 +196,7 @@ public class MovementComponent : MonoBehaviour
 
             // Turn Character towards movement direction
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed.Value * Time.fixedDeltaTime);
 
             // set/track current move speed
             if (CurrentMoveSpeed != null)
