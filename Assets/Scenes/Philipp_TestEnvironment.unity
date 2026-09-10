@@ -1859,10 +1859,10 @@ GameObject:
   - component: {fileID: 1985025163}
   - component: {fileID: 1985025169}
   - component: {fileID: 1985025168}
-  - component: {fileID: 1985025167}
+  - component: {fileID: 1985025164}
   - component: {fileID: 1985025166}
   - component: {fileID: 1985025165}
-  - component: {fileID: 1985025164}
+  - component: {fileID: 1985025170}
   m_Layer: 7
   m_Name: Character
   m_TagString: Untagged
@@ -1954,6 +1954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControler
   DeveloperDescription: 
+  Rigidbody: {fileID: 1985025160}
   MaxMoveSpeed:
     useConstant: 0
     constantValue: 0
@@ -2037,7 +2038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootingComponent
   DeveloperDescription: 
-  targetingComponent: {fileID: 1985025167}
+  targetingComponent: {fileID: 0}
   poolManager: {fileID: 8662046644978662769, guid: e4211ffd147caca48b3d72deec88d26e, type: 3}
   energy: {fileID: 1985025168}
   firePoint: {fileID: 1088794007}
@@ -2055,31 +2056,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
   DeveloperDescription: 
-  targetingComponent: {fileID: 1985025167}
+  targetingComponent: {fileID: 0}
   attackPayLoad: {fileID: 1973693728}
   onAttackExecuted: {fileID: 0}
---- !u!114 &1985025167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985025158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40de194cf8f0d64891cb96d037583df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TargetingComponent
-  DeveloperDescription: 
-  detectionRange:
-    useConstant: 0
-    constantValue: 0
-    variable: {fileID: 0}
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  onTargetAquired: {fileID: 11400000, guid: 55f2bd3f567fec3448bb3303faee4b6c, type: 2}
-  onTargetLost: {fileID: 11400000, guid: 48d1b292bf2eb0e4fbca3131766133f0, type: 2}
 --- !u!114 &1985025168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2125,6 +2104,101 @@ MonoBehaviour:
     variable: {fileID: 0}
   onHealthChanged: {fileID: 11400000, guid: c6925915500a6cf489d9d2065f37c69d, type: 2}
   onDied: {fileID: 11400000, guid: dfde68c3552434240a5307ab99d7ffd8, type: 2}
+--- !u!114 &1985025170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985025158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7148e1f58fe36489b95e63979b69cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputComponent
+  DeveloperDescription: 
+  movementComponent: {fileID: 1985025163}
+  targetingComponent: {fileID: 1985025164}
+  attackComponent: {fileID: 1985025166}
+  shootingComponent: {fileID: 1985025165}
+  MoveAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Move
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 1a124dd5-e26a-4569-82fe-3f25f2584ef4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  JumpAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Jump
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 7b96193e-5f12-4216-91ec-0e17ee43db71
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  AttackAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Attack
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b5686ba4-f34a-4bbb-8ac7-288a78015ec5
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  ShootAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Shoot
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: cff34579-c0be-4f36-be47-9a1f05a663d1
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  TargetAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Target
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6f709f55-8918-4022-84d1-92565fb61b56
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 0}
+  InteractAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Interact
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 67185c79-5060-474d-9523-25544d7bbc5c
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 0}
 --- !u!1 &2091203603
 GameObject:
   m_ObjectHideFlags: 0
