@@ -36,8 +36,8 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using UnityEngine;
 
 [RequireComponent(typeof(TargetingComponent))]
-[AddComponentMenu("Combat/Melee Attack Component")]
-public class Attack : MonoBehaviour
+[AddComponentMenu("Combat/Attack Component")]
+public class AttackComponent : MonoBehaviour
 {
     #region Inspector
 #if UNITY_EDITOR

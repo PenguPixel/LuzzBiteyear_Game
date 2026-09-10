@@ -43,6 +43,10 @@ public class MovementComponent : MonoBehaviour
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
+
+    [Header("Component References")]
+    [SerializeField] private Rigidbody Rigidbody;
+
     [Header("Movement Settings")]
     [SerializeField] private FloatReference MaxMoveSpeed;
     [SerializeField] private FloatReference CurrentMoveSpeed;
@@ -64,11 +68,11 @@ public class MovementComponent : MonoBehaviour
     #endregion
 
     #region Internal
-    private Rigidbody _rigidbody;
+    
 
-    // Movement
-    private Vector2 _currentMoveInput;
-
+    // Movement cache fed with values from InputComponent
+    private Vector3 _currentMoveInput;
+    
     // Jumping
     private bool _isGrounded = true;
     private bool _isJumping = false;
@@ -98,25 +102,23 @@ public class MovementComponent : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        Rigidbody.useGravity = true;
+        Rigidbody.isKinematic = false;
 
-        _rigidbody.useGravity = true;
-        _rigidbody.isKinematic = false;
-
-        _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    private void OnEnable()
-    {
-        MoveAction.action?.Enable();
-        JumpAction.action?.Enable();
-    }
+    // private void OnEnable()
+    // {
+    //     MoveAction.action?.Enable();
+    //     JumpAction.action?.Enable();
+    // }
 
-    private void OnDisable()
-    {
-        MoveAction.action?.Disable();
-        JumpAction.action?.Disable();
-    }
+    // private void OnDisable()
+    // {
+    //     MoveAction.action?.Disable();
+    //     JumpAction.action?.Disable();
+    // }
 
     private void Update()
     {
@@ -130,11 +132,11 @@ public class MovementComponent : MonoBehaviour
         }
 
 
-        // Move input
-        if(MoveAction != null)
-        {
-            _currentMoveInput = MoveAction.action.ReadValue<Vector2>();
-        }
+        // // Move input
+        // if(MoveAction != null)
+        // {
+        //     _currentMoveInput = MoveAction.action.ReadValue<Vector2>();
+        // }
 
         // Jump input
         if (JumpAction != null && JumpAction.action.WasPressedThisFrame())
@@ -170,23 +172,23 @@ public class MovementComponent : MonoBehaviour
     {
         if (_jumpRequested)
         {
-            _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0f, _rigidbody.linearVelocity.z);
-            _rigidbody.AddForce(Vector3.up * JumpForce.Value, ForceMode.Impulse);
+            Rigidbody.linearVelocity = new Vector3(Rigidbody.linearVelocity.x, 0f, Rigidbody.linearVelocity.z);
+            Rigidbody.AddForce(Vector3.up * JumpForce.Value, ForceMode.Impulse);
             _jumpRequested = false;
         }
     }
 
+
     private void Move()
     {
-        Vector3 moveDirection = SetMoveDirection();
-
+        Vector3 moveDirection = SetMoveDirection(_currentMoveInput);
         // apply linear velocity
         ApplyMovement(moveDirection);
     }
 
-    private Vector3 SetMoveDirection()
+    private Vector3 SetMoveDirection(Vector3 moveInputValue)
     {
-        Vector3 moveDirection = new Vector3(_currentMoveInput.x, 0f, _currentMoveInput.y);
+        Vector3 moveDirection = moveInputValue;
 
         float targetSpeed = MaxMoveSpeed != null ? MaxMoveSpeed.Value : 5f;
 
@@ -203,8 +205,6 @@ public class MovementComponent : MonoBehaviour
             {
                 CurrentMoveSpeed.Value = targetSpeed;
             }
-
-            // _currentMoveSpeed = MoveSpeed;
         }
         else
         {
@@ -212,7 +212,6 @@ public class MovementComponent : MonoBehaviour
             {
                 CurrentMoveSpeed.Value = 0f;
             }
-            // _currentMoveSpeed = 0f;
         }
 
         return moveDirection;
@@ -221,8 +220,12 @@ public class MovementComponent : MonoBehaviour
     private void ApplyMovement(Vector3 moveDirection)
     {
         Vector3 targetVelocity = moveDirection * CurrentMoveSpeed.Value;
-        _rigidbody.linearVelocity = new Vector3(targetVelocity.x, _rigidbody.linearVelocity.y, targetVelocity.z);
+        Rigidbody.linearVelocity = new Vector3(targetVelocity.x, Rigidbody.linearVelocity.y, targetVelocity.z);
     }
     
+    public void SetMoveValue(Vector3 moveInputValue)
+    {
+        _currentMoveInput = moveInputValue;
+    }
     #endregion
 }
