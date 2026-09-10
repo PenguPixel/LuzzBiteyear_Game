@@ -60,6 +60,10 @@ public class MeleeAttack : MonoBehaviour
 
 
     #region Methods
+    /// <summary>
+    /// HitDetection of designated Opponent Layers. OnHit deals designated damage
+    /// </summary>
+    /// <param name="other">object hit by this</param>
     private void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & targetLayers) == 0) return;
@@ -74,6 +78,8 @@ public class MeleeAttack : MonoBehaviour
     #region Helpers
     public void ActivateHitbox(Transform optionalTarget = null)
     {
+        //TODO targeting
+        // needs target...
         if (hitBoxCollider != null)
             hitBoxCollider.enabled = true;
     }

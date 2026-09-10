@@ -36,8 +36,8 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using UnityEngine;
 
 [RequireComponent(typeof(TargetingComponent))]
-[AddComponentMenu("Combat/Melee Attack Component")]
-public class Attack : MonoBehaviour
+[AddComponentMenu("Combat/Attack Component")]
+public class AttackComponent : MonoBehaviour
 {
     #region Inspector
 #if UNITY_EDITOR
@@ -48,6 +48,9 @@ public class Attack : MonoBehaviour
     [SerializeField] private TargetingComponent targetingComponent;
     [SerializeField] private MeleeAttack attackPayLoad;
 
+    [Header("Attack Configuration")]
+    [SerializeField] private FloatReference attackRange;
+    [SerializeField] private FloatReference cooldownTime;
     [Header("Events Configuration")]
     [SerializeField] private GameEvent onAttackExecuted; // maybe redundant
     
@@ -55,17 +58,30 @@ public class Attack : MonoBehaviour
 
 
     #region Internal
+    private float LastTimeAttack;
+    #endregion
+
+
+    #region Public Getters
+    public float AttackRange => attackRange != null ? attackRange.Value : 1.5f;
+    public bool IsInAttackRange(Vector3 origin, Vector3 targetPos) => Vector3.Distance(origin, targetPos) <= AttackRange;
+    public bool CanAttack => Time.time >= LastTimeAttack + (cooldownTime != null ? cooldownTime.Value : 1f);
     #endregion
 
     
     #region Methods
     public void ExecuteAttack()
     {
+        if (!CanAttack) return;
+        LastTimeAttack = Time.time;
+
         if (onAttackExecuted != null) onAttackExecuted.Raise();
 
         if (attackPayLoad != null)
         {
-            Transform target = targetingComponent != null ? targetingComponent.TargetTransform : null;
+            Transform target = targetingComponent != null && targetingComponent.HasValidTarget
+                ? targetingComponent.TargetTransform : null;
+                
             attackPayLoad.ActivateHitbox(target);
         }
     }

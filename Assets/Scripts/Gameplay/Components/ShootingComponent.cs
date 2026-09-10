@@ -51,6 +51,8 @@ public class ShootingComponent : MonoBehaviour
     [SerializeField] private Energy energy;
 
     [Header("Weapon Configuration")]
+    [SerializeField] private FloatReference attackRange;
+    [SerializeField] private FloatReference cooldownTime;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject projectilePrefab;
 
@@ -59,6 +61,7 @@ public class ShootingComponent : MonoBehaviour
 
 
     #region Internal
+    private float lastTimeFire;
     private Func<Vector3, Quaternion, GameObject> spawnDelegate;
     private void Start()
     {
@@ -71,12 +74,21 @@ public class ShootingComponent : MonoBehaviour
     #endregion
 
 
+    #region Public Getters
+    public float AttackRange => attackRange != null ? attackRange.Value : 0f;
+    public bool IsInAttackRange(Vector3 origin, Vector3 targetPos) => Vector3.Distance(origin, targetPos) <= AttackRange;
+    public bool CanFire => Time.time >= lastTimeFire + (cooldownTime != null ? cooldownTime.Value : 1f);
+
+    #endregion
+
     #region Methods
     public void ExecuteFire()
     {
         if (energy != null)
             energy.UseEnergy(1, null);
-        
+        if (!CanFire) return;
+        lastTimeFire = Time.time;
+
         Transform origin = firePoint != null ? firePoint : transform;
         Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
 
