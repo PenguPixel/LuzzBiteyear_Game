@@ -47,6 +47,10 @@ public class TargetingComponent : MonoBehaviour
     [SerializeField] protected FloatReference detectionRange;
     [SerializeField] protected LayerMask targetLayerMask;
 
+    // Testings Philipp
+    [Header("Testing Tags for SetTarget()")]
+    
+
     [Header("Output Data")]
     [SerializeField] protected GameEvent onTargetAquired;
     [SerializeField] protected GameEvent onTargetLost;
@@ -80,7 +84,7 @@ public class TargetingComponent : MonoBehaviour
                 }
             }
         }
-        SetTarget(bestTarget);
+        if (CompareTag("Enemy")) SetTarget(bestTarget);
     }
     protected void SetTarget(ITargetable newTarget)
     {
