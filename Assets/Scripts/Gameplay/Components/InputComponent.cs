@@ -54,6 +54,8 @@ public class InputComponent : MonoBehaviour
     [SerializeField] private InputActionProperty JumpAction;
     [SerializeField] private InputActionProperty AttackAction;
     [SerializeField] private InputActionProperty ShootAction;
+    [SerializeField] private InputActionProperty TargetAction;
+    [SerializeField] private InputActionProperty InteractAction;
 
     #endregion
     #region Internal
@@ -73,6 +75,8 @@ public class InputComponent : MonoBehaviour
         JumpAction.action?.Enable();
         AttackAction.action?.Enable();
         ShootAction.action?.Enable();
+        TargetAction.action?.Enable();
+        InteractAction.action?.Enable();
     }
 
     public void OnDisable()
@@ -81,6 +85,8 @@ public class InputComponent : MonoBehaviour
         JumpAction.action?.Disable();
         AttackAction.action?.Disable();
         ShootAction.action?.Disable();
+        TargetAction.action?.Disable();
+        InteractAction.action?.Disable();
     }
 
     public void Update()
@@ -97,6 +103,12 @@ public class InputComponent : MonoBehaviour
         if (JumpAction.action != null && JumpAction.action.WasPressedThisFrame())
         {
             movementComponent?.RequestJump();
+        }
+
+        // Handle shoot input
+        if (ShootAction.action != null && ShootAction.action.WasPressedThisFrame())
+        {
+            shootingComponent?.ExecuteFire();
         }
     }
 

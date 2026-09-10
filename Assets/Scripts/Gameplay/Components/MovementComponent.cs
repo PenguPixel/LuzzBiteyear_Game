@@ -94,12 +94,6 @@ public class MovementComponent : MonoBehaviour
     /// This method checks the current state of the character object and uses values from the CharacterController Component to set movement values to the character object.
     /// </summary>
     /// <param name = "parameters">What this parameter represents </param>
-    // public void GoodMethod(int parameters)
-    // {
-    //     /* --- CodeBlock: Logic Execution --- */
-    //     // Description: Describe the intent of this specific block
-    //     var value = parameters * 2;   // Descriptive comment for specific line, if necessary
-    // }
 
     private void Awake()
     {
@@ -108,18 +102,6 @@ public class MovementComponent : MonoBehaviour
 
         Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
-
-    // private void OnEnable()
-    // {
-    //     MoveAction.action?.Enable();
-    //     JumpAction.action?.Enable();
-    // }
-
-    // private void OnDisable()
-    // {
-    //     MoveAction.action?.Disable();
-    //     JumpAction.action?.Disable();
-    // }
 
     private void Update()
     {
@@ -212,8 +194,6 @@ public class MovementComponent : MonoBehaviour
                 _jumpRequested = true;
                 _remainingJumps--;
 
-                //TODO implement real Grounded Check
-                // _isGrounded = false; 
                 _isJumping = true;
             }
             else if (_isJumping && _remainingJumps > 0 && JumpAction.action.WasPressedThisFrame())
