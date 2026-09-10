@@ -58,7 +58,7 @@ public class Energy : MonoBehaviour, IUseEnergy, IReplenishEnergy
     public void ReplenishEnergy(int amount, GameObject chargeSource)
     {
         if (currentEnergy.Value >= maxEnergy.Value) return;
-        currentEnergy.Value += Math.Clamp(amount, 0, maxEnergy.Value) ;
+        currentEnergy.Value += Math.Clamp(currentEnergy.Value + amount, 0, maxEnergy.Value) ;
         if (onEnergyChanged != null)
             onEnergyChanged.Raise();
     }

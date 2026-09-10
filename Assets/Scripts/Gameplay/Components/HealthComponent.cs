@@ -55,8 +55,15 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
 
     #region Internal
-    #endregion
+    private void OnEnable()
+    {
+        if (currentHealth != null && maxHealth != null)
+        {
+            currentHealth.Value = maxHealth.Value;
+        }        
+    }
 
+    #endregion
 
     #region Methods
     public void TakeDamage(int amount, GameObject damageSource = null)

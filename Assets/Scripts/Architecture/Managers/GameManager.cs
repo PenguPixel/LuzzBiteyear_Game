@@ -46,18 +46,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameStateVariable currentGameState;
 
     [Header("Broadcasting Events")]
-    [SerializeField] private GameEvent onGameStateChanged;
-    [SerializeField] private GameEvent onGamePaused;
-    [SerializeField] private GameEvent onGameResumed;
-    
+    [SerializeField] private GameEvent onGameStateChanged;    
     #endregion
+
+    
     #region Internal
     private GameState previousState;
-
-    private void Start()
-    {
-        
-    }
+    private int activeAggroCount = 0;
     #endregion
 
 
@@ -85,14 +80,28 @@ public class GameManager : MonoBehaviour
         {
             SetGameState(previousState);
             Time.timeScale = 1f;
-            onGameResumed?.Raise();
+            if (onGameStateChanged != null) onGameStateChanged.Raise();
         }
         else
         {
             SetGameState(GameState.Paused);
             Time.timeScale = 0f;
-            onGamePaused?.Raise();
+            if (onGameStateChanged != null) onGameStateChanged.Raise();
         }
+    }
+    #endregion
+
+
+    #region Helpers
+    public void OnEnemyAggroAcquired()
+    {
+        activeAggroCount++;
+        if (activeAggroCount > 0) EnterCombat();
+    }
+    public void OnEnemyAggroLost()
+    {
+        activeAggroCount = Mathf.Max(0, activeAggroCount -1);
+        if (activeAggroCount == 0) EnterExploration();
     }
     #endregion
 }
