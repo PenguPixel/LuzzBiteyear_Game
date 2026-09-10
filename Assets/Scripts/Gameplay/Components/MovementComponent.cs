@@ -78,6 +78,7 @@ public class MovementComponent : MonoBehaviour
     private bool _isJumping = false;
     private bool _jumpRequested = false;
     private int _remainingJumps;
+    private int _totalAvailableJumps = 0;
 
     #endregion
 
@@ -88,7 +89,7 @@ public class MovementComponent : MonoBehaviour
     #endregion
 
     
-    #region Methods
+    #region Private Methods
     /// <summary>
     /// This method checks the current state of the character object and uses values from the CharacterController Component to set movement values to the character object.
     /// </summary>
@@ -122,43 +123,13 @@ public class MovementComponent : MonoBehaviour
 
     private void Update()
     {
-        int totalAvailableJumps = doubleJumpUnlocked? 2 : 1;
+        _totalAvailableJumps = doubleJumpUnlocked? 2 : 1;
         
 
         // check if Grounded
         if (GroundCheckTransform != null)
         {
             _isGrounded = Physics.CheckSphere(GroundCheckTransform.position, GroundCheckRadius, GroundLayer);
-        }
-
-
-        // // Move input
-        // if(MoveAction != null)
-        // {
-        //     _currentMoveInput = MoveAction.action.ReadValue<Vector2>();
-        // }
-
-        // Jump input
-        if (JumpAction != null && JumpAction.action.WasPressedThisFrame())
-        {
-            if (!_isGrounded && !_isJumping) return; // Prevent jump if not grounded
-
-            if (_isGrounded)
-            {
-                _remainingJumps = totalAvailableJumps; // Reset remaining jumps when grounded
-                _jumpRequested = true;
-                _remainingJumps--;
-
-                //TODO implement real Grounded Check
-                // _isGrounded = false; 
-                _isJumping = true;
-            }
-            else if (_isJumping && _remainingJumps > 0 && JumpAction.action.WasPressedThisFrame())
-            {
-                _jumpRequested = true;
-                _remainingJumps--;
-                _isJumping = false; // Reset jumping state after double jump
-            }
         }
     }
 
@@ -223,9 +194,34 @@ public class MovementComponent : MonoBehaviour
         Rigidbody.linearVelocity = new Vector3(targetVelocity.x, Rigidbody.linearVelocity.y, targetVelocity.z);
     }
     
+    #endregion
+
+    #region Public Methods
     public void SetMoveValue(Vector3 moveInputValue)
     {
         _currentMoveInput = moveInputValue;
+    }
+
+    public void RequestJump()
+    {
+        if (!_isGrounded && !_isJumping) return; // Prevent jump if not grounded
+
+            if (_isGrounded)
+            {
+                _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
+                _jumpRequested = true;
+                _remainingJumps--;
+
+                //TODO implement real Grounded Check
+                // _isGrounded = false; 
+                _isJumping = true;
+            }
+            else if (_isJumping && _remainingJumps > 0 && JumpAction.action.WasPressedThisFrame())
+            {
+                _jumpRequested = true;
+                _remainingJumps--;
+                _isJumping = false; // Reset jumping state after double jump
+            }
     }
     #endregion
 }

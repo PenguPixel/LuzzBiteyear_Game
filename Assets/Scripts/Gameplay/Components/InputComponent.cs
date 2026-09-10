@@ -92,6 +92,12 @@ public class InputComponent : MonoBehaviour
             _currentMoveInput = new Vector3(moveActionValue.x, 0f, moveActionValue.y);
             movementComponent?.SetMoveValue(_currentMoveInput);
         }
+
+        // Handle jump input
+        if (JumpAction.action != null && JumpAction.action.WasPressedThisFrame())
+        {
+            movementComponent?.RequestJump();
+        }
     }
 
     #endregion
