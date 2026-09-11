@@ -1,8 +1,8 @@
 #region Project Details
 /*
-* Project: MyProjectName
-* Author:Philipp / developer@domain.com
-* Issue: Link: https://github.com/Wasted-Resources/MyProjectName/issues/[ID]
+* Project: LuzzBiteyear
+* Author:Philipp Locher / pengupixels.de
+* Issue: Link: https://github.com/PenguPixel/LuzzBiteyear_Game/issues/
 * Date: 2026-09-10
 */
 #endregion
@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class acts as the central hub for reading player input from the Input System and dispatching actions to other specialized components. It coordinates movement, attacking, shooting, etc., based on current inputs.
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: The InputComponent reads raw input values (like directional sticks or button presses) using Unity's Input Actions system. It translates these abstract inputs into concrete commands (e.g., "Move left," "Jump") and forwards them to the appropriate systems, such as MovementComponent, ShootingComponent, etc.
+/// Coordination: This component primarily coordinates by calling public methods on other dependent components (MovementComponent, TargetingComponent, AttackComponent, ShootingComponent) when input changes occur within Update().
+/// Deployment: This script must be attached to the root GameObject that receives player input (e.g., the Player character). It relies heavily on properly configured Input Action Assets assigned in the Inspector.
 /// </summary>
 #endregion
 

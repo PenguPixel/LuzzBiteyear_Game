@@ -1,8 +1,8 @@
 #region Project Details
 /*
-* Project: MyProjectName
-* Author:DeveloperName / developer@domain.com
-* Issue: Link: https://github.com/Wasted-Resources/MyProjectName/issues/[ID]
+* Project: LuzzBiteyear
+* Author:Philipp Locher / pengupixels.de
+* Issue: Link: https://github.com/PenguPixel/LuzzBiteyear_Game/issues/2
 * Date: 2026-09-08
 */
 #endregion
@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles character movement and jumping mechanics. It uses the Rigidbody component for physics interactions and input actions for player control.
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: The MovementComponent is responsible for handling the movement and jumping logic of a character in the game. It processes input from the player to move the character forward, backward, left, and right, as well as handle jumping mechanics including single and double jumps.
+/// Coordination: This component communicates with other components via Unity's Input System and potentially with animation controllers or health systems to manage state transitions and effects.
+/// Deployment: This script should be attached to the GameObject representing the character in the Unity scene. It requires a Rigidbody component and references to various settings and input actions defined in the inspector.
 /// </summary>
 #endregion
 
