@@ -80,11 +80,13 @@ public class TargetingComponent : MonoBehaviour
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    bestTarget = target;
+                    bestTarget = target;   
                 }
             }
         }
-        if (CompareTag("Enemy")) SetTarget(bestTarget);
+        // if (CompareTag("Enemy")) SetTarget(bestTarget);
+        SetTarget(bestTarget);
+
     }
     protected void SetTarget(ITargetable newTarget)
     {
@@ -94,6 +96,10 @@ public class TargetingComponent : MonoBehaviour
         if (CurrentTarget != null)
         {
             if (onTargetAquired != null && !hadTarget) onTargetAquired.Raise();
+
+            // DEBUGGING
+            Debug.Log($"[TargetingComponent] Target acquired: {newTarget}"); 
+
         }
         else
         {
@@ -105,58 +111,58 @@ public class TargetingComponent : MonoBehaviour
 }
 
 
-[AddComponentMenu("Combat/Player Targeting Conponent")]
-public class PlayerTargeting : TargetingComponent
-{
-    #region Internal
-    private List<ITargetable> availableTargets = new();
-    private int currentTargetIndex = -1;
-    #endregion
+// [AddComponentMenu("Combat/Player Targeting Component")]
+// public class PlayerTargeting : TargetingComponent
+// {
+//     #region Internal
+//     private List<ITargetable> availableTargets = new();
+//     private int currentTargetIndex = -1;
+//     #endregion
 
 
-    #region Methods
-    public void CycleNextTarget()
-    {
-        RefreshTargets();
-        if (availableTargets.Count == 0)
-        {
-            ClearTarget();
-            return;
-        }
+//     #region Methods
+//     public void CycleNextTarget()
+//     {
+//         RefreshTargets();
+//         if (availableTargets.Count == 0)
+//         {
+//             ClearTarget();
+//             return;
+//         }
 
-        currentTargetIndex = (currentTargetIndex + 1) % availableTargets.Count;
-        SetTarget(availableTargets[currentTargetIndex]);
-    }
-    public void CyclePreviousTarget()
-    {
-        RefreshTargets();
-        if (availableTargets.Count == 0)
-        {
-            ClearTarget();
-            return;
-        }
-        currentTargetIndex--;
-        if (currentTargetIndex < 0) currentTargetIndex = availableTargets.Count - 1;
-        SetTarget(availableTargets[currentTargetIndex]);
-    }
-    private void RefreshTargets()
-    {
-        availableTargets.Clear();
+//         currentTargetIndex = (currentTargetIndex + 1) % availableTargets.Count;
+//         SetTarget(availableTargets[currentTargetIndex]);
+//     }
+//     public void CyclePreviousTarget()
+//     {
+//         RefreshTargets();
+//         if (availableTargets.Count == 0)
+//         {
+//             ClearTarget();
+//             return;
+//         }
+//         currentTargetIndex--;
+//         if (currentTargetIndex < 0) currentTargetIndex = availableTargets.Count - 1;
+//         SetTarget(availableTargets[currentTargetIndex]);
+//     }
+//     private void RefreshTargets()
+//     {
+//         availableTargets.Clear();
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, detectionRange.Value, targetLayerMask);
-        foreach (var hit in hits)
-        {
-            if (hit.gameObject == gameObject) continue;
-            if (hit.TryGetComponent<ITargetable>(out var target) && target.IsTargetable)
-            {
-                availableTargets.Add(target);
-            }
-        }
+//         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRange.Value, targetLayerMask);
+//         foreach (var hit in hits)
+//         {
+//             if (hit.gameObject == gameObject) continue;
+//             if (hit.TryGetComponent<ITargetable>(out var target) && target.IsTargetable)
+//             {
+//                 availableTargets.Add(target);
+//             }
+//         }
 
-        if (CurrentTarget != null && !availableTargets.Contains(CurrentTarget))
-        {
-            currentTargetIndex = -1;
-        }
-    }
-    #endregion
-}
+//         if (CurrentTarget != null && !availableTargets.Contains(CurrentTarget))
+//         {
+//             currentTargetIndex = -1;
+//         }
+//     }
+//     #endregion
+// }

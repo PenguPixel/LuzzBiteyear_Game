@@ -100,7 +100,7 @@ public class MovementComponent : MonoBehaviour
         Rigidbody.useGravity = true;
         Rigidbody.isKinematic = false;
 
-        Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void Update()

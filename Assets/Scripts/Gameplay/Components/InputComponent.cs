@@ -45,7 +45,7 @@ public class InputComponent : MonoBehaviour
 #endif
     [Header("Component References")]
     [SerializeField] private MovementComponent movementComponent;
-    [SerializeField] private TargetingComponent targetingComponent;
+    [SerializeField] private PlayerTargeting playerTargeting;
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;
 
@@ -54,7 +54,8 @@ public class InputComponent : MonoBehaviour
     [SerializeField] private InputActionProperty JumpAction;
     [SerializeField] private InputActionProperty AttackAction;
     [SerializeField] private InputActionProperty ShootAction;
-    [SerializeField] private InputActionProperty TargetAction;
+    [SerializeField] private InputActionProperty TargetNextAction;
+    [SerializeField] private InputActionProperty TargetPreviousAction;
     [SerializeField] private InputActionProperty InteractAction;
 
     #endregion
@@ -69,13 +70,16 @@ public class InputComponent : MonoBehaviour
     /// Brief description of the method.
     /// </summary>
     /// <param name = "parameters">What this parameter represents </param>
+    
+    
     public void OnEnable()
     {
         MoveAction.action?.Enable();
         JumpAction.action?.Enable();
         AttackAction.action?.Enable();
         ShootAction.action?.Enable();
-        TargetAction.action?.Enable();
+        TargetNextAction.action?.Enable();
+        TargetPreviousAction.action?.Enable();
         InteractAction.action?.Enable();
     }
 
@@ -85,7 +89,8 @@ public class InputComponent : MonoBehaviour
         JumpAction.action?.Disable();
         AttackAction.action?.Disable();
         ShootAction.action?.Disable();
-        TargetAction.action?.Disable();
+        TargetNextAction.action?.Disable();
+        TargetPreviousAction.action?.Disable();
         InteractAction.action?.Disable();
     }
 
@@ -109,6 +114,17 @@ public class InputComponent : MonoBehaviour
         if (ShootAction.action != null && ShootAction.action.WasPressedThisFrame())
         {
             shootingComponent?.ExecuteFire();
+        }
+
+        // Handle Targeting Input
+        if (playerTargeting == null) return;
+        if (TargetNextAction.action != null && TargetNextAction.action.WasPressedThisFrame())
+        {
+            playerTargeting.CycleNextTarget();
+        }
+        if (TargetPreviousAction.action != null && TargetPreviousAction.action.WasPressedThisFrame())
+        {
+            playerTargeting.CyclePreviousTarget();
         }
     }
 

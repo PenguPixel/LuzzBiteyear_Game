@@ -1088,6 +1088,7 @@ GameObject:
   - component: {fileID: 1411272366}
   - component: {fileID: 1411272368}
   - component: {fileID: 1411272367}
+  - component: {fileID: 1411272369}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -1149,6 +1150,28 @@ MonoBehaviour:
     variable: {fileID: 0}
   onHealthChanged: {fileID: 11400000, guid: c6925915500a6cf489d9d2065f37c69d, type: 2}
   onDied: {fileID: 11400000, guid: dfde68c3552434240a5307ab99d7ffd8, type: 2}
+--- !u!114 &1411272369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411272365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40de194cf8f0d64891cb96d037583df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetingComponent
+  DeveloperDescription: 
+  detectionRange:
+    useConstant: 0
+    constantValue: 0
+    variable: {fileID: 0}
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  onTargetAquired: {fileID: 11400000, guid: 55f2bd3f567fec3448bb3303faee4b6c, type: 2}
+  onTargetLost: {fileID: 11400000, guid: 48d1b292bf2eb0e4fbca3131766133f0, type: 2}
 --- !u!1 &1494875452
 GameObject:
   m_ObjectHideFlags: 0
