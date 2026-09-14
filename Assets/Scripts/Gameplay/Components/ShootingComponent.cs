@@ -107,7 +107,8 @@ public class ShootingComponent : MonoBehaviour
             if (projectile.TryGetComponent<Projectile>(out var payload))
             {
                 Transform target = targetingComponent != null ? targetingComponent.TargetTransform : null;
-                payload.Initialize(poolManager, projectilePrefab, target);
+                LayerMask mask = targetingComponent != null ? targetingComponent.TargetLayerMask : default;
+                payload.Initialize(poolManager, projectilePrefab, target, mask);
             }
         }
     }

@@ -56,6 +56,7 @@ public class TargetingComponent : MonoBehaviour
     #region Internal
     public ITargetable CurrentTarget { get; private set; }
     public Transform TargetTransform => CurrentTarget.TargetTransform;
+    public LayerMask TargetLayerMask => targetLayerMask;
     public bool HasValidTarget => CurrentTarget != null && CurrentTarget.IsTargetable;
     #endregion
 
