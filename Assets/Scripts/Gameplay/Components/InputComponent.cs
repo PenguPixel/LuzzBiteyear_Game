@@ -49,13 +49,15 @@ public class InputComponent : MonoBehaviour
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;
 
-    [Header("Input Actions")]
+    [Header("Movement Actions")]
     [SerializeField] private InputActionProperty MoveAction;
     [SerializeField] private InputActionProperty JumpAction;
+    [Header("Combat Actions")]
     [SerializeField] private InputActionProperty AttackAction;
     [SerializeField] private InputActionProperty ShootAction;
     [SerializeField] private InputActionProperty TargetNextAction;
     [SerializeField] private InputActionProperty TargetPreviousAction;
+    [Header("Interaction Actions")]
     [SerializeField] private InputActionProperty InteractAction;
 
     #endregion
