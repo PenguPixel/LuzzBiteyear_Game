@@ -46,6 +46,7 @@ public class MovementComponent : MonoBehaviour
 
     [Header("Component References")]
     [SerializeField] private Rigidbody Rigidbody;
+    [SerializeField] private TargetingComponent targetingComponent;
 
     [Header("Movement Settings")]
     [SerializeField] private FloatReference MaxMoveSpeed;
@@ -61,10 +62,6 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] private float GroundCheckRadius = 0.2f;
     [SerializeField] private LayerMask GroundLayer;
 
-
-    [Header("Input Actions")]
-    [SerializeField] private InputActionProperty MoveAction; 
-    [SerializeField] private InputActionProperty JumpAction; 
     #endregion
 
     #region Internal
@@ -145,7 +142,21 @@ public class MovementComponent : MonoBehaviour
 
         float targetSpeed = MaxMoveSpeed != null ? MaxMoveSpeed.Value : 5f;
 
-        if (moveDirection.sqrMagnitude > 0.01f)
+        // Focus to Target if a target is acquired
+        if (targetingComponent != null && targetingComponent.HasValidTarget)
+        {
+            Vector3 aimDirection = (targetingComponent.TargetTransform.position - transform.position).normalized;
+            aimDirection.y = 0f;
+
+            if (aimDirection.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(aimDirection, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed.Value * Time.fixedDeltaTime);
+            }
+        }
+        
+        // Standard movement if no target is acquired
+        else if (moveDirection.sqrMagnitude > 0.01f)
         {
             moveDirection.Normalize();
 
@@ -159,12 +170,15 @@ public class MovementComponent : MonoBehaviour
                 CurrentMoveSpeed.Value = targetSpeed;
             }
         }
+        
+        // Speed tracking for rigidbody
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            if (CurrentMoveSpeed != null) CurrentMoveSpeed.Value = targetSpeed;
+        }
         else
         {
-            if (CurrentMoveSpeed != null)
-            {
-                CurrentMoveSpeed.Value = 0f;
-            }
+            if (CurrentMoveSpeed != null) CurrentMoveSpeed.Value = 0f;
         }
 
         return moveDirection;
@@ -196,7 +210,7 @@ public class MovementComponent : MonoBehaviour
 
                 _isJumping = true;
             }
-            else if (_isJumping && _remainingJumps > 0 && JumpAction.action.WasPressedThisFrame())
+            else if (_isJumping && _remainingJumps > 0)
             {
                 _jumpRequested = true;
                 _remainingJumps--;
