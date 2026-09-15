@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             if (onGameStateChanged != null) onGameStateChanged.Raise();
         }
     }
-    public void Quit()
+    public void OnQuit()
     {
         Application.Quit();
     }

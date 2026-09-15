@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b21069d512fd36448636209936e666d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  DeveloperDescription: 
+  DeveloperDescription: I am a very glorified light switch operator
   currentGameState: {fileID: 11400000, guid: 603ee1f057edf8248887ad5aa0ee2281, type: 2}
   HUDPanel: {fileID: 0}
   MenuPanel: {fileID: 0}
