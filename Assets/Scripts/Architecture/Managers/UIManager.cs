@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject HUDPanel;
     [SerializeField] private GameObject MenuPanel;
     [SerializeField] private GameObject GameOverPanel;
+    [SerializeField] private GameObject PuzzlePanel;
     #endregion
 
 
@@ -57,6 +58,7 @@ public class UIManager : MonoBehaviour
         if (MenuPanel != null) MenuPanel.SetActive(false);
         if (HUDPanel != null) HUDPanel.SetActive(false);
         if (GameOverPanel != null) GameOverPanel.SetActive(false);
+        if (PuzzlePanel != null) PuzzlePanel.SetActive(false);
     }
     #endregion
 
@@ -80,6 +82,10 @@ public class UIManager : MonoBehaviour
 
             case GameState.GameOver:
                 if (GameOverPanel != null) GameOverPanel.SetActive(true);
+                break;
+            
+            case GameState.Puzzle:
+                if (PuzzlePanel != null) PuzzlePanel.SetActive(true);
                 break;
         }
 

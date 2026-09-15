@@ -81,6 +81,8 @@ public class AttackComponent : MonoBehaviour
 
         if (onAttackExecuted != null) onAttackExecuted.Raise();
 
+        Debug.Log("Attack!");
+
         if (attackPayLoad != null)
         {
             if (activeAttackRoutine != null) StopCoroutine(activeAttackRoutine);

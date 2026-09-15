@@ -89,6 +89,19 @@ public class GameManager : MonoBehaviour
             if (onGameStateChanged != null) onGameStateChanged.Raise();
         }
     }
+
+    public void EnterPuzzle()
+    {
+        Time.timeScale = 0f;
+        SetGameState(GameState.Puzzle);
+    }
+
+    public void ExitPuzzle()
+    {
+        Time.timeScale = 1f;
+        SetGameState(previousState == GameState.Combat ? GameState.Combat : GameState.Exploration);
+    }
+    
     #endregion
 
 
