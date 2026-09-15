@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4057369661851709352}
   - component: {fileID: 7037099811993704687}
   - component: {fileID: 7185605381354387125}
-  - component: {fileID: 6677600262272232533}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -113,34 +112,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6677600262272232533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6099378674798005649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dfa06e4f8315be42be9d2bbdf6a1651, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  DeveloperDescription: 
-  damageAmount:
-    useConstant: 1
-    constantValue: 1
-    variable: {fileID: 0}
-  moveSpeed:
-    useConstant: 1
-    constantValue: 15
-    variable: {fileID: 0}
-  maxLifetime:
-    useConstant: 1
-    constantValue: 3
-    variable: {fileID: 0}
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &7987916353217627773
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +121,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 561175564664941711}
+  - component: {fileID: 997346354312926697}
+  - component: {fileID: 4713736277627701506}
   m_Layer: 0
   m_Name: CharacterProjectile
   m_TagString: Untagged
@@ -173,3 +146,46 @@ Transform:
   - {fileID: 8646885127241153937}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &997346354312926697
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987916353217627773}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4713736277627701506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987916353217627773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dfa06e4f8315be42be9d2bbdf6a1651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  DeveloperDescription: 
+  damageAmount:
+    useConstant: 1
+    constantValue: 1
+    variable: {fileID: 0}
+  moveSpeed: 15
+  maxLifetime: 5
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 64

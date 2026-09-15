@@ -103,6 +103,7 @@ public class ShootingComponent : MonoBehaviour
     public bool ExecuteFire()
     {
         if (!CanFire) return false;
+        if (!targetingComponent.HasValidTarget) return false;
 
         if (energy != null && energyCost > 0)
         {
