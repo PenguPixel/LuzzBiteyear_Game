@@ -42,6 +42,7 @@ public enum AIState
     Idle,
     Patrol,
     Chase,
+    Reposition,
     Attack,
 }
 
@@ -76,6 +77,7 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private FloatReference territoryRadius;
     [SerializeField] private FloatReference idleWaitTime;
     [Range(0f, 1f)][SerializeField] private float chanceToAttack = 0.5f;
+    [Range(0.1f, 0.7f)][SerializeField] private float minRangeRatio = 0.3f;
     #endregion
 
 
@@ -88,6 +90,10 @@ public class EnemyAIController : MonoBehaviour
     private void Start()
     {
         homePosition = transform.position;
+
+        if (navMeshAgent != null && navMeshAgent.isOnNavMesh)
+            navMeshAgent.Warp(transform.position);
+        
         SetState(AIState.Idle);
     }
 
@@ -125,8 +131,19 @@ public class EnemyAIController : MonoBehaviour
             }
             else
             {
-                currentDestination = target.position;
-                SetState(AIState.Chase);
+                if (shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, target.position))
+                {
+                    CalculateRepositionDesination(target.position);
+                    SetState(AIState.Reposition);
+                }
+
+                else
+                {
+                    float offset = attackComponent != null ? attackComponent.AttackRange * 0.6f : 1f;
+                    Vector3 dirPlayer = (transform.position - target.position).normalized;
+                    currentDestination = target.position + (dirPlayer * offset);
+                    SetState(AIState.Chase);
+                }
             }
         }
         else
@@ -144,9 +161,8 @@ public class EnemyAIController : MonoBehaviour
                     break;
 
                 case AIState.Patrol:
-                    if (navMeshAgent != null && !navMeshAgent.pathPending && navMeshAgent.remainingDistance != navMeshAgent.stoppingDistance)
+                    if (navMeshAgent != null && !navMeshAgent.pathPending && navMeshAgent.hasPath && (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + 0.1f))
                     {
-                        idleTimer = 0f;
                         SetState(AIState.Idle);
                     }
                     break;
@@ -172,6 +188,7 @@ public class EnemyAIController : MonoBehaviour
             
             case AIState.Patrol:
             case AIState.Chase:
+            case AIState.Reposition:
                 MoveToDestination(currentDestination);
                 break;
 
@@ -184,7 +201,7 @@ public class EnemyAIController : MonoBehaviour
 
     private void MoveToDestination(Vector3 destination)
     {
-        if (navMeshAgent != null || !navMeshAgent.isActiveAndEnabled) return;
+        if (navMeshAgent == null || !navMeshAgent.isActiveAndEnabled) return;
 
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(destination);
@@ -246,19 +263,61 @@ public class EnemyAIController : MonoBehaviour
     }
     private void GetNextPatrolDestination()
     {
-        Vector2 randomPoint = Random.insideUnitCircle * (territoryRadius != null ? territoryRadius.Value : 5f);
+        Vector2 randomPoint = Random.insideUnitCircle * (territoryRadius.Value >= 0.5f ? territoryRadius.Value : 5f);
         Vector3 targetPos = homePosition + new Vector3(randomPoint.x, 0, randomPoint.y);
 
-        if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, 5.0f, NavMesh.AllAreas))
         {
             currentDestination = hit.position;
         }
         else
         {
-            currentDestination = homePosition;
+            currentDestination = homePosition + new Vector3(randomPoint.x, 0, randomPoint.y);
         }
     }
-    private void SetState(AIState newState) => currentState = newState;
+    private void CalculateRepositionDesination(Vector3 targetPos)
+    {
+        if (navMeshAgent != null && navMeshAgent.hasPath && navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance + 0.1f) 
+            return;
+
+        float maxRange = shootingComponent.AttackRange;
+        float minRange = maxRange * minRangeRatio;
+        float currentDistance = Vector3.Distance(transform.position, targetPos);
+        Vector3 dirFromTarget = (transform.position - targetPos).normalized;
+
+        Vector3 desiredPos;
+        if (currentDistance < minRange)
+        {
+            // Backs away from the traget
+            desiredPos = targetPos + (dirFromTarget * minRange);
+        }
+        else
+        {
+            // Picks a random direction to strafe to
+            Vector3 strafeDir = Vector3.Cross(dirFromTarget, Vector3.up);
+            if (Random.value > 0.5f) strafeDir = -strafeDir;
+
+            desiredPos = transform.position + (strafeDir * 3f);
+        }
+
+        // Validation on NavMesh
+        if (NavMesh.SamplePosition(desiredPos, out NavMeshHit hit, 3.0f, NavMesh.AllAreas))
+        {
+            currentDestination = hit.position;
+        }
+        else
+        {
+            currentDestination = transform.position;
+        }
+
+    }
+    private void SetState(AIState newState)
+    {
+        currentState = newState;
+
+        if (currentState == AIState.Idle)
+            idleTimer = 0f;
+    } 
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()

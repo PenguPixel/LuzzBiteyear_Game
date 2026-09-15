@@ -33,6 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(TargetingComponent))]
@@ -51,6 +52,8 @@ public class AttackComponent : MonoBehaviour
     [Header("Attack Configuration")]
     [SerializeField] private FloatReference attackRange;
     [SerializeField] private FloatReference cooldownTime;
+    [SerializeField] private float activeHitboxDuration = 0.3f;
+
     [Header("Events Configuration")]
     [SerializeField] private GameEvent onAttackExecuted; // maybe redundant
     
@@ -59,6 +62,7 @@ public class AttackComponent : MonoBehaviour
 
     #region Internal
     private float LastTimeAttack;
+    private Coroutine activeAttackRoutine;
     #endregion
 
 
@@ -79,14 +83,27 @@ public class AttackComponent : MonoBehaviour
 
         if (attackPayLoad != null)
         {
-            Transform target = targetingComponent != null && targetingComponent.HasValidTarget
-                ? targetingComponent.TargetTransform : null;
-                
-            attackPayLoad.ActivateHitbox(target);
+            if (activeAttackRoutine != null) StopCoroutine(activeAttackRoutine);
+            activeAttackRoutine = StartCoroutine(DirectAttackRoutine());
         }
+    }
+    private IEnumerator DirectAttackRoutine()
+    {
+        Transform target = targetingComponent != null && targetingComponent.HasValidTarget
+            ? targetingComponent.TargetTransform : null;
+        
+        attackPayLoad.ActivateHitbox(target, targetingComponent.TargetLayerMask);
+        yield return new WaitForSeconds(activeHitboxDuration);
+        attackPayLoad.DeactivateHitbox();
+        activeAttackRoutine = null;
     }
     public void EndAttack()
     {
+        if (activeAttackRoutine != null)
+        {
+            StopCoroutine(activeAttackRoutine);
+            activeAttackRoutine = null;
+        }
         if (attackPayLoad != null)
         {
             attackPayLoad.DeactivateHitbox();

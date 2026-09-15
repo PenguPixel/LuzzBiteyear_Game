@@ -33,9 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
-using System;
 using UnityEngine;
-using UnityEngine.Pool;
 
 [RequireComponent(typeof(Collider))]
 public class Projectile : MonoBehaviour
@@ -46,46 +44,41 @@ public class Projectile : MonoBehaviour
 #endif
     [Header("Projectile Configuration")]
     [SerializeField] private IntReference damageAmount;
-    [SerializeField] private FloatReference moveSpeed;
-    [SerializeField] private FloatReference maxLifetime;
+    [SerializeField] private float moveSpeed = 15f;
+    [SerializeField] private float maxLifetime = 5f;
     [SerializeField] private LayerMask targetLayers;
     
     #endregion
     #region Internal
+    private Vector3 flyDirection;
     private PoolManager poolManager;
     private GameObject sourcePrefab;
     private float currentLifetime;
-    private Transform targetTransform;
     #endregion
 
     
     #region Methods
-    public void Initialize(PoolManager manager, GameObject prefab, Transform target = null)
+    public void Initialize(PoolManager manager, GameObject prefab, Transform target = null, LayerMask mask = default)
     {
         poolManager = manager;
         sourcePrefab = prefab;
-        targetTransform = target;
+        targetLayers = mask;
         currentLifetime = 0f;
+
+        flyDirection = (target.position - transform.position).normalized;
+        if (flyDirection != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(flyDirection);
     }
 
     private void Update()
     {
         currentLifetime += Time.deltaTime;
-        if (currentLifetime >= maxLifetime.Value)
+        if (currentLifetime >= maxLifetime)
         {
             ReleaseToPool();
             return;
         }
-
-        if (targetTransform != null)
-        {
-            Vector3 dir = (targetTransform.position - transform.position).normalized;
-            transform.position += dir * (moveSpeed.Value * Time.deltaTime);
-        }
-        else
-        {
-            transform.position += transform.forward * (moveSpeed.Value * Time.deltaTime);
-        }
+        transform.position += flyDirection * moveSpeed * Time.deltaTime;  
     }
 
     private void OnTriggerEnter(Collider other)
