@@ -48,6 +48,7 @@ public class InputComponent : MonoBehaviour
     [SerializeField] private PlayerTargeting playerTargeting;
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;
+    [SerializeField] private GameManager gameManager;
 
     [Header("Movement Actions")]
     [SerializeField] private InputActionProperty MoveAction;
@@ -63,11 +64,13 @@ public class InputComponent : MonoBehaviour
     #endregion
     #region Internal
     private Vector3 _currentMoveInput;
-    
+
+    public object currentGameState { get; private set; }
+
     #endregion
 
     #region UnityMethods  
-    
+
     public void OnEnable()
     {
         MoveAction.action?.Enable();
