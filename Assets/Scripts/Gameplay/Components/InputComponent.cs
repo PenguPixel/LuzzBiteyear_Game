@@ -66,13 +66,7 @@ public class InputComponent : MonoBehaviour
     
     #endregion
 
-    
-    #region Methods
-    /// <summary>
-    /// Brief description of the method.
-    /// </summary>
-    /// <param name = "parameters">What this parameter represents </param>
-    
+    #region UnityMethods  
     
     public void OnEnable()
     {
@@ -99,31 +93,66 @@ public class InputComponent : MonoBehaviour
     public void Update()
     {
         // Handle movement input
+        HandleMoveInput();
+
+        // Handle jump input
+        HandleJumpInput();
+
+        // Handle shoot input
+        HandleShootInput();
+
+        // Handle Targeting Input
+        HandleNextTargetInput();
+        HandlePreviousTargetInput();
+        
+    }
+
+    #endregion
+
+    #region Methods
+    /// <summary>
+    /// Brief description of the method.
+    /// </summary>
+    /// <param name = "parameters">What this parameter represents </param>
+
+    private void HandleShootInput()
+    {
+        if (ShootAction.action != null && ShootAction.action.WasPressedThisFrame())
+        {
+            shootingComponent?.ExecuteFire();
+        }
+    }
+
+    private void HandleJumpInput()
+    {
+        if (JumpAction.action != null && JumpAction.action.WasPressedThisFrame())
+        {
+            movementComponent?.RequestJump();
+        }
+    }
+
+    private void HandleMoveInput()
+    {
         if (MoveAction.action != null)
         {
             Vector2 moveActionValue = MoveAction.action.ReadValue<Vector2>();
             _currentMoveInput = new Vector3(moveActionValue.x, 0f, moveActionValue.y);
             movementComponent?.SetMoveValue(_currentMoveInput);
         }
+    }
 
-        // Handle jump input
-        if (JumpAction.action != null && JumpAction.action.WasPressedThisFrame())
-        {
-            movementComponent?.RequestJump();
-        }
-
-        // Handle shoot input
-        if (ShootAction.action != null && ShootAction.action.WasPressedThisFrame())
-        {
-            shootingComponent?.ExecuteFire();
-        }
-
-        // Handle Targeting Input
+    private void HandleNextTargetInput()
+    {
         if (playerTargeting == null) return;
         if (TargetNextAction.action != null && TargetNextAction.action.WasPressedThisFrame())
         {
             playerTargeting.CycleNextTarget();
         }
+    }
+
+    private void HandlePreviousTargetInput()
+    {
+        if (playerTargeting == null) return;
         if (TargetPreviousAction.action != null && TargetPreviousAction.action.WasPressedThisFrame())
         {
             playerTargeting.CyclePreviousTarget();

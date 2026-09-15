@@ -102,7 +102,7 @@ public class Energy : MonoBehaviour, IUseEnergy, IReplenishEnergy
         if (currentEnergy == null || maxEnergy == null) return;
         if (currentEnergy.Value <= 0) 
         {
-            Debug.Log("No Energy");
+            // Debug.Log("No Energy");
             return;
         }
 
