@@ -101,7 +101,10 @@ public class InputComponent : MonoBehaviour
         // Handle shoot input
         HandleShootInput();
 
-        // Handle Targeting Input
+        // Handle attack input
+        HandleAttackInput();
+
+        // Handle targeting input
         HandleNextTargetInput();
         HandlePreviousTargetInput();
         
@@ -120,6 +123,14 @@ public class InputComponent : MonoBehaviour
         if (ShootAction.action != null && ShootAction.action.WasPressedThisFrame())
         {
             shootingComponent?.ExecuteFire();
+        }
+    }
+
+    private void HandleAttackInput()
+    {
+        if (AttackAction.action != null && AttackAction.action.WasPressedThisFrame())
+        {
+            attackComponent?.ExecuteAttack();
         }
     }
 

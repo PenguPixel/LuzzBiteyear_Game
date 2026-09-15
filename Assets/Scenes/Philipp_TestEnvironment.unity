@@ -2746,6 +2746,7 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     variable: {fileID: 0}
+  activeHitboxDuration: 0.3
   onAttackExecuted: {fileID: 0}
 --- !u!114 &1985025168
 MonoBehaviour:
@@ -2850,7 +2851,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
       m_Priority: 0
-    m_Reference: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    m_Reference: {fileID: -909650615236293822, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   ShootAction:
     m_UseReference: 1
     m_Action:
@@ -2891,7 +2892,7 @@ MonoBehaviour:
       m_Priority: 0
     m_Reference: {fileID: -8717486744027371993, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   InteractAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Interact
       m_Type: 0
@@ -2902,7 +2903,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
       m_Priority: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &1985025171
 MonoBehaviour:
   m_ObjectHideFlags: 0
