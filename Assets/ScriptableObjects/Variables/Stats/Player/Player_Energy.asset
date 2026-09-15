@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player_Energy
   m_EditorClassIdentifier: Assembly-CSharp::IntVariable
   DeveloperDescription: 
-  value: 0
+  value: 3

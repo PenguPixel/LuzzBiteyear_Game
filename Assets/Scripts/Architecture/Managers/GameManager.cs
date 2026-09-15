@@ -89,6 +89,10 @@ public class GameManager : MonoBehaviour
             if (onGameStateChanged != null) onGameStateChanged.Raise();
         }
     }
+    public void Quit()
+    {
+        Application.Quit();
+    }
     #endregion
 
 
