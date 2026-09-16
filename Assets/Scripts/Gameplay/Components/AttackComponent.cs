@@ -92,7 +92,7 @@ public class AttackComponent : MonoBehaviour
         Transform target = targetingComponent != null && targetingComponent.HasValidTarget
             ? targetingComponent.TargetTransform : null;
         
-        attackPayLoad.ActivateHitbox(target, targetingComponent.TargetLayerMask);
+        attackPayLoad.ActivateHitbox(gameObject, target, targetingComponent.TargetLayerMask);
         yield return new WaitForSeconds(activeHitboxDuration);
         attackPayLoad.DeactivateHitbox();
         activeAttackRoutine = null;

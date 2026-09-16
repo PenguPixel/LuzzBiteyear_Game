@@ -55,7 +55,7 @@ public interface IInteractable
 #region Specified
 public interface IDamageable
 {
-    void TakeDamage(int amount, GameObject damageSource);
+    void TakeDamage(DamageContext ctx);
 }
 public interface ITargetable
 {

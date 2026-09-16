@@ -1,4 +1,5 @@
 #region Project Details
+using System.Data.Common;
 /*
 * Project: MyProjectName
 * Author:Christof Kloninger / kloningerchristof@gmail.com
@@ -35,6 +36,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [AddComponentMenu("Resources/Health Resource")]
 public class Health : MonoBehaviour, IDamageable, IHealable
@@ -47,45 +49,65 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     [SerializeField] private IntReference currentHealth;
     [SerializeField] private IntReference maxHealth;
 
-    [Header("Events")]
+    [Header("Global Events")]
     [SerializeField] private GameEvent onHealthChanged;
     [SerializeField] private GameEvent onDied;
 
+    [Header("Local Events")]
+    [SerializeField] private UnityEvent<int> onThisHealthChanged;
+    [SerializeField] private UnityEvent onDiedLocal;
     #endregion
 
 
     #region Internal
+    public delegate void DeathHandler(DamageContext context);
+    public event DeathHandler OnDied;
+    public int CurrentHealth => currentHealth.Value;
+    public int MaxHealth => maxHealth.Value;
+    private void Start()
+    {
+        if (currentHealth != null)
+            onThisHealthChanged?.Invoke(currentHealth.Value);
+    }
     private void OnEnable()
     {
         if (currentHealth != null && maxHealth != null)
         {
             currentHealth.Value = maxHealth.Value;
-        }        
+        }
     }
 
     #endregion
 
+
     #region Methods
-    public void TakeDamage(int amount, GameObject damageSource = null)
+    public void TakeDamage(DamageContext ctx)
     {
         if (currentHealth.Value <= 0) return;
-        currentHealth.Value -= amount;
+        currentHealth.Value -= ctx.Amount;
         if (onHealthChanged != null)
             onHealthChanged.Raise();
+        onThisHealthChanged?.Invoke(currentHealth.Value);
+
         if (currentHealth.Value <= 0)
         {
             Die();
         }
     }
+
     public void Heal(int amount, GameObject healSource = null)
     {
         if (currentHealth.Value >= maxHealth.Value) return;
         currentHealth.Value = Math.Clamp(currentHealth.Value + amount, 0, maxHealth.Value);
         if (onHealthChanged != null)
             onHealthChanged.Raise();
+        onThisHealthChanged?.Invoke(currentHealth.Value);
     }
-    public void Die()
+    public void Die(DamageContext ctx = default)
     {
+        onDiedLocal?.Invoke();
+        OnDied?.Invoke(ctx);
+
         if (onDied != null)
             onDied.Raise();
     }
