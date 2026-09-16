@@ -37,6 +37,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditor.Rendering.LookDev;
 
 [AddComponentMenu("Resources/Health Resource")]
 public class Health : MonoBehaviour, IDamageable, IHealable
@@ -105,6 +106,13 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     }
     public void Die(DamageContext ctx = default)
     {
+        // Heals the Player, if the attack was a bite. Technically works for enemies too if the player dies, but since that leads to GameOver anyway it is neglible.
+        if (ctx.Type == DamageType.Melee && ctx.Source != null)
+        {
+            if (ctx.Source.TryGetComponent<Health>(out var attackerHealth))
+                attackerHealth.Heal(1);
+        }
+
         onDiedLocal?.Invoke();
         OnDied?.Invoke(ctx);
 
