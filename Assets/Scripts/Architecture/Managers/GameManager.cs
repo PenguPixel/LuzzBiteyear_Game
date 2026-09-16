@@ -94,14 +94,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         SetGameState(GameState.Puzzle);
+        Debug.Log("Enter Puzzle State");
     }
 
     public void ExitPuzzle()
     {
         Time.timeScale = 1f;
         SetGameState(previousState == GameState.Combat ? GameState.Combat : GameState.Exploration);
+        Debug.Log("Leave Puzzle State");
     }
-    
+
     #endregion
 
 

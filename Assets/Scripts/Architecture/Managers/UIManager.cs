@@ -34,6 +34,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : MonoBehaviour
@@ -42,7 +43,11 @@ public class UIManager : MonoBehaviour
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
+    [Header("Game State")]
     [SerializeField] GameStateVariable currentGameState ;
+
+    [Header("Additive UI")]
+    [SerializeField] private string GUISceneName = "GUI";
 
     [Header("UIPanels")]
     [SerializeField] private GameObject HUDPanel;
@@ -53,12 +58,13 @@ public class UIManager : MonoBehaviour
 
 
     #region Internal
+    private bool _isGUISceneLoaded = false;
     private void HideAllPanels()
     {
         if (MenuPanel != null) MenuPanel.SetActive(false);
         if (HUDPanel != null) HUDPanel.SetActive(false);
         if (GameOverPanel != null) GameOverPanel.SetActive(false);
-        if (PuzzlePanel != null) PuzzlePanel.SetActive(false);
+        // if (PuzzlePanel != null) PuzzlePanel.SetActive(false);
     }
     #endregion
 
@@ -67,6 +73,13 @@ public class UIManager : MonoBehaviour
     public void HandleGameStateChanged()
     {
         if (currentGameState == null) return;
+
+        if (currentGameState.Value != GameState.Puzzle && _isGUISceneLoaded)
+        {
+            UnloadGUIScene();
+        }
+
+        HideAllPanels();
 
 
         switch (currentGameState.Value)
@@ -85,10 +98,25 @@ public class UIManager : MonoBehaviour
                 break;
             
             case GameState.Puzzle:
-                if (PuzzlePanel != null) PuzzlePanel.SetActive(true);
+                LoadGUIScene();
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 break;
         }
+    }
 
+    private void LoadGUIScene()
+    {
+        if (_isGUISceneLoaded) return;
+
+        SceneManager.LoadSceneAsync(GUISceneName, LoadSceneMode.Additive);
+        _isGUISceneLoaded = true;
+    }
+    
+    private void UnloadGUIScene()
+    {
+        SceneManager.UnloadSceneAsync(GUISceneName);
+        _isGUISceneLoaded = false;
     }
     #endregion
 }
