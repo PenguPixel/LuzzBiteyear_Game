@@ -46,9 +46,6 @@ public class TargetingComponent : MonoBehaviour
     [Header("Detection Setup")]
     [SerializeField] protected FloatReference detectionRange;
     [SerializeField] protected LayerMask targetLayerMask;
-
-    // Testings Philipp
-    [Header("Testing Tags for SetTarget()")]
     
 
     [Header("Output Data")]

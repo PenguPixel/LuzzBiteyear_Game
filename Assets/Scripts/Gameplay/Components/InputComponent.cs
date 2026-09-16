@@ -43,12 +43,15 @@ public class InputComponent : MonoBehaviour
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
+    [Header("Gamestate")]
+    [SerializeField] private GameStateVariable currentGameState;
+
     [Header("Component References")]
     [SerializeField] private MovementComponent movementComponent;
     [SerializeField] private PlayerTargeting playerTargeting;
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private InteractionComponent interactionComponent;
 
     [Header("Movement Actions")]
     [SerializeField] private InputActionProperty MoveAction;
@@ -64,9 +67,6 @@ public class InputComponent : MonoBehaviour
     #endregion
     #region Internal
     private Vector3 _currentMoveInput;
-
-    public object currentGameState { get; private set; }
-
     #endregion
 
     #region UnityMethods  
@@ -95,6 +95,15 @@ public class InputComponent : MonoBehaviour
 
     public void Update()
     {
+        if (currentGameState != null && currentGameState.Value != GameState.Exploration && currentGameState.Value != GameState.Combat)
+        {
+            movementComponent?.SetMoveValue(Vector3.zero);
+            return;
+        }
+
+        // Handle interact input
+        HandleInteractInput();
+
         // Handle movement input
         HandleMoveInput();
 
@@ -121,6 +130,13 @@ public class InputComponent : MonoBehaviour
     /// </summary>
     /// <param name = "parameters">What this parameter represents </param>
 
+    private void HandleInteractInput()
+    {
+        if (InteractAction.action != null && InteractAction.action.WasPressedThisFrame())
+        {
+            interactionComponent?.ExecuteInteraction();
+        }
+    }
     private void HandleShootInput()
     {
         if (ShootAction.action != null && ShootAction.action.WasPressedThisFrame())
