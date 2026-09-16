@@ -33,7 +33,6 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
-using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("Combat/Targeting Component")]
