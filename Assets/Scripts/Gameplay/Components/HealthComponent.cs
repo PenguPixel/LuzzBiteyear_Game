@@ -37,7 +37,6 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-
 [AddComponentMenu("Resources/Health Resource")]
 public class Health : MonoBehaviour, IDamageable, IHealable
 {
@@ -76,8 +75,15 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         {
             currentHealth.Value = maxHealth.Value;
         }
+        
+        if (animationBridge != null)
+            animationBridge.OnDeathComplete += HandleDeathAnimation;
     }
-
+    private void OnDisable()
+    {
+        if (animationBridge != null)
+            animationBridge.OnDeathComplete -= HandleDeathAnimation;
+    }
     #endregion
 
 
@@ -117,12 +123,15 @@ public class Health : MonoBehaviour, IDamageable, IHealable
                 attackerHealth.Heal(1);
         }
 
-        if (animationBridge != null)
-            animationBridge.SetDeath(true);
-
         onDiedLocal?.Invoke();
         OnDied?.Invoke(ctx);
 
+        if (animationBridge != null)
+            animationBridge.SetDeath(true);
+
+    }
+    private void HandleDeathAnimation()
+    {
         if (onDied != null)
             onDied.Raise();
     }

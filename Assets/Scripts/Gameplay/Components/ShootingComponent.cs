@@ -72,6 +72,17 @@ public class ShootingComponent : MonoBehaviour
             poolManager.Prewarm(projectilePrefab, 10);
             spawnDelegate = poolManager.GetSpawnDelegate(projectilePrefab);
         }
+        if (animationBridge == null) animationBridge = GetComponent<CharacterAnimationBridge>();
+    }
+    private void OnEnable()
+    {
+        if (animationBridge != null)
+            animationBridge.OnShootFrame += SpawnProjectile;
+    }
+    private void OnDisable()
+    {
+        if (animationBridge != null)
+            animationBridge.OnShootFrame -= SpawnProjectile;
     }
     #endregion
 
@@ -86,24 +97,25 @@ public class ShootingComponent : MonoBehaviour
     #region Methods
     public void ExecuteFire()
     {
-        if (energy != null)
-            energy.UseEnergy(1, null);
         if (!CanFire) return;
         lastTimeFire = Time.time;
-
-        Transform origin = firePoint != null ? firePoint : transform;
-        Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
+        if (energy != null)
+            energy.UseEnergy(1, null);
 
         if (animationBridge != null)
             animationBridge.TriggerShoot();
+    }
+    public void SpawnProjectile()
+    {
+        Transform origin = firePoint != null ? firePoint : transform;
+        Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
 
         if (targetingComponent != null && targetingComponent.HasValidTarget)
         {
             Vector3 targetDir = (targetingComponent.TargetTransform.position - origin.position).normalized;
-            if (targetDir != Vector3.zero)
-            {
+            if (targetDir != Vector3.zero)            
                 spawnRotation = Quaternion.LookRotation(targetDir);
-            }
+            
         }
 
         if (spawnDelegate != null)
@@ -115,7 +127,7 @@ public class ShootingComponent : MonoBehaviour
                 LayerMask mask = targetingComponent != null ? targetingComponent.TargetLayerMask : default;
                 payload.Initialize(poolManager, projectilePrefab, target, mask);
             }
-        }
+        }        
     }
     #endregion
 }

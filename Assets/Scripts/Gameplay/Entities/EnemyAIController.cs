@@ -34,6 +34,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -73,6 +74,10 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;
 
+    [Header("Pacing/Timing")]
+    [SerializeField] private float decisionInterval = 0.2f;
+    [SerializeField] private float attackRecoveryTime = 0.5f;
+
     [Header("Territory Configuration")]
     [SerializeField] private FloatReference territoryRadius;
     [SerializeField] private FloatReference idleWaitTime;
@@ -86,6 +91,9 @@ public class EnemyAIController : MonoBehaviour
     private Vector3 homePosition;
     private Vector3 currentDestination;
     private float idleTimer;
+    private float decisionTimer;
+    private bool isPerformingAction;
+    private Coroutine recoveryRoutine;
 
     private void Start()
     {
@@ -96,17 +104,43 @@ public class EnemyAIController : MonoBehaviour
         
         SetState(AIState.Idle);
     }
-
+    private void OnEnable()
+    {
+        if (animationBridge != null)
+        {
+            animationBridge.OnAttackComplete += HandleActionCompleted;
+            animationBridge.OnHitReactionComplete += HandleActionCompleted;
+        }
+    }
+    private void OnDisable()
+    {
+        if (animationBridge != null)
+        {
+            animationBridge.OnAttackComplete -= HandleActionCompleted;
+            animationBridge.OnHitReactionComplete -= HandleActionCompleted;
+        }
+    }
     private void Update()
     {
         targetingComponent.ScanForTarget();
-        EvaluateState();
+        if (isPerformingAction)
+        {
+            ExecuteState();
+            if (animationBridge != null)
+                UpdateLocomotiveVisual();
+            return;
+        }
+        decisionTimer += Time.deltaTime;
+        if (decisionTimer >= decisionInterval)
+        {
+            decisionTimer = 0f;
+            EvaluateState();    
+        }
         ExecuteState();
-        
         if (animationBridge != null)
-            animationBridge.UpdateLocomotion(navMeshAgent.velocity.magnitude);
-
+            UpdateLocomotiveVisual();
     }
+
     #endregion
 
 
@@ -214,7 +248,10 @@ public class EnemyAIController : MonoBehaviour
     private void StopMovement()
     {
         if (navMeshAgent != null && navMeshAgent.isActiveAndEnabled)
+        {
             navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;
+        }
 
         if (animationBridge != null)
             animationBridge.UpdateLocomotion(0f);
@@ -246,6 +283,25 @@ public class EnemyAIController : MonoBehaviour
             case CombatType.None:
                 break;
         }
+    }
+    private void UpdateLocomotiveVisual()
+    {
+        if (animationBridge != null && navMeshAgent != null)
+        {
+            float speed = navMeshAgent.isStopped ? 0f : navMeshAgent.velocity.magnitude;
+            animationBridge.UpdateLocomotion(speed);
+        }
+    }
+    private void HandleActionCompleted()
+    {
+        if (recoveryRoutine != null) StopCoroutine(RecoveryRoutine());
+        recoveryRoutine = StartCoroutine(RecoveryRoutine());
+    }
+    private IEnumerator RecoveryRoutine()
+    {
+        SetState(AIState.Idle);
+        yield return new WaitForSeconds(attackRecoveryTime);
+        isPerformingAction = false;
     }
     #endregion
 
@@ -299,6 +355,12 @@ public class EnemyAIController : MonoBehaviour
             desiredPos = transform.position + (strafeDir * 3f);
         }
 
+        // Safety GuardRail to keep it in territory
+        Vector3 offsetFromHome = desiredPos - homePosition;
+        if (offsetFromHome.magnitude > territoryRadius.Value)
+        {
+            desiredPos = homePosition + (offsetFromHome.normalized * territoryRadius.Value);
+        }
         // Validation on NavMesh
         if (NavMesh.SamplePosition(desiredPos, out NavMeshHit hit, 3.0f, NavMesh.AllAreas))
         {

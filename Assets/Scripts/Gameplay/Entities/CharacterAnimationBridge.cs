@@ -32,10 +32,11 @@ Use side comments in line to describe lines that obfuscate their function as exp
 /// </summary>
 #endregion
 
-
+using System;
 using UnityEngine;
-
 [AddComponentMenu("Entities/CharacterAnimationBridge")]
+
+[RequireComponent(typeof(Animator))]
 public class CharacterAnimationBridge : MonoBehaviour
 {
     #region Inspector
@@ -43,7 +44,22 @@ public class CharacterAnimationBridge : MonoBehaviour
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
     [SerializeField] private Animator animator;
-    
+    #endregion
+
+
+    #region Actions & Events
+    // Combat
+    public event Action OnMeleeHitFrame;
+    public event Action OnShootFrame;
+    public event Action OnAttackComplete;
+
+    // Reaction
+    public event Action OnHitReactionComplete;
+    public event Action OnDeathComplete;
+
+    // Feedback
+    public event Action OnJumpImpulse;
+    public event Action OnFootstep; // SFX
     #endregion
 
 
@@ -56,6 +72,11 @@ public class CharacterAnimationBridge : MonoBehaviour
     private static readonly int DJumpHash = Animator.StringToHash("DoubleJump");
     private static readonly int IsGroundedHash = Animator.StringToHash("isGrounded");
     private static readonly int IsDeath = Animator.StringToHash("isDead");
+
+    private void Awake()
+    {
+        if (animator == null) GetComponent<Animator>();
+    }
     #endregion
 
 
@@ -68,5 +89,16 @@ public class CharacterAnimationBridge : MonoBehaviour
     public void TriggerDoubleJump() => animator.SetTrigger(DJumpHash);
     public void SetGrounded(bool isGrounded) => animator.SetBool(IsGroundedHash, isGrounded);
     public void SetDeath(bool isDead) => animator.SetBool(IsDeath, isDead);
+    #endregion
+
+
+    #region Animation Event
+    public void AE_OnMeleeHitFrame() => OnMeleeHitFrame?.Invoke();
+    public void AE_OnShootFrame() => OnShootFrame?.Invoke();
+    public void AE_OnAttackComplete() => OnAttackComplete?.Invoke();
+    public void AE_OnHitReactionComplete() => OnHitReactionComplete?.Invoke();
+    public void AE_OnDeathComplete() => OnDeathComplete?.Invoke();
+    public void AE_OnFootstep() => OnFootstep?.Invoke();
+    public void AE_OnJumpImpulse() => OnJumpImpulse?.Invoke();
     #endregion
 }
