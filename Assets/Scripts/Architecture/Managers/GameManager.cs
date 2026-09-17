@@ -55,6 +55,16 @@ public class GameManager : MonoBehaviour
     private int activeAggroCount = 0;
     #endregion
 
+    #region Unity Methods
+    private void Awake()
+    {
+        if (currentGameState != null)
+        {
+            EnterExploration();
+            if(onGameStateChanged != null) onGameStateChanged.Raise();
+        }
+    }
+    #endregion
 
     #region Methods
     /// <summary>
@@ -92,8 +102,8 @@ public class GameManager : MonoBehaviour
 
     public void EnterPuzzle()
     {
-        Time.timeScale = 0f;
         SetGameState(GameState.Puzzle);
+        Time.timeScale = 0f;
         Debug.Log("Enter Puzzle State");
     }
 

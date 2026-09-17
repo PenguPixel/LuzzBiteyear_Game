@@ -64,8 +64,11 @@ public class MovementComponent : MonoBehaviour
 
     #endregion
 
-    #region Internal
-    
+    #region Public Getters
+    public bool IsGrounded => _isGrounded;
+    #endregion
+
+    #region Internal   
 
     // Movement cache fed with values from InputComponent
     private Vector3 _currentMoveInput;

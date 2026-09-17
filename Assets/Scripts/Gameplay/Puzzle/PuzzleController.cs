@@ -65,8 +65,7 @@ public class PuzzleController : MonoBehaviour
 
     #region Internal
     private PlugTerminal _activeTerminal;
-    #endregion
-
+    #endregion    
     
     #region Methods
     /// <summary>
@@ -99,13 +98,18 @@ public class PuzzleController : MonoBehaviour
         {
             _activeTerminal.NotifySolved();
         }
-
-        gameManager.ExitPuzzle();
+        if (gameManager != null)
+        {
+            gameManager.ExitPuzzle();
+        }
     }
 
     public void AbortPuzzle()
     {
-        gameManager.ExitPuzzle();
+        if (gameManager != null)
+        {
+            gameManager.ExitPuzzle();
+        }
     }
     #endregion
 }

@@ -49,6 +49,7 @@ public class PlugTerminal : MonoBehaviour, IInteractable
 
     [Header("Dependencies")]
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private PuzzleController puzzleController;
 
     [Header("Puzzle state and events")]
     [SerializeField] private bool isSolved = false;
@@ -82,9 +83,18 @@ public class PlugTerminal : MonoBehaviour, IInteractable
             return;
         }
 
-        PuzzleController.Instance.SetupCurrentPuzzle(this);
-
         gameManager.EnterPuzzle();
+
+        PuzzleController targetController = puzzleController != null ? puzzleController : PuzzleController.Instance;
+
+        if (targetController != null)
+        {
+            targetController.SetupCurrentPuzzle(this);
+        }
+        else
+        {
+            Debug.Log("[PlugTerminal] PuzzleController not found in UI");
+        }
     }
 
     public void NotifySolved()
