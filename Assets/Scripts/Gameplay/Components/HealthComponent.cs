@@ -37,7 +37,6 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEditor.Rendering.LookDev;
 
 [AddComponentMenu("Resources/Health Resource")]
 public class Health : MonoBehaviour, IDamageable, IHealable
@@ -57,6 +56,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     [Header("Local Events")]
     [SerializeField] private UnityEvent<int> onThisHealthChanged;
     [SerializeField] private UnityEvent onDiedLocal;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
     #endregion
 
 
@@ -86,6 +86,10 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     {
         if (currentHealth.Value <= 0) return;
         currentHealth.Value -= ctx.Amount;
+
+        if (animationBridge != null)
+            animationBridge.TriggerHit();
+
         if (onHealthChanged != null)
             onHealthChanged.Raise();
         onThisHealthChanged?.Invoke(currentHealth.Value);
@@ -112,6 +116,9 @@ public class Health : MonoBehaviour, IDamageable, IHealable
             if (ctx.Source.TryGetComponent<Health>(out var attackerHealth))
                 attackerHealth.Heal(1);
         }
+
+        if (animationBridge != null)
+            animationBridge.SetDeath(true);
 
         onDiedLocal?.Invoke();
         OnDied?.Invoke(ctx);

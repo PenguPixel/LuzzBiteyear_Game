@@ -45,7 +45,6 @@ public class RadialLayout : MonoBehaviour
     [SerializeField] private float radius = 20f;
     [SerializeField] private float minAngle = -45f;
     [SerializeField] private float maxAngle = 45f;
-
     #endregion
 
 

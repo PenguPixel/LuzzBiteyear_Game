@@ -26,17 +26,18 @@ Use side comments in line to describe lines that obfuscate their function as exp
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
+/// Description: Receives the call to attack from its controller and handles attacking.
 /// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Deployment: Component on any entity that is expected to attack.
 /// </summary>
 #endregion
 
 
 using System.Collections;
 using UnityEngine;
-
 [RequireComponent(typeof(TargetingComponent))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CharacterAnimationBridge))]
 [AddComponentMenu("Combat/Attack Component")]
 public class AttackComponent : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class AttackComponent : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private TargetingComponent targetingComponent;
     [SerializeField] private MeleeAttack attackPayLoad;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
 
     [Header("Attack Configuration")]
     [SerializeField] private FloatReference attackRange;
@@ -78,7 +80,8 @@ public class AttackComponent : MonoBehaviour
     {
         if (!CanAttack) return;
         LastTimeAttack = Time.time;
-
+        if (animationBridge != null)
+            animationBridge.TriggerAttack();
         if (onAttackExecuted != null) onAttackExecuted.Raise();
 
         if (attackPayLoad != null)

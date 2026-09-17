@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles shooting a device or object incorporated into the Actor. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: Shoots something at a target.
+/// Coordination: Gets the call by its controller. Assess the target from the targeting component. Calls the PoolManager to fire something at the target from its location
+/// Deployment: Component on entity.
 /// </summary>
 #endregion
 
@@ -38,6 +38,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(TargetingComponent))]
+[RequireComponent(typeof(CharacterAnimationBridge))]
 [AddComponentMenu("Combat/Shooting Component")]
 public class ShootingComponent : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class ShootingComponent : MonoBehaviour
     [SerializeField] private TargetingComponent targetingComponent;
     [SerializeField] private PoolManager poolManager;
     [SerializeField] private Energy energy;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
 
     [Header("Weapon Configuration")]
     [SerializeField] private FloatReference attackRange;
@@ -91,6 +93,9 @@ public class ShootingComponent : MonoBehaviour
 
         Transform origin = firePoint != null ? firePoint : transform;
         Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
+
+        if (animationBridge != null)
+            animationBridge.TriggerShoot();
 
         if (targetingComponent != null && targetingComponent.HasValidTarget)
         {

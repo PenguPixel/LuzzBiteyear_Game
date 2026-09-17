@@ -66,7 +66,7 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private TargetingComponent targetingComponent;
     [SerializeField] private EntityBase entityBase;
     [SerializeField] private NavMeshAgent navMeshAgent;
-    [SerializeField] private Animator animator;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
 
     [Header("Optional Executioon Components")]
 //    [SerializeField] private MovementComponent movementComponent;
@@ -102,6 +102,10 @@ public class EnemyAIController : MonoBehaviour
         targetingComponent.ScanForTarget();
         EvaluateState();
         ExecuteState();
+        
+        if (animationBridge != null)
+            animationBridge.UpdateLocomotion(navMeshAgent.velocity.magnitude);
+
     }
     #endregion
 
@@ -205,9 +209,6 @@ public class EnemyAIController : MonoBehaviour
 
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(destination);
-
-        if (animator != null)
-            animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
     }
 
     private void StopMovement()
@@ -215,8 +216,8 @@ public class EnemyAIController : MonoBehaviour
         if (navMeshAgent != null && navMeshAgent.isActiveAndEnabled)
             navMeshAgent.isStopped = true;
 
-        if (animator != null)
-            animator.SetFloat("Speed", 0f);
+        if (animationBridge != null)
+            animationBridge.UpdateLocomotion(0f);
     }
     private void ExecuteCombatState()
     {
@@ -232,7 +233,6 @@ public class EnemyAIController : MonoBehaviour
                 if (attackComponent.CanAttack)
                 {
                     attackComponent.ExecuteAttack();
-                    if (animator != null) animator.SetTrigger("Melee");
                 }
                 break;
             
@@ -240,7 +240,6 @@ public class EnemyAIController : MonoBehaviour
                 if (shootingComponent.CanFire)
                 {
                     shootingComponent.ExecuteFire();
-                    if (animator != null) animator.SetTrigger("Range");
                 }
                 break;
             
