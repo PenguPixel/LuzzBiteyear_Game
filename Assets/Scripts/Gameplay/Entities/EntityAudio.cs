@@ -89,7 +89,6 @@ public class EntityAudio : MonoBehaviour
             animationBridge.OnJumpImpulse -= PlayJump;
             animationBridge.OnMeleeHitFrame -= PlayMeleeHit;
             animationBridge.OnShootFrame -= PlayShoot;
-            animationBridge.OnHitReactionComplete -=PlayTakeDamage;
         }
 
         if (healthComponent != null)
@@ -114,7 +113,7 @@ public class EntityAudio : MonoBehaviour
     private void HandleDeathSound(DamageContext context) => PlayDeath(); // Unity Events Naming rules are your reason to exist
     private void HandleDamageSound(DamageContext context) => PlayTakeDamage();
     private void HandleHealSound(int amount) => PlayHeal();
-    
+
     // Without delegations
     private void PlayFootstep() => PlaySound(footStepSound);
     private void PlayJump() => PlaySound(jumpSound);
