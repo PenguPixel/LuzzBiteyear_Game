@@ -62,8 +62,12 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     #region Internal
     public delegate void DeathHandler(DamageContext context);
     public event DeathHandler OnDied;
+    public event Action<DamageContext> OnDamaged;
+    public event Action<int> OnHealed;
     public int CurrentHealth => currentHealth.Value;
     public int MaxHealth => maxHealth.Value;
+
+
     private void Start()
     {
         if (currentHealth != null)
@@ -93,6 +97,8 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         if (currentHealth.Value <= 0) return;
         currentHealth.Value -= ctx.Amount;
 
+        OnDamaged?.Invoke(ctx);
+
         if (animationBridge != null)
             animationBridge.TriggerHit();
 
@@ -102,7 +108,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
         if (currentHealth.Value <= 0)
         {
-            Die();
+            Die(ctx);
         }
     }
 
@@ -110,6 +116,8 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     {
         if (currentHealth.Value >= maxHealth.Value) return;
         currentHealth.Value = Math.Clamp(currentHealth.Value + amount, 0, maxHealth.Value);
+
+        OnHealed?.Invoke(amount);
         if (onHealthChanged != null)
             onHealthChanged.Raise();
         onThisHealthChanged?.Invoke(currentHealth.Value);
