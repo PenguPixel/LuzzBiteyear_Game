@@ -65,6 +65,16 @@ public class AttackComponent : MonoBehaviour
     #region Internal
     private float LastTimeAttack;
     private Coroutine activeAttackRoutine;
+    private void OnEnable()
+    {
+        animationBridge.OnMeleeHitFrame += HandleMeleeHitFrame;
+        animationBridge.OnAttackComplete += EndAttack;
+    }
+    private void OnDisable()
+    {
+        animationBridge.OnMeleeHitFrame -= HandleMeleeHitFrame;
+        animationBridge.OnAttackComplete -= EndAttack;    
+    }
     #endregion
 
 
@@ -84,11 +94,14 @@ public class AttackComponent : MonoBehaviour
             animationBridge.TriggerAttack();
         if (onAttackExecuted != null) onAttackExecuted.Raise();
 
-        if (attackPayLoad != null)
-        {
-            if (activeAttackRoutine != null) StopCoroutine(activeAttackRoutine);
-            activeAttackRoutine = StartCoroutine(DirectAttackRoutine());
-        }
+    }
+    public void HandleMeleeHitFrame()
+    {
+        Debug.Log("<color=green>[AttackComponent] AE_OnMeleeHitFrame Received!</color>");
+        if (attackPayLoad == null) return;
+        
+        if (activeAttackRoutine != null) StopCoroutine(activeAttackRoutine);
+        activeAttackRoutine = StartCoroutine(DirectAttackRoutine());
     }
     private IEnumerator DirectAttackRoutine()
     {

@@ -333,7 +333,6 @@ public class EnemyAIController : MonoBehaviour
     private CombatType GetAvailableCombatType()
     {
         if (!targetingComponent.HasValidTarget) return CombatType.None;
-        Vector3 targetPos = targetingComponent.TargetTransform.position;
         bool canMelee = attackComponent != null && attackComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
         bool canShoot = shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
         if (canMelee && canShoot)
