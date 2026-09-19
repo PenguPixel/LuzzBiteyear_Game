@@ -333,8 +333,8 @@ public class EnemyAIController : MonoBehaviour
     private CombatType GetAvailableCombatType()
     {
         if (!targetingComponent.HasValidTarget) return CombatType.None;
-        bool canMelee = attackComponent != null && attackComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
-        bool canShoot = shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
+        bool canMelee = attackComponent != null && meleeWeight > 0.1f && attackComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
+        bool canShoot = shootingComponent != null && rangedWeight > 0.1f && shootingComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
         if (canMelee && canShoot)
         {
             float totalWeight = meleeWeight + rangedWeight;
