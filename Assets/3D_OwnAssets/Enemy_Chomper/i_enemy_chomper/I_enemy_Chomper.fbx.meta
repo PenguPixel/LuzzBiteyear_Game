@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79be9b88b2a48374e9d04694fc672c83
+guid: 7728e53a93a047a48be3fb7b361a482c
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Saloon
-    second: {fileID: 2100000, guid: f8ad6b6aca7977549b0a2be304d5a97b, type: 2}
+      name: Chomper_M
+    second: {fileID: 2100000, guid: 55ed5e39ce020c543a65f31e2fdf2660, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -106,7 +106,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

@@ -95,7 +95,7 @@ public class CharacterAnimationBridge : MonoBehaviour
     #region Animation Event
     public void AE_OnMeleeHitFrame() => OnMeleeHitFrame?.Invoke();
     public void AE_OnShootFrame() => OnShootFrame?.Invoke();
-    public void AE_OnAttackComplete() => OnAttackComplete?.Invoke();
+    public void AE_OnAttackComplete() => OnAttackComplete?.Invoke();        
     public void AE_OnHitReactionComplete() => OnHitReactionComplete?.Invoke();
     public void AE_OnDeathComplete() => OnDeathComplete?.Invoke();
     public void AE_OnFootstep() => OnFootstep?.Invoke();

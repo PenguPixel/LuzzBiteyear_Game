@@ -83,6 +83,10 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private FloatReference idleWaitTime;
     [Range(0f, 1f)][SerializeField] private float chanceToAttack = 0.5f;
     [Range(0.1f, 0.7f)][SerializeField] private float minRangeRatio = 0.3f;
+
+    [Header("Combat Weighting")]
+    [Range(0f, 100f)][SerializeField] private float meleeWeight = 50f;
+    [Range(0f, 100f)][SerializeField] private float rangedWeight = 50f;
     #endregion
 
 
@@ -125,7 +129,8 @@ public class EnemyAIController : MonoBehaviour
         targetingComponent.ScanForTarget();
         if (isPerformingAction)
         {
-            ExecuteState();
+            if (currentState != AIState.Attack)
+                ExecuteState();
             if (animationBridge != null)
                 UpdateLocomotiveVisual();
             return;
@@ -160,24 +165,27 @@ public class EnemyAIController : MonoBehaviour
             }
 
             //Query components to ready actions
-            bool inAttackRange = attackComponent != null && attackComponent.IsInAttackRange(transform.position, target.position);
-            bool inShootRange = shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, target.position);
+            CombatType availableCombat = GetAvailableCombatType();
+            bool canExecuteCombat = (availableCombat == CombatType.Melee && attackComponent != null && attackComponent.CanAttack)
+                                    || (availableCombat == CombatType.Ranged && shootingComponent != null && shootingComponent.CanFire);
 
-            if ((inAttackRange || inShootRange) && Random.value <= chanceToAttack)
+            if (canExecuteCombat && Random.value <= chanceToAttack)
             {
                 SetState(AIState.Attack);
+                return;
             }
             else
             {
-                if (shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, target.position))
+                bool isInMelee = attackComponent != null && attackComponent.IsInAttackRange(transform.position, target.position);
+                bool prefersRanged = rangedWeight > meleeWeight;
+                if (shootingComponent != null && isInMelee && prefersRanged)
                 {
                     CalculateRepositionDesination(target.position);
                     SetState(AIState.Reposition);
                 }
-
                 else
                 {
-                    float offset = attackComponent != null ? attackComponent.AttackRange * 0.6f : 1f;
+                    float offset = attackComponent != null ? attackComponent.AttackRange * 0.2f : 1f;
                     Vector3 dirPlayer = (transform.position - target.position).normalized;
                     currentDestination = target.position + (dirPlayer * offset);
                     SetState(AIState.Chase);
@@ -249,8 +257,8 @@ public class EnemyAIController : MonoBehaviour
     {
         if (navMeshAgent != null && navMeshAgent.isActiveAndEnabled)
         {
-            navMeshAgent.isStopped = true;
             navMeshAgent.velocity = Vector3.zero;
+            navMeshAgent.isStopped = true;
         }
 
         if (animationBridge != null)
@@ -258,30 +266,44 @@ public class EnemyAIController : MonoBehaviour
     }
     private void ExecuteCombatState()
     {
-        if (!targetingComponent.HasValidTarget) return;
+        if (!targetingComponent.HasValidTarget)
+        {
+            SetState(AIState.Chase);
+            return;
+        } 
         Vector3 targetDir = (targetingComponent.TargetTransform.position - transform.position).normalized;
         targetDir.y = 0f;
         if (targetDir != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(targetDir);
-        
+        bool actionStarted = false;
         switch (GetAvailableCombatType())
         {
             case CombatType.Melee:
-                if (attackComponent.CanAttack)
+                if (attackComponent != null && attackComponent.CanAttack)
                 {
+                    actionStarted = true;
                     attackComponent.ExecuteAttack();
                 }
                 break;
             
             case CombatType.Ranged:
-                if (shootingComponent.CanFire)
+                if (shootingComponent != null && shootingComponent.CanFire)
                 {
+                    actionStarted = true;
                     shootingComponent.ExecuteFire();
                 }
                 break;
             
             case CombatType.None:
                 break;
+        }
+        if (actionStarted)
+        {
+            isPerformingAction = true;
+        }
+        else
+        {
+            SetState(AIState.Chase);
         }
     }
     private void UpdateLocomotiveVisual()
@@ -294,14 +316,15 @@ public class EnemyAIController : MonoBehaviour
     }
     private void HandleActionCompleted()
     {
-        if (recoveryRoutine != null) StopCoroutine(RecoveryRoutine());
+        if (recoveryRoutine != null) StopCoroutine(recoveryRoutine);
         recoveryRoutine = StartCoroutine(RecoveryRoutine());
+        Debug.Log("Action Completed Event Fired");
     }
     private IEnumerator RecoveryRoutine()
     {
-        SetState(AIState.Idle);
         yield return new WaitForSeconds(attackRecoveryTime);
         isPerformingAction = false;
+        SetState(AIState.Chase);
     }
     #endregion
 
@@ -309,10 +332,20 @@ public class EnemyAIController : MonoBehaviour
     #region Helpers
     private CombatType GetAvailableCombatType()
     {
-        if (attackComponent != null && attackComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position))
-            return CombatType.Melee;
-        if (shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position))
-            return CombatType.Ranged;
+        if (!targetingComponent.HasValidTarget) return CombatType.None;
+        Vector3 targetPos = targetingComponent.TargetTransform.position;
+        bool canMelee = attackComponent != null && attackComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
+        bool canShoot = shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
+        if (canMelee && canShoot)
+        {
+            float totalWeight = meleeWeight + rangedWeight;
+            if (totalWeight <= 0f) return CombatType.Melee;
+
+            float roll = Random.Range(0f, totalWeight);
+            return (roll < meleeWeight) ? CombatType.Melee : CombatType.Ranged;
+        }
+        if (canMelee) return CombatType.Melee;
+        if (canShoot) return CombatType.Ranged;
 
         return CombatType.None;
     }
@@ -332,7 +365,7 @@ public class EnemyAIController : MonoBehaviour
     }
     private void CalculateRepositionDesination(Vector3 targetPos)
     {
-        if (navMeshAgent != null && navMeshAgent.hasPath && navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance + 0.1f) 
+        if (navMeshAgent != null && navMeshAgent.hasPath && navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance + 0.5f) 
             return;
 
         float maxRange = shootingComponent.AttackRange;
@@ -374,10 +407,9 @@ public class EnemyAIController : MonoBehaviour
     }
     private void SetState(AIState newState)
     {
-        currentState = newState;
-
-        if (currentState == AIState.Idle)
+        if (currentState != AIState.Idle && newState == AIState.Idle)
             idleTimer = 0f;
+        currentState = newState;
     } 
 
 #if UNITY_EDITOR
