@@ -88,10 +88,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2282959917201647142, guid: a8148b5cfadfec34f95742ad48ecc485, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2434669976080580467, guid: 881cef3bbfd49b948b2994bd5262ac16, type: 3}
     - target: {fileID: 3869915047827480683, guid: a8148b5cfadfec34f95742ad48ecc485, type: 3}
       propertyPath: m_Name
       value: HealthUI Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8461716771581807410, guid: a8148b5cfadfec34f95742ad48ecc485, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4085828561539388692, guid: d7d0258d60a5195489787dd8618f974e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
