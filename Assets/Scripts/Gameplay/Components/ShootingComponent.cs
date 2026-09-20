@@ -67,6 +67,7 @@ public class ShootingComponent : MonoBehaviour
     private Func<Vector3, Quaternion, GameObject> spawnDelegate;
     private void Start()
     {
+        if (poolManager == null) poolManager = FindFirstObjectByType<PoolManager>();
         if (poolManager != null && projectilePrefab != null)
         {
             poolManager.Prewarm(projectilePrefab, 10);
@@ -105,7 +106,7 @@ public class ShootingComponent : MonoBehaviour
         if (animationBridge != null)
             animationBridge.TriggerShoot();
     }
-    public void SpawnProjectile()
+    private void SpawnProjectile()
     {
         Transform origin = firePoint != null ? firePoint : transform;
         Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
