@@ -41,11 +41,11 @@ AudioSource:
   m_GameObject: {fileID: 4206801611194829750}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3775432795772124694, guid: 60b9079359b1d4943ab5bb946ebddb91, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -170,11 +170,11 @@ AudioSource:
   m_GameObject: {fileID: 5305322152841989360}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3775432795772124694, guid: 60b9079359b1d4943ab5bb946ebddb91, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -268,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8120958076207415760}
   - component: {fileID: 6274097523945929830}
+  - component: {fileID: 5312740205501256838}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -308,7 +309,40 @@ MonoBehaviour:
   poolManager: {fileID: 8662046644978662769, guid: e4211ffd147caca48b3d72deec88d26e, type: 3}
   audioChannel: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
   mainMixer: {fileID: 24100000, guid: 60b9079359b1d4943ab5bb946ebddb91, type: 2}
+  currentGameState: {fileID: 11400000, guid: 603ee1f057edf8248887ad5aa0ee2281, type: 2}
   sfxSourcePrefab: {fileID: 0}
   prewarmCount: 10
   musicSourceA: {fileID: 6803281566647396952}
   musicSourceB: {fileID: 4908361200247902751}
+  explorationMusic: {fileID: 11400000, guid: 5fcf5c82034c61641af8664ba4ba5bef, type: 2}
+  combatMusic: {fileID: 11400000, guid: 1d67f7859ce23cb4abaf5900a04e0042, type: 2}
+  mainMenuMusic: {fileID: 11400000, guid: 8afcd1e7f29c84844b376b086f72d9f5, type: 2}
+--- !u!114 &5312740205501256838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398883561858590205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9285137fac79849ac786cc4d0fd251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
+  DeveloperDescription: 
+  gameEvent: {fileID: 11400000, guid: 52462f3ba9028554cb3768fb5e491947, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6274097523945929830}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: OnGameStateChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

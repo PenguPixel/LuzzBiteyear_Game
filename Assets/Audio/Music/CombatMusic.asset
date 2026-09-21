@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bfa9c7d4460cd34cb26b724605b85c1, type: 3}
+  m_Name: CombatMusic
+  m_EditorClassIdentifier: Assembly-CSharp::SoundData
+  clips:
+  - {fileID: 8300000, guid: cb77d981f397d430887833b51b845eb2, type: 3}
+  - {fileID: 8300000, guid: 19a9b959eb58e4964ae6b390b05beb7c, type: 3}
+  - {fileID: 8300000, guid: 5d2f23d2af9d54c07aef3ed24f1df257, type: 3}
+  - {fileID: 8300000, guid: 04e3ae752615d4fbeafffd7228e040c1, type: 3}
+  volume: 1
+  minPitch: 1
+  maxPitch: 1
+  spatialBlend: 1
+  minDistance: 1
+  maxDistance: 25

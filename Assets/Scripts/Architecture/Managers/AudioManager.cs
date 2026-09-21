@@ -22,7 +22,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles Sounds of any kind. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
@@ -34,7 +34,6 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -49,6 +48,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private PoolManager poolManager;
     [SerializeField] private AudioEventChannel audioChannel;
     [SerializeField] private AudioMixer mainMixer;
+    [SerializeField] private GameStateVariable currentGameState;
 
     [Header("SFX Pooling")]
     [SerializeField] private GameObject sfxSourcePrefab;
@@ -57,6 +57,11 @@ public class AudioManager : MonoBehaviour
     [Header("Music Setup")]
     [SerializeField] private AudioSource musicSourceA;
     [SerializeField] private AudioSource musicSourceB;
+
+    [Header("State/Music Setup")]
+    [SerializeField] private SoundData explorationMusic;
+    [SerializeField] private SoundData combatMusic;
+    [SerializeField] private SoundData mainMenuMusic;
     #endregion
 
 
@@ -78,6 +83,7 @@ public class AudioManager : MonoBehaviour
             poolManager.Prewarm(sfxSourcePrefab, prewarmCount);
             sfxSpawnDelegate = poolManager.GetSpawnDelegate(sfxSourcePrefab);
         }
+        OnGameStateChanged();
     }
 
     private void OnEnable()
@@ -122,6 +128,18 @@ public class AudioManager : MonoBehaviour
 
 
     #region AudioExecution Logic
+    public void OnGameStateChanged()
+    {
+        SoundData targetMusic = currentGameState.Value switch
+        {
+            GameState.Exploration => explorationMusic,
+            GameState.Combat => combatMusic,
+            GameState.Paused => mainMenuMusic,
+            _ => null
+        };
+        if (targetMusic != null)
+            PlayMusic(targetMusic, 1.5f);
+    }
     private void PlaySFX(SoundData data, Vector3 position)
     {
         if (data == null || sfxSpawnDelegate == null) return;
@@ -142,9 +160,11 @@ public class AudioManager : MonoBehaviour
         if (musicFadeRoutine != null) StopCoroutine(musicFadeRoutine);
 
         AudioSource nextSource = (activeMusicSource == musicSourceA) ? musicSourceB : musicSourceA;
+        if (activeMusicSource != null && activeMusicSource.clip == clip && activeMusicSource.isPlaying) return;
         nextSource.clip = clip;
         nextSource.loop = true;
         nextSource.spatialBlend = 0f;
+        nextSource.volume = 0f;
         nextSource.Play();
 
         musicFadeRoutine = StartCoroutine(CrossFadeMusic(nextSource, data.volume, fadeDuration));
