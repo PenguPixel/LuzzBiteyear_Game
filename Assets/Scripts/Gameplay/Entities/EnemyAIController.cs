@@ -34,6 +34,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -66,18 +67,26 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private TargetingComponent targetingComponent;
     [SerializeField] private EntityBase entityBase;
     [SerializeField] private NavMeshAgent navMeshAgent;
-    [SerializeField] private Animator animator;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
 
     [Header("Optional Executioon Components")]
 //    [SerializeField] private MovementComponent movementComponent;
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;
 
+    [Header("Pacing/Timing")]
+    [SerializeField] private float decisionInterval = 0.2f;
+    [SerializeField] private float attackRecoveryTime = 0.5f;
+
     [Header("Territory Configuration")]
     [SerializeField] private FloatReference territoryRadius;
     [SerializeField] private FloatReference idleWaitTime;
     [Range(0f, 1f)][SerializeField] private float chanceToAttack = 0.5f;
     [Range(0.1f, 0.7f)][SerializeField] private float minRangeRatio = 0.3f;
+
+    [Header("Combat Weighting")]
+    [Range(0f, 100f)][SerializeField] private float meleeWeight = 50f;
+    [Range(0f, 100f)][SerializeField] private float rangedWeight = 50f;
     #endregion
 
 
@@ -86,6 +95,9 @@ public class EnemyAIController : MonoBehaviour
     private Vector3 homePosition;
     private Vector3 currentDestination;
     private float idleTimer;
+    private float decisionTimer;
+    private bool isPerformingAction;
+    private Coroutine recoveryRoutine;
 
     private void Start()
     {
@@ -96,13 +108,44 @@ public class EnemyAIController : MonoBehaviour
         
         SetState(AIState.Idle);
     }
-
+    private void OnEnable()
+    {
+        if (animationBridge != null)
+        {
+            animationBridge.OnAttackComplete += HandleActionCompleted;
+            animationBridge.OnHitReactionComplete += HandleActionCompleted;
+        }
+    }
+    private void OnDisable()
+    {
+        if (animationBridge != null)
+        {
+            animationBridge.OnAttackComplete -= HandleActionCompleted;
+            animationBridge.OnHitReactionComplete -= HandleActionCompleted;
+        }
+    }
     private void Update()
     {
         targetingComponent.ScanForTarget();
-        EvaluateState();
+        if (isPerformingAction)
+        {
+            if (currentState != AIState.Attack)
+                ExecuteState();
+            if (animationBridge != null)
+                UpdateLocomotiveVisual();
+            return;
+        }
+        decisionTimer += Time.deltaTime;
+        if (decisionTimer >= decisionInterval)
+        {
+            decisionTimer = 0f;
+            EvaluateState();    
+        }
         ExecuteState();
+        if (animationBridge != null)
+            UpdateLocomotiveVisual();
     }
+
     #endregion
 
 
@@ -122,24 +165,27 @@ public class EnemyAIController : MonoBehaviour
             }
 
             //Query components to ready actions
-            bool inAttackRange = attackComponent != null && attackComponent.IsInAttackRange(transform.position, target.position);
-            bool inShootRange = shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, target.position);
+            CombatType availableCombat = GetAvailableCombatType();
+            bool canExecuteCombat = (availableCombat == CombatType.Melee && attackComponent != null && attackComponent.CanAttack)
+                                    || (availableCombat == CombatType.Ranged && shootingComponent != null && shootingComponent.CanFire);
 
-            if ((inAttackRange || inShootRange) && Random.value <= chanceToAttack)
+            if (canExecuteCombat && Random.value <= chanceToAttack)
             {
                 SetState(AIState.Attack);
+                return;
             }
             else
             {
-                if (shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, target.position))
+                bool isInMelee = attackComponent != null && attackComponent.IsInAttackRange(transform.position, target.position);
+                bool prefersRanged = rangedWeight > meleeWeight;
+                if (shootingComponent != null && isInMelee && prefersRanged)
                 {
                     CalculateRepositionDesination(target.position);
                     SetState(AIState.Reposition);
                 }
-
                 else
                 {
-                    float offset = attackComponent != null ? attackComponent.AttackRange * 0.6f : 1f;
+                    float offset = attackComponent != null ? attackComponent.AttackRange * 0.2f : 1f;
                     Vector3 dirPlayer = (transform.position - target.position).normalized;
                     currentDestination = target.position + (dirPlayer * offset);
                     SetState(AIState.Chase);
@@ -205,48 +251,80 @@ public class EnemyAIController : MonoBehaviour
 
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(destination);
-
-        if (animator != null)
-            animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
     }
 
     private void StopMovement()
     {
         if (navMeshAgent != null && navMeshAgent.isActiveAndEnabled)
+        {
+            navMeshAgent.velocity = Vector3.zero;
             navMeshAgent.isStopped = true;
+        }
 
-        if (animator != null)
-            animator.SetFloat("Speed", 0f);
+        if (animationBridge != null)
+            animationBridge.UpdateLocomotion(0f);
     }
     private void ExecuteCombatState()
     {
-        if (!targetingComponent.HasValidTarget) return;
+        if (!targetingComponent.HasValidTarget)
+        {
+            SetState(AIState.Chase);
+            return;
+        } 
         Vector3 targetDir = (targetingComponent.TargetTransform.position - transform.position).normalized;
         targetDir.y = 0f;
         if (targetDir != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(targetDir);
-        
+        bool actionStarted = false;
         switch (GetAvailableCombatType())
         {
             case CombatType.Melee:
-                if (attackComponent.CanAttack)
+                if (attackComponent != null && attackComponent.CanAttack)
                 {
+                    actionStarted = true;
                     attackComponent.ExecuteAttack();
-                    if (animator != null) animator.SetTrigger("Melee");
                 }
                 break;
             
             case CombatType.Ranged:
-                if (shootingComponent.CanFire)
+                if (shootingComponent != null && shootingComponent.CanFire)
                 {
+                    actionStarted = true;
                     shootingComponent.ExecuteFire();
-                    if (animator != null) animator.SetTrigger("Range");
                 }
                 break;
             
             case CombatType.None:
                 break;
         }
+        if (actionStarted)
+        {
+            isPerformingAction = true;
+        }
+        else
+        {
+            SetState(AIState.Chase);
+        }
+    }
+    private void UpdateLocomotiveVisual()
+    {
+        if (animationBridge != null && navMeshAgent != null)
+        {
+            float speed = navMeshAgent.isStopped ? 0f : navMeshAgent.velocity.magnitude;
+            animationBridge.UpdateLocomotion(speed);
+        }
+    }
+    private void HandleActionCompleted()
+    {
+        if (recoveryRoutine != null) StopCoroutine(recoveryRoutine);
+        recoveryRoutine = StartCoroutine(RecoveryRoutine());
+        Debug.Log("Action Completed Event Fired");
+    }
+    private IEnumerator RecoveryRoutine()
+    {
+        yield return new WaitForSeconds(attackRecoveryTime);
+        isPerformingAction = false;
+        SetState(AIState.Chase);
     }
     #endregion
 
@@ -254,10 +332,19 @@ public class EnemyAIController : MonoBehaviour
     #region Helpers
     private CombatType GetAvailableCombatType()
     {
-        if (attackComponent != null && attackComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position))
-            return CombatType.Melee;
-        if (shootingComponent != null && shootingComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position))
-            return CombatType.Ranged;
+        if (!targetingComponent.HasValidTarget) return CombatType.None;
+        bool canMelee = attackComponent != null && meleeWeight > 0.1f && attackComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
+        bool canShoot = shootingComponent != null && rangedWeight > 0.1f && shootingComponent.IsInAttackRange(transform.position, targetingComponent.TargetTransform.position);
+        if (canMelee && canShoot)
+        {
+            float totalWeight = meleeWeight + rangedWeight;
+            if (totalWeight <= 0f) return CombatType.Melee;
+
+            float roll = Random.Range(0f, totalWeight);
+            return (roll < meleeWeight) ? CombatType.Melee : CombatType.Ranged;
+        }
+        if (canMelee) return CombatType.Melee;
+        if (canShoot) return CombatType.Ranged;
 
         return CombatType.None;
     }
@@ -277,7 +364,7 @@ public class EnemyAIController : MonoBehaviour
     }
     private void CalculateRepositionDesination(Vector3 targetPos)
     {
-        if (navMeshAgent != null && navMeshAgent.hasPath && navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance + 0.1f) 
+        if (navMeshAgent != null && navMeshAgent.hasPath && navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance + 0.5f) 
             return;
 
         float maxRange = shootingComponent.AttackRange;
@@ -300,6 +387,12 @@ public class EnemyAIController : MonoBehaviour
             desiredPos = transform.position + (strafeDir * 3f);
         }
 
+        // Safety GuardRail to keep it in territory
+        Vector3 offsetFromHome = desiredPos - homePosition;
+        if (offsetFromHome.magnitude > territoryRadius.Value)
+        {
+            desiredPos = homePosition + (offsetFromHome.normalized * territoryRadius.Value);
+        }
         // Validation on NavMesh
         if (NavMesh.SamplePosition(desiredPos, out NavMeshHit hit, 3.0f, NavMesh.AllAreas))
         {
@@ -313,10 +406,9 @@ public class EnemyAIController : MonoBehaviour
     }
     private void SetState(AIState newState)
     {
-        currentState = newState;
-
-        if (currentState == AIState.Idle)
+        if (currentState != AIState.Idle && newState == AIState.Idle)
             idleTimer = 0f;
+        currentState = newState;
     } 
 
 #if UNITY_EDITOR

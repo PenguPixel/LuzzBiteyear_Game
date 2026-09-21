@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles shooting a device or object incorporated into the Actor. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: Shoots something at a target.
+/// Coordination: Gets the call by its controller. Assess the target from the targeting component. Calls the PoolManager to fire something at the target from its location
+/// Deployment: Component on entity.
 /// </summary>
 #endregion
 
@@ -38,6 +38,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(TargetingComponent))]
+[RequireComponent(typeof(CharacterAnimationBridge))]
 [AddComponentMenu("Combat/Shooting Component")]
 public class ShootingComponent : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class ShootingComponent : MonoBehaviour
     [SerializeField] private PoolManager poolManager;
     [Tooltip("Optional: If assigned on Player, firing consumes Energy. If null on Enemy, only cooldown applies.")]
     [SerializeField] private Energy energy;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
 
     [Header("Weapon Configuration")]
     [SerializeField] private FloatReference attackRange;
@@ -80,11 +82,23 @@ public class ShootingComponent : MonoBehaviour
     }
     private void Start()
     {
+        if (poolManager == null) poolManager = FindFirstObjectByType<PoolManager>();
         if (poolManager != null && projectilePrefab != null)
         {
             poolManager.Prewarm(projectilePrefab, 10);
             _spawnDelegate = poolManager.GetSpawnDelegate(projectilePrefab);
         }
+        if (animationBridge == null) animationBridge = GetComponent<CharacterAnimationBridge>();
+    }
+    private void OnEnable()
+    {
+        if (animationBridge != null)
+            animationBridge.OnShootFrame += SpawnProjectile;
+    }
+    private void OnDisable()
+    {
+        if (animationBridge != null)
+            animationBridge.OnShootFrame -= SpawnProjectile;
     }
     #endregion
 
@@ -112,16 +126,25 @@ public class ShootingComponent : MonoBehaviour
 
         _lastTimeFired = Time.time;
 
+        if (!CanFire) return;
+        lastTimeFire = Time.time;
+        if (energy != null)
+            energy.UseEnergy(1, null);
+
+        if (animationBridge != null)
+            animationBridge.TriggerShoot();
+    }
+    private void SpawnProjectile()
+    {
         Transform origin = firePoint != null ? firePoint : transform;
         Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
 
         if (targetingComponent != null && targetingComponent.HasValidTarget)
         {
             Vector3 targetDir = (targetingComponent.TargetTransform.position - origin.position).normalized;
-            if (targetDir != Vector3.zero)
-            {
+            if (targetDir != Vector3.zero)            
                 spawnRotation = Quaternion.LookRotation(targetDir);
-            }
+            
         }
 
         if (_spawnDelegate != null)
@@ -136,6 +159,7 @@ public class ShootingComponent : MonoBehaviour
         }
 
         return true;
+        }        
     }
     #endregion
 }

@@ -53,7 +53,7 @@ public class PoolManager : MonoBehaviour
     #region Internal
     private readonly Dictionary<int, IObjectPool<GameObject>> pools = new();
     public static bool IsQuitting { get; private set; }
-    private void OicationQuit()
+    private void OnApplicationQuit()
     {
         IsQuitting = true;
     }

@@ -52,13 +52,12 @@ public class MeleeAttack : MonoBehaviour
 
 
     #region Internal
+    private GameObject attacker;
     private HashSet<Collider> hitTargets = new();
     private void Awake()
     {
         if (hitBoxCollider == null) hitBoxCollider = GetComponent<Collider>();
         hitBoxCollider.enabled = false;
-
-
     }
     #endregion
 
@@ -75,19 +74,25 @@ public class MeleeAttack : MonoBehaviour
 
         if (other.TryGetComponent<Health>(out var health))
         {
-                hitTargets.Add(other);
-            health.TakeDamage(damageAmount.Value);
+            hitTargets.Add(other);
+            DamageContext ctx = new DamageContext(
+                damageAmount.Value,
+                DamageType.Melee,
+                attacker
+            );
+            health.TakeDamage(ctx);
         }
     }
     #endregion
 
 
     #region Helpers
-    public void ActivateHitbox(Transform optionalTarget = null, LayerMask mask = default)
+    public void ActivateHitbox(GameObject actor, Transform optionalTarget = null, LayerMask mask = default)
     {
         hitTargets.Clear();
         // TODO Targeted attack
 
+        attacker = actor;
         targetLayers = mask;
         if (hitBoxCollider != null)
             hitBoxCollider.enabled = true;

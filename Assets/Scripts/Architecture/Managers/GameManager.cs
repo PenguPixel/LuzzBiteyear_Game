@@ -114,7 +114,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Leave Puzzle State");
     }
 
-    #endregion
+
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
+
 
 
     #region Helpers

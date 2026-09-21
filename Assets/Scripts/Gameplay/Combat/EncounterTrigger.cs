@@ -22,20 +22,20 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles Encounter Triggers. Can either be a repeatable encounter or resets on its own after the trigger.
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: Reacts to the player entering the trigger area by calling on the Encounter Manager to deal with spawning enemies.
+/// Coordination: Triggers on the player entering its trigger area and finds the Encounter Manager to call upon spawning enemies.
+/// Deployment: Can be set from the Encounter Prefab anywhere in the scene.
 /// </summary>
 #endregion
 
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider))]
 [AddComponentMenu("Combat/Encounter Trigger")]
@@ -50,6 +50,8 @@ public class EncounterTrigger : MonoBehaviour
     [SerializeField] private bool isOneShot = true;
     [SerializeField] List<WaveData> waves = new();
     [SerializeField] Transform[] spawnPoints;
+    [SerializeField] private float cooldownTime = 180f;
+    [SerializeField] private Collider triggerCollider;
 
     [Header("Environment Feedback (Optional)")]
     [SerializeField] private GameObject[] barrierObjects;
@@ -82,6 +84,8 @@ public class EncounterTrigger : MonoBehaviour
             if (manager != null)
             {
                 manager.StartTriggerEncounter(this);
+                if (!isOneShot)
+                    StartCoroutine(ResetEncounter());
             }
         }
     }
@@ -97,6 +101,13 @@ public class EncounterTrigger : MonoBehaviour
             if (barrierObjects[i] != null)
                 barrierObjects[i].SetActive(state);
         }
+    }
+    public IEnumerator ResetEncounter()
+    {
+        triggerCollider.enabled = false;
+        yield return new WaitForSeconds(cooldownTime);
+        triggerCollider.enabled = true;
+        hasTriggered = false;
     }
     #endregion
 }
