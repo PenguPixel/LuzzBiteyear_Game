@@ -77,6 +77,7 @@ public class MovementComponent : MonoBehaviour
     
     // Jumping
     private bool _isGrounded = true;
+    private bool _wasGroundedLastFrame = true;
     private bool _isJumping = false;
     private bool _jumpRequested = false;
     private int _remainingJumps;
@@ -224,7 +225,21 @@ public class MovementComponent : MonoBehaviour
         if (GroundCheckTransform != null)
         {
             _isGrounded = Physics.CheckSphere(GroundCheckTransform.position, GroundCheckRadius, GroundLayer);
+        
         }
+
+        if (animationBridge != null && _wasGroundedLastFrame != _isGrounded)
+        {
+            animationBridge.SetGrounded(_isGrounded);
+        }
+
+        if (_isGrounded)
+        {
+            _isJumping = false;
+            _remainingJumps = _totalAvailableJumps;
+        }
+
+        _wasGroundedLastFrame = _isGrounded;
     }
 
     private void Jump()
@@ -266,7 +281,6 @@ public class MovementComponent : MonoBehaviour
                 _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
                 _jumpRequested = true;
                 _remainingJumps--;
-
                 _isJumping = true;
             }
             else if (_isJumping && _remainingJumps > 0)
