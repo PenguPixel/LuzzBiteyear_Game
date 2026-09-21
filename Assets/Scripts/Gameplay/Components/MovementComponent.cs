@@ -34,9 +34,9 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CharacterAnimationBridge))]
 public class MovementComponent : MonoBehaviour
 {
     #region Inspector
@@ -46,6 +46,7 @@ public class MovementComponent : MonoBehaviour
 
     [Header("Component References")]
     [SerializeField] private Rigidbody Rigidbody;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
     [SerializeField] private TargetingComponent targetingComponent;
 
     [Header("Movement Settings")]
@@ -66,6 +67,7 @@ public class MovementComponent : MonoBehaviour
 
     #region Public Getters
     public bool IsGrounded => _isGrounded;
+    public bool DoubleJumpUnlocked => doubleJumpUnlocked;
     #endregion
 
     #region Internal   
@@ -82,12 +84,6 @@ public class MovementComponent : MonoBehaviour
 
     #endregion
 
-
-    #region For Debugging
-    // private float MoveSpeed = 5f;
-    // private float _currentMoveSpeed;
-    #endregion
-
     
     #region Private Methods
     /// <summary>
@@ -97,46 +93,74 @@ public class MovementComponent : MonoBehaviour
 
     private void Awake()
     {
+        if (Rigidbody == null)
+        {
+            Rigidbody = GetComponent<Rigidbody>();
+        }
+
+        if (animationBridge == null)
+        {
+            animationBridge = GetComponent<CharacterAnimationBridge>();
+
+            if (animationBridge == null)
+            {
+                animationBridge = GetComponentInChildren<CharacterAnimationBridge>();
+            }
+        }
+
         Rigidbody.useGravity = true;
         Rigidbody.isKinematic = false;
 
         Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        _totalAvailableJumps = doubleJumpUnlocked? 2 : 1;
-        
-
-        // check if Grounded
-        if (GroundCheckTransform != null)
+        if (animationBridge != null)
         {
-            _isGrounded = Physics.CheckSphere(GroundCheckTransform.position, GroundCheckRadius, GroundLayer);
+            animationBridge.OnFootstep += HandleFootstepAnimationEvent;
+            animationBridge.OnJumpImpulse += HandleJumpImpulseAnimationEvent;
         }
     }
 
+    private void OnDisable()
+    {
+        if (animationBridge != null)
+        {
+            animationBridge.OnFootstep -= HandleFootstepAnimationEvent;
+            animationBridge.OnJumpImpulse -= HandleJumpImpulseAnimationEvent;
+        }
+    }
+
+    private void Update()
+    {
+        _totalAvailableJumps = doubleJumpUnlocked ? 2 : 1;
+
+
+        // check if Grounded
+        CheckGroundedState();
+    }
+
+    
     private void FixedUpdate()
     {
         Move();
         Jump();
     }
+    #endregion
 
-    private void Jump()
-    {
-        if (_jumpRequested)
-        {
-            Rigidbody.linearVelocity = new Vector3(Rigidbody.linearVelocity.x, 0f, Rigidbody.linearVelocity.z);
-            Rigidbody.AddForce(Vector3.up * JumpForce.Value, ForceMode.Impulse);
-            _jumpRequested = false;
-        }
-    }
-
-
+    #region Movement Methods
     private void Move()
     {
         Vector3 moveDirection = SetMoveDirection(_currentMoveInput);
         // apply linear velocity
         ApplyMovement(moveDirection);
+
+        if (animationBridge != null)
+        {
+            float targetSpeed = CurrentMoveSpeed != null ? CurrentMoveSpeed.Value : 0f;
+            animationBridge.UpdateLocomotion(targetSpeed);
+        }
     }
 
     private Vector3 SetMoveDirection(Vector3 moveInputValue)
@@ -192,7 +216,39 @@ public class MovementComponent : MonoBehaviour
         Vector3 targetVelocity = moveDirection * CurrentMoveSpeed.Value;
         Rigidbody.linearVelocity = new Vector3(targetVelocity.x, Rigidbody.linearVelocity.y, targetVelocity.z);
     }
-    
+    #endregion
+
+    #region Jump & Groundcheck
+    private void CheckGroundedState()
+    {
+        if (GroundCheckTransform != null)
+        {
+            _isGrounded = Physics.CheckSphere(GroundCheckTransform.position, GroundCheckRadius, GroundLayer);
+        }
+    }
+
+    private void Jump()
+    {
+        if (_jumpRequested)
+        {
+            Rigidbody.linearVelocity = new Vector3(Rigidbody.linearVelocity.x, 0f, Rigidbody.linearVelocity.z);
+            Rigidbody.AddForce(Vector3.up * JumpForce.Value, ForceMode.Impulse);
+
+            if (animationBridge != null)
+            {
+                if (_remainingJumps == _totalAvailableJumps - 1)
+                {
+                    animationBridge.TriggerJump();
+                }
+                else
+                {
+                    animationBridge.TriggerDoubleJump();
+                }
+            }
+
+            _jumpRequested = false;
+        }
+    }    
     #endregion
 
     #region Public Methods
@@ -220,5 +276,23 @@ public class MovementComponent : MonoBehaviour
                 _isJumping = false; // Reset jumping state after double jump
             }
     }
+
+    public void UnlockDoubleJump()
+    {
+        doubleJumpUnlocked = true;
+    }
+    #endregion
+
+    #region Animation Event Handlers
+    private void HandleFootstepAnimationEvent()
+    {
+        // Event for Audio or SFX
+    }
+
+    private void HandleJumpImpulseAnimationEvent()
+    {
+        // Event for Audio or SFX
+    }
     #endregion
 }
+

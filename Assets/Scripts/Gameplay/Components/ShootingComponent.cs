@@ -126,13 +126,12 @@ public class ShootingComponent : MonoBehaviour
 
         _lastTimeFired = Time.time;
 
-        if (!CanFire) return;
-        lastTimeFire = Time.time;
         if (energy != null)
             energy.UseEnergy(1, null);
 
         if (animationBridge != null)
             animationBridge.TriggerShoot();
+        return true;
     }
     private void SpawnProjectile()
     {
@@ -157,9 +156,7 @@ public class ShootingComponent : MonoBehaviour
                 payload.Initialize(poolManager, projectilePrefab, target, mask);
             }
         }
-
-        return true;
-        }        
-    }
-    #endregion
+    }        
 }
+#endregion
+
