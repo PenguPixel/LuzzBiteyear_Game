@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bf2bda71cc606294496335888935fb34
+guid: 674fbdefcb8721246bad82a61d3b32c1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1064603201067800878
-    second: Biss_Y_0
+      213: 3270856901238924547
+    second: Stecker_getrennt_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 520
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Biss_Y_0
+      name: Stecker_getrennt_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 428
-        height: 280
+        width: 1786
+        height: 793
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d62c957705c931f0800000000000000
-      internalID: -1064603201067800878
+      spriteID: 3052b7d950b646d20800000000000000
+      internalID: 3270856901238924547
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Biss_Y_0: -1064603201067800878
+      Stecker_getrennt_0: 3270856901238924547
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

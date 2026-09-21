@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 69ced5c5b66d2c547884d62c1d5335c3
+guid: ccac28c5f8813e146b3bc082a2bfdfb2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5050239883951934837
-    second: Balken_M_0
+      213: 6015394408364540859
+    second: Herz_voll_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 520
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Balken_M_0
+      name: Herz_voll_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2199
-        height: 276
+        width: 371
+        height: 342
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57d0779ca6e061640800000000000000
-      internalID: 5050239883951934837
+      spriteID: bb3807ee759fa7350800000000000000
+      internalID: 6015394408364540859
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Balken_M_0: 5050239883951934837
+      Herz_voll_0: 6015394408364540859
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

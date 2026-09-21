@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ed2823aec70a49041921c2589f25dcc6
+guid: fa7bffc613f43a54d9343c1fa3fe81a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5277488765249424164
-    second: Stecker_C_0
+      213: 3512416972688506598
+    second: Beissen_bereit_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 520
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stecker_C_0
+      name: Beissen_bereit_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 429
-        height: 285
+        width: 388
+        height: 264
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 42b8ec612186d3940800000000000000
-      internalID: 5277488765249424164
+      spriteID: 6eeb62880ac9eb030800000000000000
+      internalID: 3512416972688506598
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Stecker_C_0: 5277488765249424164
+      Beissen_bereit_0: 3512416972688506598
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

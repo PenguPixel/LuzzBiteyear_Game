@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Cactuar Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4708839979119129590, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6929192965807627749, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_Avatar
       value: 

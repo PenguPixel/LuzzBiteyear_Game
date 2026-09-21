@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3308a222b58eab64b9618236eadc9930
+guid: 2de6b76fed6d27948a8ec69377ff54c9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6895415548163644434
-    second: Balken_C_0
+      213: -7687187586219297802
+    second: Batterie_voll_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 520
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Balken_C_0
+      name: Batterie_voll_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2094
-        height: 285
+        width: 307
+        height: 424
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21cdff658ef61bf50800000000000000
-      internalID: 6895415548163644434
+      spriteID: 6f33b996e9f915590800000000000000
+      internalID: -7687187586219297802
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Balken_C_0: 6895415548163644434
+      Batterie_voll_0: -7687187586219297802
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1ff36a270e4fb88489cc661aada6af40
+guid: 4345952a5e91d104188c8a5fced7cef1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5111990897211172381
-    second: "K\xE4stchen_0"
+      213: 5706633026594160629
+    second: Batterie_leer_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 520
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "K\xE4stchen_0"
+      name: Batterie_leer_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 187
-        height: 187
+        width: 308
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3e992bc0d5f8e09b0800000000000000
-      internalID: -5111990897211172381
+      spriteID: 5ff38ada088023f40800000000000000
+      internalID: 5706633026594160629
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "K\xE4stchen_0": -5111990897211172381
+      Batterie_leer_0: 5706633026594160629
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
