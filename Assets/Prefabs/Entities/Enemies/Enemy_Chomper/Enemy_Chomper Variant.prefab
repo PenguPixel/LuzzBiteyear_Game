@@ -48,9 +48,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8101031882308933689, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4901504382275439138, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1712342440535597424, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
       propertyPath: m_Name
       value: I_enemy_Chomper 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468551188479771725, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570135133282360067, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -122,9 +150,17 @@ PrefabInstance:
       propertyPath: cooldownTime.constantValue
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2153958713623657928, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3505022390474025993, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3893862735459979620, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: meleeWeight
@@ -150,6 +186,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Chomper Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4708839979119129590, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6929192965807627749, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_Avatar
       value: 
@@ -158,6 +198,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 33928c79f71894c45815a6518ea64fc0, type: 2}
+    - target: {fileID: 7780865276982734124, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923635628091710394, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7923635628091710394, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_IsActive
       value: 0
