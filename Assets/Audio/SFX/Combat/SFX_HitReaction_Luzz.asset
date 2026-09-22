@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bfa9c7d4460cd34cb26b724605b85c1, type: 3}
+  m_Name: SFX_HitReaction_Luzz
+  m_EditorClassIdentifier: Assembly-CSharp::SoundData
+  clips:
+  - {fileID: 8300000, guid: d1660fd2df0f6dd459edb21af73fb968, type: 3}
+  - {fileID: 8300000, guid: 5f3f857c3069f5e428169214976951bc, type: 3}
+  - {fileID: 8300000, guid: 9c378032772b2b44fb1c7b09bc5df740, type: 3}
+  - {fileID: 8300000, guid: 1cbbf3f2072921b478aaedc64c915ea0, type: 3}
+  volume: 1
+  minPitch: 0.9
+  maxPitch: 1.1
+  spatialBlend: 1
+  minDistance: 1
+  maxDistance: 25
