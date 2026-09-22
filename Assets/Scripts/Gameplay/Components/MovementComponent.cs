@@ -233,9 +233,8 @@ public class MovementComponent : MonoBehaviour
             animationBridge.SetGrounded(_isGrounded);
         }
 
-        if (_isGrounded)
+        if (_isGrounded && !_jumpRequested)
         {
-            _isJumping = false;
             _remainingJumps = _totalAvailableJumps;
         }
 
@@ -274,21 +273,21 @@ public class MovementComponent : MonoBehaviour
 
     public void RequestJump()
     {
-        if (!_isGrounded && !_isJumping) return; // Prevent jump if not grounded
+        // if (!_isGrounded && _isJumping) return;
 
-            if (_isGrounded)
-            {
-                _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
-                _jumpRequested = true;
-                _remainingJumps--;
-                _isJumping = true;
-            }
-            else if (_isJumping && _remainingJumps > 0)
-            {
-                _jumpRequested = true;
-                _remainingJumps--;
-                _isJumping = false; // Reset jumping state after double jump
-            }
+        if (_isGrounded && !_isJumping)
+        {
+            // _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
+            _jumpRequested = true;
+            _remainingJumps--;
+            _isJumping = true;
+        }
+        else if (_remainingJumps >= 1)
+        {
+            _jumpRequested = true;
+            _remainingJumps--;
+            _isJumping = false; // Reset jumping state after double jump
+        }
     }
 
     public void UnlockDoubleJump()
