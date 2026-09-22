@@ -163,9 +163,17 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: soundData
+      value: 
+      objectReference: {fileID: 11400000, guid: a083ce7e3bff2df4aab3a0d8ad99e4f6, type: 2}
+    - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: meleeWeight
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: audioChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
     - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: rangedWeight
       value: 0

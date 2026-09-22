@@ -2015,10 +2015,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2792407797893406457, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
-      propertyPath: audioChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
     - target: {fileID: 3228386537315725856, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2059,22 +2055,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5736506793965196579, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
-      propertyPath: audioChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
-    - target: {fileID: 6003714739521726596, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
-      propertyPath: shotSO
-      value: 
-      objectReference: {fileID: 11400000, guid: dc1ac90ac9dcfb44a88a09c8f7271457, type: 2}
     - target: {fileID: 6003714739521726596, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
       propertyPath: poolManager
       value: 
       objectReference: {fileID: 7648642993235650967}
-    - target: {fileID: 6003714739521726596, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
-      propertyPath: audioChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
     - target: {fileID: 7861746617232219612, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
       propertyPath: m_Name
       value: Enemy_Hybrid
@@ -2169,25 +2153,9 @@ PrefabInstance:
       value: Enemy_Cactuar
       objectReference: {fileID: 0}
     - target: {fileID: 2633050157970913815, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
-      propertyPath: shotSO
-      value: 
-      objectReference: {fileID: 11400000, guid: d0ead2cf7ef041e4e9ab2a6f019be0c1, type: 2}
-    - target: {fileID: 2633050157970913815, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
       propertyPath: poolManager
       value: 
       objectReference: {fileID: 7648642993235650967}
-    - target: {fileID: 2633050157970913815, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
-      propertyPath: audioChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
-    - target: {fileID: 4055255194969393072, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
-      propertyPath: audioChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
-    - target: {fileID: 5844444767381605482, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
-      propertyPath: audioChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
     - target: {fileID: 6563587332837417139, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.38146
