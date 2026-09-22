@@ -58,6 +58,10 @@ public class AttackComponent : MonoBehaviour
 
     [Header("Events Configuration")]
     [SerializeField] private GameEvent onAttackExecuted; // maybe redundant
+
+    [Header("Audio")]
+    [SerializeField] private AudioEventChannel audioChannel;
+    [SerializeField] private SoundData attackSO;
     
     #endregion
 
@@ -93,7 +97,8 @@ public class AttackComponent : MonoBehaviour
         if (animationBridge != null)
             animationBridge.TriggerAttack();
         if (onAttackExecuted != null) onAttackExecuted.Raise();
-
+        if (audioChannel != null && attackSO != null)
+            audioChannel.RaiseSFX(attackSO, transform.position);
     }
     public void HandleMeleeHitFrame()
     {

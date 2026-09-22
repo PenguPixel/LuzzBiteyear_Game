@@ -56,6 +56,11 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     [SerializeField] private UnityEvent<int> onThisHealthChanged;
     [SerializeField] private UnityEvent onDiedLocal;
     [SerializeField] private CharacterAnimationBridge animationBridge;
+
+    [Header("Audio")]
+    [SerializeField] private AudioEventChannel audioChannel;
+    [SerializeField] private SoundData hitSO;
+    [SerializeField] private SoundData healSO;
     #endregion
 
 
@@ -106,6 +111,9 @@ public class Health : MonoBehaviour, IDamageable, IHealable
             onHealthChanged.Raise();
         onThisHealthChanged?.Invoke(currentHealth.Value);
 
+        if (audioChannel != null && hitSO != null)
+            audioChannel.RaiseSFX(hitSO, transform.position);
+
         if (currentHealth.Value <= 0)
         {
             Die(ctx);
@@ -121,6 +129,8 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         if (onHealthChanged != null)
             onHealthChanged.Raise();
         onThisHealthChanged?.Invoke(currentHealth.Value);
+        if (audioChannel != null && healSO != null)
+            audioChannel.RaiseSFX(healSO, transform.position);
     }
     public void Die(DamageContext ctx = default)
     {

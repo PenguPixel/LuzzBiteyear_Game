@@ -54,7 +54,7 @@ public class PooledAudioSource : MonoBehaviour
     private void Awake()
     {
         if (audioSource == null)
-            audioSource.GetComponent<AudioSource>();
+            audioSource = GetComponent<AudioSource>();
     }
     #endregion
 
@@ -81,7 +81,7 @@ public class PooledAudioSource : MonoBehaviour
         audioSource.spatialBlend = data.spatialBlend;
         audioSource.minDistance = data.minDistance;
         audioSource.maxDistance = data.maxDistance;
-        audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
 
         audioSource.Play();
 

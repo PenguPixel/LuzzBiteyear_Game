@@ -35,6 +35,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum NarratorExpression
 {
@@ -50,15 +51,19 @@ public class NarratorUI : MonoBehaviour
 #endif
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI bodyText;
-    [SerializeField] private Animator narratorAnimator;
-
+    
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Sprite happySprite;
+    [SerializeField] private Sprite smirkSprite;
     #endregion
 
 
     #region Internal
+    private Image image;
     private void Awake()
     {
         panel.SetActive(false);
+        image = panel.GetComponent<Image>();
     }
     #endregion
 
@@ -68,20 +73,17 @@ public class NarratorUI : MonoBehaviour
     {
         panel.SetActive(true);
         bodyText.text = text;
-        if (narratorAnimator != null)
+        switch (state)
         {
-            switch (state)
-            {
-                case NarratorExpression.Happy:
-                    narratorAnimator.SetTrigger("Happy");
-                    break;
-                case NarratorExpression.Smirk:
-                    narratorAnimator.SetTrigger("Smirk");
-                    break;
-                default:
-                    narratorAnimator.SetTrigger("Default");
-                    break;
-            }
+            case NarratorExpression.Happy:
+                image.sprite = happySprite;
+                break;
+            case NarratorExpression.Smirk:
+                image.sprite = smirkSprite;
+                break;
+            default:
+                image.sprite = defaultSprite;
+                break;
         }
     }
     public void HidePanel()
