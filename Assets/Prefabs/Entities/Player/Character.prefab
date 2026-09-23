@@ -393,7 +393,7 @@ MonoBehaviour:
     variable: {fileID: 11400000, guid: 45cd58826fead25f3b314d8ad26e9122, type: 2}
   interactionLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
 --- !u!95 &4077784448564141129
 Animator:
   serializedVersion: 7
