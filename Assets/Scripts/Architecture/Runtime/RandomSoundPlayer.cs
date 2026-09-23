@@ -137,23 +137,4 @@ public class RandomSoundPlayer : MonoBehaviour
         }
     }
     #endregion
-    [ContextMenu("Test Sound Trigger")]
-private void TestSoundTrigger()
-{
-    if (audioChannel != null && soundData != null)
-    {
-        Debug.Log($"[Test] Manually triggering SFX from {gameObject.name}");
-        audioChannel.RaiseSFX(soundData, transform.position);
-    }
-    else
-    {
-        Debug.LogWarning("[Test] Missing AudioChannel or SoundData reference!");
-    }
-}
-
-[ContextMenu("Force Start Player")]
-public void ForceStartPlayer()
-{
-    StartPlayer();
-}
 }
