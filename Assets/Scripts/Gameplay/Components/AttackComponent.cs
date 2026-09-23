@@ -58,6 +58,10 @@ public class AttackComponent : MonoBehaviour
 
     [Header("Events Configuration")]
     [SerializeField] private GameEvent onAttackExecuted; // maybe redundant
+
+    [Header("Audio")]
+    [SerializeField] private AudioEventChannel audioChannel;
+    [SerializeField] private SoundData attackSO;
     
     #endregion
 
@@ -93,24 +97,15 @@ public class AttackComponent : MonoBehaviour
         if (animationBridge != null)
             animationBridge.TriggerAttack();
         if (onAttackExecuted != null) onAttackExecuted.Raise();
-
-        Debug.Log("Attack!");
-
-        if (attackPayLoad != null)
-        {
-            if (activeAttackRoutine != null) StopCoroutine(activeAttackRoutine);
-            activeAttackRoutine = StartCoroutine(DirectAttackRoutine());
-        }
-
+        if (audioChannel != null && attackSO != null)
+            audioChannel.RaiseSFX(attackSO, transform.position);
     }
     public void HandleMeleeHitFrame()
     {
-        Debug.Log("<color=green>[AttackComponent] AE_OnMeleeHitFrame Received!</color>");
         if (attackPayLoad == null) return;
         
         if (activeAttackRoutine != null) StopCoroutine(activeAttackRoutine);
         activeAttackRoutine = StartCoroutine(DirectAttackRoutine());
-
     }
     private IEnumerator DirectAttackRoutine()
     {

@@ -68,6 +68,7 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private EntityBase entityBase;
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private CharacterAnimationBridge animationBridge;
+    [SerializeField] private AudioEventChannel audioChannel;
 
     [Header("Optional Executioon Components")]
 //    [SerializeField] private MovementComponent movementComponent;
@@ -87,6 +88,9 @@ public class EnemyAIController : MonoBehaviour
     [Header("Combat Weighting")]
     [Range(0f, 100f)][SerializeField] private float meleeWeight = 50f;
     [Range(0f, 100f)][SerializeField] private float rangedWeight = 50f;
+
+    [Header("Audio")]
+    [SerializeField] private SoundData soundData;
     #endregion
 
 
@@ -407,7 +411,11 @@ public class EnemyAIController : MonoBehaviour
     private void SetState(AIState newState)
     {
         if (currentState != AIState.Idle && newState == AIState.Idle)
+        {
             idleTimer = 0f;
+            if (audioChannel != null && soundData != null)
+                audioChannel.RaiseSFX(soundData, transform.position);
+        }
         currentState = newState;
     } 
 

@@ -60,7 +60,9 @@ public class ShootingComponent : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject projectilePrefab;
 
-
+    [Header("Audio")]
+    [SerializeField] private AudioEventChannel audioChannel;
+    [SerializeField] private SoundData shotSO;
     #endregion
 
 
@@ -156,7 +158,9 @@ public class ShootingComponent : MonoBehaviour
                 payload.Initialize(poolManager, projectilePrefab, target, mask);
             }
         }
-    }        
-}
-#endregion
 
+        if (audioChannel != null && shotSO != null)
+            audioChannel.RaiseSFX(shotSO, origin.position);
+    }
+    #endregion
+}

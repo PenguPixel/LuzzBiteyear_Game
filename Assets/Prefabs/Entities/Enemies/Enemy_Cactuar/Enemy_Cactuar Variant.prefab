@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 757451357001838803, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: audioChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
+    - target: {fileID: 2153958713623657928, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3893862735459979620, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4130999249145646386, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -80,6 +92,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Cactuar Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4708839979119129590, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4708839979119129590, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6929192965807627749, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_Avatar
       value: 
@@ -88,15 +108,71 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: cf42ee1fa0969be4faaf02f8b374d34c, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 7196624039360985865, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: hitSO
+      value: 
+      objectReference: {fileID: 11400000, guid: e13553a489b61784e99b2b7e0da856c7, type: 2}
+    - target: {fileID: 7196624039360985865, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: audioChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
+    - target: {fileID: 7780865276982734124, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923635628091710394, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156622167900997294, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: shotSO
+      value: 
+      objectReference: {fileID: 11400000, guid: d0ead2cf7ef041e4e9ab2a6f019be0c1, type: 2}
+    - target: {fileID: 9156622167900997294, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: audioChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
+    m_RemovedComponents:
+    - {fileID: 381440354035948992, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4469863327150937323, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 40015168290659338, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       insertIndex: 0
       addedObject: {fileID: 8624340306020081295}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4708839979119129590, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3435105118475060953}
   m_SourcePrefab: {fileID: 100100000, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+--- !u!1 &1927975433779613519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4708839979119129590, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+  m_PrefabInstance: {fileID: 6600203864447696057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &3435105118475060953
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927975433779613519}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &6563587332837417139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 40015168290659338, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
@@ -150,9 +226,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7009797857457697962, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -5506977543257564031, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
       propertyPath: m_Name
       value: I_Enemy_Cactus 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790183945725220954, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189511585336226458, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819001077394492298, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905609870639353253, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8513859187771203891, guid: 6611ff86dd65a224da77012b8156d19c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

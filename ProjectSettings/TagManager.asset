@@ -17,6 +17,8 @@ TagManager:
   - Decoration
   - Walkable
   - Obstructing
+  - 
+  - Narrator
   - Interact
   - 
   - 

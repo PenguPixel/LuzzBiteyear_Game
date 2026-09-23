@@ -54,8 +54,8 @@ public class WorldHealthUI : MonoBehaviour
     [SerializeField] private Vector3 worldOffset = new Vector3(0, 2f, 0);
 
     [Header("Visual Feedback Configuration")]
-    [SerializeField] private Color normalColor;
-    [SerializeField] private Color criticalColor;
+    [SerializeField] private Sprite fullHeartSprite;
+    [SerializeField] private Sprite emptyHeartSprite;
     [SerializeField] private float displayDuration = 3f;
     [SerializeField] private float blinkInterval = 0.3f;
     
@@ -63,12 +63,7 @@ public class WorldHealthUI : MonoBehaviour
 
 
     #region Internal
-    private struct HeartSlot
-    {
-        public Image Frame;
-        public Image Fill;   
-    }
-    private readonly List<HeartSlot> heartSlots = new();
+    private readonly List<Image> heartSlots = new();
     private Camera mainCamera;
     private Coroutine hideRoutine;
     private Coroutine continuousBinkRoutine;
@@ -119,10 +114,10 @@ public class WorldHealthUI : MonoBehaviour
         for (int i = 0; i < targetHealth.MaxHealth; i++)
         {
             GameObject instance = Instantiate(heartPrefab, iconContainer);
-            if (instance.TryGetComponent<Image>(out var frameImage) &&
-                instance.transform.GetChild(0).TryGetComponent<Image>(out var fillImage))
+            if (instance.TryGetComponent<Image>(out var heartSlot))
             {
-                heartSlots.Add(new HeartSlot {Frame = frameImage, Fill = fillImage});
+                heartSlot.sprite = fullHeartSprite;
+                heartSlots.Add(heartSlot);
             }
         }
     }
@@ -133,13 +128,14 @@ public class WorldHealthUI : MonoBehaviour
         worldCanvas.gameObject.SetActive(true);
 
         bool isCritical = currentHealth <= 1;
-        Color activeColor = isCritical ? criticalColor : normalColor;
 
         for(int i = 0; i < heartSlots.Count; i++)
         {
-            heartSlots[i].Frame.color = activeColor;
-            heartSlots[i].Fill.color = activeColor;
-            heartSlots[i].Fill.gameObject.SetActive(i < currentHealth);
+            if (heartSlots[i] != null)
+            {
+                heartSlots[i].sprite = (i < currentHealth) ? fullHeartSprite : emptyHeartSprite;
+                heartSlots[i].enabled = true;
+            }
         }
 
         if (isCritical && currentHealth > 0)
@@ -165,13 +161,13 @@ public class WorldHealthUI : MonoBehaviour
 
 
     #region Helpers
-    private IEnumerator ContinuousBlinkRoutine(HeartSlot slot)
+    private IEnumerator ContinuousBlinkRoutine(Image slot)
     {
         while (true)
         {
-            slot.Fill.gameObject.SetActive(false);
+            slot.enabled = false;
             yield return new WaitForSeconds(blinkInterval);
-            slot.Fill.gameObject.SetActive(true);
+            slot.enabled = true;
             yield return new WaitForSeconds(blinkInterval);
         }
     }

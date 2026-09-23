@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: CurrentGameState
   m_EditorClassIdentifier: Assembly-CSharp::GameStateVariable
   DeveloperDescription: 
-  value: 4
+  value: 1
+

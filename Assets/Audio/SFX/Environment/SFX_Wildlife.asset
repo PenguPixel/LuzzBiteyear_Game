@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bfa9c7d4460cd34cb26b724605b85c1, type: 3}
+  m_Name: SFX_Wildlife
+  m_EditorClassIdentifier: Assembly-CSharp::SoundData
+  clips:
+  - {fileID: 8300000, guid: a2bf9337c21f0e44ba8b1e29ac010d76, type: 3}
+  - {fileID: 8300000, guid: 991802db51e35c94e9fb72f80f965154, type: 3}
+  - {fileID: 8300000, guid: 2af5a75038061b4418a3332aa16ea930, type: 3}
+  - {fileID: 8300000, guid: c861f4eec1da00c419182507cde937fd, type: 3}
+  - {fileID: 8300000, guid: 30c8a99835b113449aed8d830d2bcfba, type: 3}
+  - {fileID: 8300000, guid: 368e694ef9ddb6f4b81c9eb0c02d5bb5, type: 3}
+  - {fileID: 8300000, guid: 908eb75c65029c844b6ebd64d8431ea2, type: 3}
+  - {fileID: 8300000, guid: f8fc6a699bb02254abd5e49b6b193b49, type: 3}
+  - {fileID: 8300000, guid: 514e60883c73e4d4197d4f648f395f50, type: 3}
+  volume: 0.8
+  minPitch: 0.7
+  maxPitch: 1.1
+  spatialBlend: 1
+  minDistance: 1
+  maxDistance: 25

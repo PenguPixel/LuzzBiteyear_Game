@@ -482,8 +482,8 @@ MonoBehaviour:
   iconContainer: {fileID: 6529864219278879350}
   heartPrefab: {fileID: 7037246621336440553, guid: 7124d075872a18046af180300f56bd09, type: 3}
   worldOffset: {x: 0, y: 0, z: 0}
-  normalColor: {r: 0, g: 1, b: 0.5019608, a: 1}
-  criticalColor: {r: 0.8, g: 0.07450981, b: 0.19607843, a: 1}
+  fullHeartSprite: {fileID: 6015394408364540859, guid: ccac28c5f8813e146b3bc082a2bfdfb2, type: 3}
+  emptyHeartSprite: {fileID: 7526216803563679716, guid: d624c9b6afc1eb8409a6fd985d4b4e9f, type: 3}
   displayDuration: 3
   blinkInterval: 0.3
 --- !u!195 &4311295856651566101
