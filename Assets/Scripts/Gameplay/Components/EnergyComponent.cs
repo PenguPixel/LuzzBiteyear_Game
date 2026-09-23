@@ -48,27 +48,71 @@ public class Energy : MonoBehaviour, IUseEnergy, IReplenishEnergy
     [SerializeField] private IntReference currentEnergy;
     [SerializeField] private IntReference maxEnergy;
 
+    [Header("Energy Regeneration")]
+    [SerializeField] private bool enableRegen = true;
+    [SerializeField] private int regenAmount = 1;
+    [SerializeField] private float regenInterval = 1.0f;
+
     [Header("Energy Events")]
     [SerializeField] private GameEvent onEnergyChanged;
-    
     #endregion
 
+    #region Internal
+    private float _regenTimer;
+    #endregion
+
+    #region Public Getters
+    public int CurrentEnergyValue => currentEnergy !=null ? currentEnergy.Value : 0;
+    public int MaxEnergyValue => maxEnergy != null ? maxEnergy.Value : 0;
+    public bool HasEnergy(int amount = 1) => CurrentEnergyValue >= amount;
+    #endregion
+
+    #region Unity Methods
+    private void Update()
+    {
+        if (!enableRegen || currentEnergy == null || maxEnergy == null) return;
+        if (currentEnergy.Value >= maxEnergy.Value) return;
+
+        _regenTimer += Time.deltaTime;
+        if (_regenTimer >= regenInterval)
+        {
+            _regenTimer = 0f;
+            ReplenishEnergy(regenAmount, gameObject);
+        }
+    }
+    #endregion
 
     #region Methods
     public void ReplenishEnergy(int amount, GameObject chargeSource)
     {
+        if (currentEnergy == null || maxEnergy == null) return;
         if (currentEnergy.Value >= maxEnergy.Value) return;
-        currentEnergy.Value += Math.Clamp(currentEnergy.Value + amount, 0, maxEnergy.Value) ;
-        if (onEnergyChanged != null)
-            onEnergyChanged.Raise();
+
+        int previous = currentEnergy.Value;
+        currentEnergy.Value = Math.Clamp(currentEnergy.Value + amount, 0, maxEnergy.Value);
+
+        if (currentEnergy.Value != previous && onEnergyChanged != null)
+        {
+            onEnergyChanged.Raise(); 
+        }        
     }
 
     public void UseEnergy(int amount, GameObject drainSource)
     {
-        if (currentEnergy.Value <= 0) return;
+        if (currentEnergy == null || maxEnergy == null) return;
+        if (currentEnergy.Value <= 0) 
+        {
+            // Debug.Log("No Energy");
+            return;
+        }
+
+        int previous = currentEnergy.Value;
         currentEnergy.Value = Math.Clamp(currentEnergy.Value - amount, 0, maxEnergy.Value);
-        if (onEnergyChanged != null)
-            onEnergyChanged.Raise();
+
+        if (currentEnergy.Value != previous && onEnergyChanged != null)
+        {
+            onEnergyChanged.Raise(); 
+        }
     }
 
     #endregion

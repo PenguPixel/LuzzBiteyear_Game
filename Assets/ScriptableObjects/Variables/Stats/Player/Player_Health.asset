@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player_Health
   m_EditorClassIdentifier: Assembly-CSharp::IntVariable
   DeveloperDescription: 
-  value: 3
+  value: 0

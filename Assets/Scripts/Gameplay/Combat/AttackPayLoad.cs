@@ -33,6 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -51,6 +52,8 @@ public class MeleeAttack : MonoBehaviour
 
 
     #region Internal
+    private GameObject attacker;
+    private HashSet<Collider> hitTargets = new();
     private void Awake()
     {
         if (hitBoxCollider == null) hitBoxCollider = GetComponent<Collider>();
@@ -60,20 +63,37 @@ public class MeleeAttack : MonoBehaviour
 
 
     #region Methods
+    /// <summary>
+    /// HitDetection of designated Opponent Layers. OnHit deals designated damage
+    /// </summary>
+    /// <param name="other">object hit by this</param>
     private void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & targetLayers) == 0) return;
+        if (hitTargets.Contains(other)) return;
+
         if (other.TryGetComponent<Health>(out var health))
         {
-            health.TakeDamage(damageAmount.Value);
+            hitTargets.Add(other);
+            DamageContext ctx = new DamageContext(
+                damageAmount.Value,
+                DamageType.Melee,
+                attacker
+            );
+            health.TakeDamage(ctx);
         }
     }
     #endregion
 
 
     #region Helpers
-    public void ActivateHitbox(Transform optionalTarget = null)
+    public void ActivateHitbox(GameObject actor, Transform optionalTarget = null, LayerMask mask = default)
     {
+        hitTargets.Clear();
+        // TODO Targeted attack
+
+        attacker = actor;
+        targetLayers = mask;
         if (hitBoxCollider != null)
             hitBoxCollider.enabled = true;
     }
@@ -82,6 +102,7 @@ public class MeleeAttack : MonoBehaviour
     {
         if (hitBoxCollider != null)
             hitBoxCollider.enabled = false;
+        hitTargets.Clear();
     }
     #endregion
 }

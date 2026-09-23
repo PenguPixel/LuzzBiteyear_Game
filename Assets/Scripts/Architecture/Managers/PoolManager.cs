@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles ObjectPooling. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: Dynamically cerates and manages ObjectPools with a prewarming. This should eliminate framespikes due to instantiating objects.
+/// Coordination: Objects that require an object pool create one at the start of any scene.
+/// Deployment: Put this in a static PoolManager.
 /// </summary>
 #endregion
 
@@ -52,10 +52,14 @@ public class PoolManager : MonoBehaviour
 
     #region Internal
     private readonly Dictionary<int, IObjectPool<GameObject>> pools = new();
-
+    public static bool IsQuitting { get; private set; }
+    private void OnApplicationQuit()
+    {
+        IsQuitting = true;
+    }
     #endregion
 
-    
+
     #region Methods
     public void Prewarm(GameObject prefab, int count)
     {
@@ -100,7 +104,7 @@ public class PoolManager : MonoBehaviour
 
     public void Release(GameObject prefab, GameObject instance)
     {
-        if (prefab == null || instance == null) return;
+        if (prefab == null || instance == null || IsQuitting) return;
 
         int key = prefab.GetInstanceID();
         if (pools.TryGetValue(key, out var pool))
@@ -112,6 +116,12 @@ public class PoolManager : MonoBehaviour
             Destroy(instance);
         }
     }
+    
+    /// <summary>
+    /// Factory that deals with the actual prefabs
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <returns></returns>
     private IObjectPool<GameObject> CreatePool(GameObject prefab)
     {
         return new ObjectPool<GameObject>(

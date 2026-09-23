@@ -41,7 +41,8 @@ public enum GameState
     Exploration,
     Combat,
     Paused,
-    GameOver
+    GameOver,
+    Puzzle
 }
 
 [CreateAssetMenu(menuName = "Variables/GameState")]

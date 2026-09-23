@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_2" data-name="Ebene 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80.17 54.66">
+  <defs>
+    <linearGradient id="Unbenannter_Verlauf_32" data-name="Unbenannter Verlauf 32" x1="3871.98" y1="1161" x2="3951.59" y2="1161" gradientTransform="translate(3952.0004 -1133.667) scale(-1 1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d0d0d0" stop-opacity=".9"/>
+      <stop offset=".8" stop-color="#b2b2b2" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#909090" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Unbenannter_Verlauf_32-2" data-name="Unbenannter Verlauf 32" x1="3501.48" y1="1960.99" x2="3547.84" y2="1960.99" gradientTransform="translate(4073.8241 414.5314) rotate(-145.2018) scale(1 -1)" xlink:href="#Unbenannter_Verlauf_32"/>
+    <linearGradient id="Unbenannter_Verlauf_32-3" data-name="Unbenannter Verlauf 32" x1="3725.86" y1="1638.13" x2="3772.22" y2="1638.13" gradientTransform="translate(4073.8241 -753.0356) rotate(145.2018)" xlink:href="#Unbenannter_Verlauf_32"/>
+    <linearGradient id="Unbenannter_Verlauf_32-4" data-name="Unbenannter Verlauf 32" x1="4209.83" y1="1236.94" x2="4256.2" y2="1236.94" gradientTransform="translate(3702.1411 122.9285) rotate(162.1615) scale(.8127 .9713)" xlink:href="#Unbenannter_Verlauf_32"/>
+    <linearGradient id="Unbenannter_Verlauf_32-5" data-name="Unbenannter Verlauf 32" x1="4076.39" y1="1585.1" x2="4122.75" y2="1585.1" gradientTransform="translate(3702.1411 -423.099) rotate(-162.1615) scale(.8127 -.9713)" xlink:href="#Unbenannter_Verlauf_32"/>
+  </defs>
+  <g id="UI_Variante_1">
+    <g>
+      <path d="M79.86,28.22c-.42,1.68-2.82,1.58-4.48,1.48-2.6-.05-6.3-.12-10.67-.2-19.1-.54-44.21-.43-63.17-1.37-1.27-.34-1.47-.96-.61-1.39,12.33-1.36,63.42-1.24,76.22-1.81,1.9-.2,3.33,1.53,2.73,3.22l-.02.07Z" style="fill: url(#Unbenannter_Verlauf_32); isolation: isolate; opacity: .35;"/>
+      <path d="M79.89,27.33H.29" style="fill: none; stroke: #d0d0d0; stroke-linecap: round; stroke-width: .58px;"/>
+      <path d="M79.02,28.58l-28.95,20.27" style="fill: none; stroke: #d0d0d0; stroke-linecap: round; stroke-width: .58px;"/>
+      <path d="M50.07,5.81l28.95,20.27" style="fill: none; stroke: #d0d0d0; stroke-linecap: round; stroke-width: .58px;"/>
+      <path d="M79.04,26.95c-.76.66-1.87-.18-2.63-.78-1.23-.89-2.97-2.15-5.04-3.64C62.42,15.92,50.37,7.63,41.62.88c-.49-.58-.39-.95.17-.87,6.35,3.45,30.74,20.48,37.05,24.46.98.54,1.08,1.84.24,2.45l-.03.02Z" style="fill: url(#Unbenannter_Verlauf_32-2); isolation: isolate; opacity: .35;"/>
+      <path d="M79.08,27.74c.85.61.74,1.91-.24,2.45-6.31,3.98-30.7,21.02-37.05,24.46-.55.08-.66-.28-.17-.87,8.76-6.75,20.8-15.04,29.75-21.65,2.07-1.49,3.81-2.75,5.04-3.64.76-.6,1.88-1.44,2.63-.78l.03.02Z" style="fill: url(#Unbenannter_Verlauf_32-3); isolation: isolate; opacity: .35;"/>
+      <path d="M76,27.58l-26.72,8.32" style="fill: none; stroke: #d0d0d0; stroke-linecap: round; stroke-width: .36px;"/>
+      <path d="M50.07,18.87l26.72,8.32" style="fill: none; stroke: #d0d0d0; stroke-linecap: round; stroke-width: .36px;"/>
+      <path d="M76.87,26.93c.56.82.22,1.96-.67,2.13-5.87,1.55-28.86,9.02-34.65,10.07-.46-.11-.48-.47.04-.84,8.38-3.25,19.71-6.83,28.22-9.9,1.96-.68,3.61-1.25,4.77-1.65.73-.29,1.79-.69,2.27.15l.02.03Z" style="fill: url(#Unbenannter_Verlauf_32-4); isolation: isolate; opacity: .35;"/>
+      <path d="M76.49,28.08c-.48.84-1.54.44-2.27.15-1.16-.4-2.82-.98-4.77-1.65-8.51-3.06-19.84-6.64-28.22-9.9-.51-.37-.5-.73-.04-.84,5.79,1.05,28.79,8.53,34.65,10.07.89.17,1.24,1.31.67,2.13l-.02.03Z" style="fill: url(#Unbenannter_Verlauf_32-5); isolation: isolate; opacity: .35;"/>
+    </g>
+  </g>
+</svg>

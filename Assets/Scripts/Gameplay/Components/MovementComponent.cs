@@ -1,8 +1,8 @@
 #region Project Details
 /*
-* Project: MyProjectName
-* Author:DeveloperName / developer@domain.com
-* Issue: Link: https://github.com/Wasted-Resources/MyProjectName/issues/[ID]
+* Project: LuzzBiteyear
+* Author:Philipp Locher / pengupixels.de
+* Issue: Link: https://github.com/PenguPixel/LuzzBiteyear_Game/issues/2
 * Date: 2026-09-08
 */
 #endregion
@@ -22,27 +22,33 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles character movement and jumping mechanics. It uses the Rigidbody component for physics interactions and input actions for player control.
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: The MovementComponent is responsible for handling the movement and jumping logic of a character in the game. It processes input from the player to move the character forward, backward, left, and right, as well as handle jumping mechanics including single and double jumps.
+/// Coordination: This component communicates with other components via Unity's Input System and potentially with animation controllers or health systems to manage state transitions and effects.
+/// Deployment: This script should be attached to the GameObject representing the character in the Unity scene. It requires a Rigidbody component and references to various settings and input actions defined in the inspector.
 /// </summary>
 #endregion
 
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CharacterAnimationBridge))]
 public class MovementComponent : MonoBehaviour
 {
     #region Inspector
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
+
+    [Header("Component References")]
+    [SerializeField] private Rigidbody Rigidbody;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
+    [SerializeField] private TargetingComponent targetingComponent;
+
     [Header("Movement Settings")]
     [SerializeField] private FloatReference MaxMoveSpeed;
     [SerializeField] private FloatReference CurrentMoveSpeed;
@@ -57,140 +63,128 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] private float GroundCheckRadius = 0.2f;
     [SerializeField] private LayerMask GroundLayer;
 
-
-    [Header("Input Actions")]
-    [SerializeField] private InputActionProperty MoveAction; 
-    [SerializeField] private InputActionProperty JumpAction; 
     #endregion
 
-    #region Internal
-    private Rigidbody _rigidbody;
+    #region Public Getters
+    public bool IsGrounded => _isGrounded;
+    public bool DoubleJumpUnlocked => doubleJumpUnlocked;
+    #endregion
 
-    // Movement
-    private Vector2 _currentMoveInput;
+    #region Internal   
 
+    // Movement cache fed with values from InputComponent
+    private Vector3 _currentMoveInput;
+    
     // Jumping
     private bool _isGrounded = true;
+    private bool _wasGroundedLastFrame = true;
     private bool _isJumping = false;
     private bool _jumpRequested = false;
     private int _remainingJumps;
+    private int _totalAvailableJumps = 0;
 
-    #endregion
-
-
-    #region For Debugging
-    // private float MoveSpeed = 5f;
-    // private float _currentMoveSpeed;
     #endregion
 
     
-    #region Methods
+    #region Private Methods
     /// <summary>
     /// This method checks the current state of the character object and uses values from the CharacterController Component to set movement values to the character object.
     /// </summary>
     /// <param name = "parameters">What this parameter represents </param>
-    // public void GoodMethod(int parameters)
-    // {
-    //     /* --- CodeBlock: Logic Execution --- */
-    //     // Description: Describe the intent of this specific block
-    //     var value = parameters * 2;   // Descriptive comment for specific line, if necessary
-    // }
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        if (Rigidbody == null)
+        {
+            Rigidbody = GetComponent<Rigidbody>();
+        }
 
-        _rigidbody.useGravity = true;
-        _rigidbody.isKinematic = false;
+        if (animationBridge == null)
+        {
+            animationBridge = GetComponent<CharacterAnimationBridge>();
 
-        _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            if (animationBridge == null)
+            {
+                animationBridge = GetComponentInChildren<CharacterAnimationBridge>();
+            }
+        }
+
+        Rigidbody.useGravity = true;
+        Rigidbody.isKinematic = false;
+
+        Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void OnEnable()
     {
-        MoveAction.action?.Enable();
-        JumpAction.action?.Enable();
+        if (animationBridge != null)
+        {
+            animationBridge.OnFootstep += HandleFootstepAnimationEvent;
+            animationBridge.OnJumpImpulse += HandleJumpImpulseAnimationEvent;
+        }
     }
 
     private void OnDisable()
     {
-        MoveAction.action?.Disable();
-        JumpAction.action?.Disable();
+        if (animationBridge != null)
+        {
+            animationBridge.OnFootstep -= HandleFootstepAnimationEvent;
+            animationBridge.OnJumpImpulse -= HandleJumpImpulseAnimationEvent;
+        }
     }
 
     private void Update()
     {
-        int totalAvailableJumps = doubleJumpUnlocked? 2 : 1;
-        
+        _totalAvailableJumps = doubleJumpUnlocked ? 2 : 1;
+
 
         // check if Grounded
-        if (GroundCheckTransform != null)
-        {
-            _isGrounded = Physics.CheckSphere(GroundCheckTransform.position, GroundCheckRadius, GroundLayer);
-        }
-
-
-        // Move input
-        if(MoveAction != null)
-        {
-            _currentMoveInput = MoveAction.action.ReadValue<Vector2>();
-        }
-
-        // Jump input
-        if (JumpAction != null && JumpAction.action.WasPressedThisFrame())
-        {
-            if (!_isGrounded && !_isJumping) return; // Prevent jump if not grounded
-
-            if (_isGrounded)
-            {
-                _remainingJumps = totalAvailableJumps; // Reset remaining jumps when grounded
-                _jumpRequested = true;
-                _remainingJumps--;
-
-                //TODO implement real Grounded Check
-                // _isGrounded = false; 
-                _isJumping = true;
-            }
-            else if (_isJumping && _remainingJumps > 0 && JumpAction.action.WasPressedThisFrame())
-            {
-                _jumpRequested = true;
-                _remainingJumps--;
-                _isJumping = false; // Reset jumping state after double jump
-            }
-        }
+        CheckGroundedState();
     }
 
+    
     private void FixedUpdate()
     {
         Move();
         Jump();
     }
+    #endregion
 
-    private void Jump()
+    #region Movement Methods
+    private void Move()
     {
-        if (_jumpRequested)
+        Vector3 moveDirection = SetMoveDirection(_currentMoveInput);
+        // apply linear velocity
+        ApplyMovement(moveDirection);
+
+        if (animationBridge != null)
         {
-            _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0f, _rigidbody.linearVelocity.z);
-            _rigidbody.AddForce(Vector3.up * JumpForce.Value, ForceMode.Impulse);
-            _jumpRequested = false;
+            float targetSpeed = CurrentMoveSpeed != null ? CurrentMoveSpeed.Value : 0f;
+            animationBridge.UpdateLocomotion(targetSpeed);
         }
     }
 
-    private void Move()
+    private Vector3 SetMoveDirection(Vector3 moveInputValue)
     {
-        Vector3 moveDirection = SetMoveDirection();
-
-        // apply linear velocity
-        ApplyMovement(moveDirection);
-    }
-
-    private Vector3 SetMoveDirection()
-    {
-        Vector3 moveDirection = new Vector3(_currentMoveInput.x, 0f, _currentMoveInput.y);
+        Vector3 moveDirection = moveInputValue;
 
         float targetSpeed = MaxMoveSpeed != null ? MaxMoveSpeed.Value : 5f;
 
-        if (moveDirection.sqrMagnitude > 0.01f)
+        // Focus to Target if a target is acquired
+        if (targetingComponent != null && targetingComponent.HasValidTarget)
+        {
+            Vector3 aimDirection = (targetingComponent.TargetTransform.position - transform.position).normalized;
+            aimDirection.y = 0f;
+
+            if (aimDirection.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(aimDirection, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed.Value * Time.fixedDeltaTime);
+            }
+        }
+        
+        // Standard movement if no target is acquired
+        else if (moveDirection.sqrMagnitude > 0.01f)
         {
             moveDirection.Normalize();
 
@@ -203,16 +197,16 @@ public class MovementComponent : MonoBehaviour
             {
                 CurrentMoveSpeed.Value = targetSpeed;
             }
-
-            // _currentMoveSpeed = MoveSpeed;
+        }
+        
+        // Speed tracking for rigidbody
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            if (CurrentMoveSpeed != null) CurrentMoveSpeed.Value = targetSpeed;
         }
         else
         {
-            if (CurrentMoveSpeed != null)
-            {
-                CurrentMoveSpeed.Value = 0f;
-            }
-            // _currentMoveSpeed = 0f;
+            if (CurrentMoveSpeed != null) CurrentMoveSpeed.Value = 0f;
         }
 
         return moveDirection;
@@ -221,8 +215,97 @@ public class MovementComponent : MonoBehaviour
     private void ApplyMovement(Vector3 moveDirection)
     {
         Vector3 targetVelocity = moveDirection * CurrentMoveSpeed.Value;
-        _rigidbody.linearVelocity = new Vector3(targetVelocity.x, _rigidbody.linearVelocity.y, targetVelocity.z);
+        Rigidbody.linearVelocity = new Vector3(targetVelocity.x, Rigidbody.linearVelocity.y, targetVelocity.z);
     }
-    
+    #endregion
+
+    #region Jump & Groundcheck
+    private void CheckGroundedState()
+    {
+        if (GroundCheckTransform != null)
+        {
+            _isGrounded = Physics.CheckSphere(GroundCheckTransform.position, GroundCheckRadius, GroundLayer);
+        
+        }
+
+        if (animationBridge != null && _wasGroundedLastFrame != _isGrounded)
+        {
+            animationBridge.SetGrounded(_isGrounded);
+        }
+
+        if (_isGrounded && !_jumpRequested)
+        {
+            _remainingJumps = _totalAvailableJumps;
+        }
+
+        _wasGroundedLastFrame = _isGrounded;
+    }
+
+    private void Jump()
+    {
+        if (_jumpRequested)
+        {
+            Rigidbody.linearVelocity = new Vector3(Rigidbody.linearVelocity.x, 0f, Rigidbody.linearVelocity.z);
+            Rigidbody.AddForce(Vector3.up * JumpForce.Value, ForceMode.Impulse);
+
+            if (animationBridge != null)
+            {
+                if (_remainingJumps == _totalAvailableJumps - 1)
+                {
+                    animationBridge.TriggerJump();
+                }
+                else
+                {
+                    animationBridge.TriggerDoubleJump();
+                }
+            }
+
+            _jumpRequested = false;
+        }
+    }    
+    #endregion
+
+    #region Public Methods
+    public void SetMoveValue(Vector3 moveInputValue)
+    {
+        _currentMoveInput = moveInputValue;
+    }
+
+    public void RequestJump()
+    {
+        // if (!_isGrounded && _isJumping) return;
+
+        if (_isGrounded && !_isJumping)
+        {
+            // _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
+            _jumpRequested = true;
+            _remainingJumps--;
+            _isJumping = true;
+        }
+        else if (_remainingJumps >= 1)
+        {
+            _jumpRequested = true;
+            _remainingJumps--;
+            _isJumping = false; // Reset jumping state after double jump
+        }
+    }
+
+    public void UnlockDoubleJump()
+    {
+        doubleJumpUnlocked = true;
+    }
+    #endregion
+
+    #region Animation Event Handlers
+    private void HandleFootstepAnimationEvent()
+    {
+        // Event for Audio or SFX
+    }
+
+    private void HandleJumpImpulseAnimationEvent()
+    {
+        // Event for Audio or SFX
+    }
     #endregion
 }
+

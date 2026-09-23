@@ -55,6 +55,16 @@ public class GameManager : MonoBehaviour
     private int activeAggroCount = 0;
     #endregion
 
+    #region Unity Methods
+    private void Awake()
+    {
+        if (currentGameState != null)
+        {
+            EnterExploration();
+            if(onGameStateChanged != null) onGameStateChanged.Raise();
+        }
+    }
+    #endregion
 
     #region Methods
     /// <summary>
@@ -89,7 +99,27 @@ public class GameManager : MonoBehaviour
             if (onGameStateChanged != null) onGameStateChanged.Raise();
         }
     }
-    #endregion
+
+    public void EnterPuzzle()
+    {
+        SetGameState(GameState.Puzzle);
+        Time.timeScale = 0f;
+        Debug.Log("Enter Puzzle State");
+    }
+
+    public void ExitPuzzle()
+    {
+        Time.timeScale = 1f;
+        SetGameState(previousState == GameState.Combat ? GameState.Combat : GameState.Exploration);
+        Debug.Log("Leave Puzzle State");
+    }
+
+
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
+
 
 
     #region Helpers
@@ -105,3 +135,4 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 }
+#endregion
