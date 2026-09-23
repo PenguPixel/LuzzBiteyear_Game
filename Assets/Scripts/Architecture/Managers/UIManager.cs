@@ -42,12 +42,14 @@ public class UIManager : MonoBehaviour
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
+    [Header("Game State")]
     [SerializeField] GameStateVariable currentGameState ;
 
     [Header("UIPanels")]
     [SerializeField] private GameObject HUDPanel;
     [SerializeField] private GameObject MenuPanel;
     [SerializeField] private GameObject GameOverPanel;
+    [SerializeField] private GameObject PuzzlePanel;
     #endregion
 
 
@@ -57,6 +59,7 @@ public class UIManager : MonoBehaviour
         if (MenuPanel != null) MenuPanel.SetActive(false);
         if (HUDPanel != null) HUDPanel.SetActive(false);
         if (GameOverPanel != null) GameOverPanel.SetActive(false);
+        if (PuzzlePanel != null) PuzzlePanel.SetActive(false);
     }
     #endregion
 
@@ -66,10 +69,14 @@ public class UIManager : MonoBehaviour
     {
         if (currentGameState == null) return;
 
+        HideAllPanels();
+
 
         switch (currentGameState.Value)
         {
             case GameState.Exploration:
+                if (HUDPanel != null) HUDPanel.SetActive(true);
+                break;
             case GameState.Combat:
                 if (HUDPanel != null) HUDPanel.SetActive(true);
                 break;
@@ -81,8 +88,13 @@ public class UIManager : MonoBehaviour
             case GameState.GameOver:
                 if (GameOverPanel != null) GameOverPanel.SetActive(true);
                 break;
+            
+            case GameState.Puzzle:
+                if (PuzzlePanel != null) PuzzlePanel.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                break;
         }
-
     }
     #endregion
 }

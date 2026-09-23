@@ -102,7 +102,6 @@ public class AttackComponent : MonoBehaviour
     }
     public void HandleMeleeHitFrame()
     {
-        Debug.Log("<color=green>[AttackComponent] AE_OnMeleeHitFrame Received!</color>");
         if (attackPayLoad == null) return;
         
         if (activeAttackRoutine != null) StopCoroutine(activeAttackRoutine);

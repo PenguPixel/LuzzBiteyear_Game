@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "LuzzBiteyear_Game.slnx"
+    "dotnet.defaultSolution": "LuzzBiteyear_Game.slnx",
+    "liveServer.settings.port": 5501
 }
