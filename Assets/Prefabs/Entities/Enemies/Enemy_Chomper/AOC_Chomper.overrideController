@@ -9,15 +9,15 @@ AnimatorOverrideController:
   m_Name: AOC_Chomper
   m_Controller: {fileID: 9100000, guid: eade8d97faad5e544bb81f0777d92e2c, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 2bfec1b573f58bb4a8073b955a57bf68, type: 2}
-    m_OverrideClip: {fileID: -5802679753521116727, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
-  - m_OriginalClip: {fileID: 7400000, guid: 63966f066d09c164b9b83c614356b366, type: 2}
-    m_OverrideClip: {fileID: -5802679753521116727, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
-  - m_OriginalClip: {fileID: 7400000, guid: 442d366aedfa6924cbdc42581817237c, type: 2}
-    m_OverrideClip: {fileID: 7054647946247938195, guid: 7728e53a93a047a48be3fb7b361a482c, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 7a264beebea211d4486daca72eb22174, type: 2}
     m_OverrideClip: {fileID: 2527366616155857371, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 2460b9d0d85ce1f40ac7ee867ad7ee93, type: 2}
     m_OverrideClip: {fileID: -6473220609069657373, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 6cd097b5f1256ab4f9b08838d1b7c7cf, type: 2}
     m_OverrideClip: {fileID: -7450075768164742712, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 442d366aedfa6924cbdc42581817237c, type: 2}
+    m_OverrideClip: {fileID: 7054647946247938195, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 24dd39e8424f52c429e5a05e54b7e483, type: 2}
+    m_OverrideClip: {fileID: -5802679753521116727, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 2bfec1b573f58bb4a8073b955a57bf68, type: 2}
+    m_OverrideClip: {fileID: -5802679753521116727, guid: 6a2616fea6aa88647b4e9f52ad87f93b, type: 3}
