@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3614378977169212566
+--- !u!1 &6172318221012505086
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,80 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1575947484475437837}
-  - component: {fileID: 6403037790294174795}
-  - component: {fileID: 1136770352438928765}
+  - component: {fileID: 6288969183133904644}
   m_Layer: 13
-  m_Name: Cactus_Interactable_01
+  m_Name: Cactus_Interactable_02_Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1575947484475437837
+--- !u!4 &6288969183133904644
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614378977169212566}
+  m_GameObject: {fileID: 6172318221012505086}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.46, y: 0, z: 19.58}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.092, y: 2.276, z: -0.452}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2776750236113417275}
+  - {fileID: 4103181049527624588}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6403037790294174795
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614378977169212566}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1136770352438928765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614378977169212566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2748e285d679ef41b8ad77a035256b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableCactus
-  DeveloperDescription: 
-  interactionData: {fileID: 11400000, guid: 17fd6cfa6bee1a849b687f3d5bb44c9a, type: 2}
-  cactusType: 0
-  healAmount: 1
-  cooldownTime: 60
-  fruitObjects: []
-  audioChannel: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
-  soundData: {fileID: 11400000, guid: e13553a489b61784e99b2b7e0da856c7, type: 2}
---- !u!1001 &2378541471482041296
+--- !u!1001 &4574483019033216103
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1575947484475437837}
+    m_TransformParent: {fileID: 6288969183133904644}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e4c4c5d12932fb54a8b02caff547fee1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -141,25 +98,20 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e4c4c5d12932fb54a8b02caff547fee1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1376439845240691196}
+      addedObject: {fileID: 4339317101826080980}
   m_SourcePrefab: {fileID: 100100000, guid: e4c4c5d12932fb54a8b02caff547fee1, type: 3}
---- !u!4 &2776750236113417275 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e4c4c5d12932fb54a8b02caff547fee1, type: 3}
-  m_PrefabInstance: {fileID: 2378541471482041296}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3297531081409293953 stripped
+--- !u!1 &3727500275284785462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e4c4c5d12932fb54a8b02caff547fee1, type: 3}
-  m_PrefabInstance: {fileID: 2378541471482041296}
+  m_PrefabInstance: {fileID: 4574483019033216103}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1376439845240691196
+--- !u!65 &4339317101826080980
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297531081409293953}
+  m_GameObject: {fileID: 3727500275284785462}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -174,3 +126,8 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.009573642, y: 0.009553136, z: 0.007844506}
   m_Center: {x: -0.00019083056, y: 0.000096128344, z: 0.003996117}
+--- !u!4 &4103181049527624588 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e4c4c5d12932fb54a8b02caff547fee1, type: 3}
+  m_PrefabInstance: {fileID: 4574483019033216103}
+  m_PrefabAsset: {fileID: 0}
