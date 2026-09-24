@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3461433319928857293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1827081733167626813}
+  m_Layer: 0
+  m_Name: spaceship_tail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1827081733167626813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3461433319928857293}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2467628779059334641}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2716935226610788890
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1827081733167626813}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.562353
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.55708253
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.6154839
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.06643215
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5535571
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -37.749
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 72.822
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -117.941
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_Name
+      value: r_spaceship_crashed_tail
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2037522582185329582}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9190154193053461764}
+  m_SourcePrefab: {fileID: 100100000, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+--- !u!4 &2467628779059334641 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+  m_PrefabInstance: {fileID: 2716935226610788890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2987320180682299211 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+  m_PrefabInstance: {fileID: 2716935226610788890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2037522582185329582
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2987320180682299211}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3892811077102686183, guid: 1d03a81b40142cd48a548997b1afa8c7, type: 3}
+--- !u!54 &9190154193053461764
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2987320180682299211}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
