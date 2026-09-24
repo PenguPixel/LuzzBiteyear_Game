@@ -78,7 +78,7 @@ public class InteractionComponent : MonoBehaviour
             if (hit.TryGetComponent<IInteractable>(out var interactable))
             {
                 _currentNearbyInteractable = interactable;
-                // Debug.Log("[InteractionComponent] Interactable in Range acquired!");
+                Debug.Log("[InteractionComponent] Interactable in Range acquired!");
                 return;
             }
         }

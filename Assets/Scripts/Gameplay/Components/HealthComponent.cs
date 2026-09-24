@@ -141,7 +141,6 @@ public class Health : MonoBehaviour, IDamageable, IHealable
                 attackerHealth.Heal(1);
         }
 
-        onDiedLocal?.Invoke();
         OnDied?.Invoke(ctx);
 
         if (animationBridge != null)
@@ -150,8 +149,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     }
     private void HandleDeathAnimation()
     {
-        if (onDied != null)
-            onDied.Raise();
+        onDiedLocal?.Invoke();
     }
     #endregion
 }

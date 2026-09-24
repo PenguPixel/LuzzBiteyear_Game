@@ -62,6 +62,10 @@ public class TargetingComponent : MonoBehaviour
 
     
     #region Methods
+    private void OnDisable()
+    {
+        if (onTargetLost != null) onTargetLost.Raise();
+    }
     public void ScanForTarget()
     {
         ITargetable bestTarget = null;

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7659962452946612641}
   - component: {fileID: 7592180612097915512}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Windmill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,9 +103,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5455135206116379331, guid: f12279385e02c4648a8c48bbd7e29008, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f12279385e02c4648a8c48bbd7e29008, type: 3}
       propertyPath: m_Name
       value: r_windmill (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f12279385e02c4648a8c48bbd7e29008, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8301889786353620185, guid: f12279385e02c4648a8c48bbd7e29008, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

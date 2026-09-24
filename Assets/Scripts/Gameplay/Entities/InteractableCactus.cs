@@ -37,7 +37,6 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.VisualScripting;
 
 public enum CactusType
 {

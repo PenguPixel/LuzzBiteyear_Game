@@ -114,6 +114,7 @@ public class EnemyAIController : MonoBehaviour
     }
     private void OnEnable()
     {
+        navMeshAgent.enabled = true;
         if (animationBridge != null)
         {
             animationBridge.OnAttackComplete += HandleActionCompleted;
@@ -122,6 +123,7 @@ public class EnemyAIController : MonoBehaviour
     }
     private void OnDisable()
     {
+        navMeshAgent.enabled = false;
         if (animationBridge != null)
         {
             animationBridge.OnAttackComplete -= HandleActionCompleted;
