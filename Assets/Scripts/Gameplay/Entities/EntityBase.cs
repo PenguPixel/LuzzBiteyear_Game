@@ -86,6 +86,7 @@ public class EntityBase : MonoBehaviour, ITargetable
     }
     public void OnDeath()
     {
+        onEntityDied.Raise();
         if (poolManager != null && sourcePrefab != null)
         {
             poolManager.Release(sourcePrefab, gameObject);

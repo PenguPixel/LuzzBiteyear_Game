@@ -22,12 +22,12 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles EncounterManagement. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
 /// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
+/// Coordination: Listens to Encounter Triggers and delegates spawning enemies for it.
 /// Deployment: [Where it should live in the Scene, Project, Assets'].
 /// </summary>
 #endregion
@@ -82,6 +82,7 @@ public class EncounterManager : MonoBehaviour
     public void OnEnemyDied()
     {
         activeEnemyCount = Mathf.Max(0, activeEnemyCount - 1);
+        Debug.Log($"Enemy died. Recognized. Active enemy count: {activeEnemyCount}");
     }
     #endregion
 
