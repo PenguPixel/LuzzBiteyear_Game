@@ -232,6 +232,10 @@ public class MovementComponent : MonoBehaviour
         {
             animationBridge.SetGrounded(_isGrounded);
         }
+        else if (animationBridge != null && Rigidbody.linearVelocity.y < 0.1f && !_isGrounded)
+        {
+            animationBridge.SetGrounded(true);
+        }
 
         if (_isGrounded && !_jumpRequested)
         {
@@ -273,16 +277,16 @@ public class MovementComponent : MonoBehaviour
 
     public void RequestJump()
     {
-        // if (!_isGrounded && _isJumping) return;
+        // if (!_isGrounded) return;
 
         if (_isGrounded && !_isJumping)
         {
-            // _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
+            _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
             _jumpRequested = true;
             _remainingJumps--;
             _isJumping = true;
         }
-        else if (_remainingJumps >= 1)
+        else if (_isJumping && _remainingJumps >= 1)
         {
             _jumpRequested = true;
             _remainingJumps--;
