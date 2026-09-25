@@ -1592,10 +1592,10 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: Rock_01
       settings:
-        brushRadius: 2.7
-        brushSpacing: 2.61
+        brushRadius: 0.2
+        brushSpacing: 0.1
         brushOverlapCheckMode: 1
-        brushOverlapDistance: 2
+        brushOverlapDistance: 0.1
         brushOverlapCheckObjects: 1
         brushOverlapCheckLayers:
           serializedVersion: 2
@@ -1610,8 +1610,8 @@ MonoBehaviour:
         randomizeOrientationZ: 100
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 0.1
-        scaleUniformMax: 0.7
+        scaleUniformMin: 0.01
+        scaleUniformMax: 0.07
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -1902,7 +1902,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: Rock_02
@@ -5388,12 +5388,12 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: GoldChunk
       settings:
-        brushRadius: 1
+        brushRadius: 0.7
         brushSpacing: 0.5
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -5406,12 +5406,12 @@ MonoBehaviour:
         orientationMode: 0
         alongBrushStroke: 0
         rotation: {x: 0, y: 0, z: 0}
-        randomizeOrientationX: 0
-        randomizeOrientationY: 0
-        randomizeOrientationZ: 0
+        randomizeOrientationX: 100
+        randomizeOrientationY: 100
+        randomizeOrientationZ: 100
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 1
+        scaleUniformMin: 0.5
         scaleUniformMax: 1
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
@@ -5721,7 +5721,7 @@ MonoBehaviour:
     m_Bits: 32
   placeUnder: 2
   overwritePrefabLayer: 1
-  prefabPlaceLayer: 7
+  prefabPlaceLayer: 8
   pinSnapRotationValue: 15
   pinSnapScaleValue: 0.1
   pinSnapRotation: 0
