@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f28c99351d79f1b41a76305daa20216a, type: 3}
       propertyPath: m_Name
-      value: i_double_gate (1)
+      value: DoubleGate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableAnimationBridge
   DeveloperDescription: 
-  animator: {fileID: 0}
+  animator: {fileID: 7776185352696867642}
 --- !u!114 &8898584271612687633
 MonoBehaviour:
   m_ObjectHideFlags: 0
