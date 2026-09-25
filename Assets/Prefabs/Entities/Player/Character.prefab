@@ -247,6 +247,7 @@ MonoBehaviour:
   attackComponent: {fileID: 5771200045446820440}
   shootingComponent: {fileID: 4143200333060449473}
   interactionComponent: {fileID: 370112988476147090}
+  gameManager: {fileID: 0}
   MoveAction:
     m_UseReference: 1
     m_Action:
@@ -338,6 +339,19 @@ MonoBehaviour:
       m_Flags: 0
       m_Priority: 0
     m_Reference: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  PauseAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Pause
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 58c2ff03-4318-4607-b2f3-eb6f039495d2
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+      m_Priority: 0
+    m_Reference: {fileID: 8555306707739083726, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &6643214552774359067
 MonoBehaviour:
   m_ObjectHideFlags: 0
