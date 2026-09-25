@@ -447,6 +447,18 @@ PrefabInstance:
       propertyPath: audioChannel
       value: 
       objectReference: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
+    - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: minRangeRatio
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: chanceToAttack
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179795895449798594, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
+      propertyPath: territoryRadius.constantValue
+      value: 12.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4184849049606131426, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -521,7 +533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4708839979119129590, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4730703255870744499, guid: a8f01889067a4a24fb6b18f9baca02ad, type: 3}
       propertyPath: m_Layer
