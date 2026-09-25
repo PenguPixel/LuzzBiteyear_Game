@@ -718,6 +718,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0039d148ffb9634eba8b649ea2c8732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+--- !u!1 &466223665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6349221428737960913, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
+  m_PrefabInstance: {fileID: 8957056005855450488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &562402106
 GameObject:
   m_ObjectHideFlags: 0
@@ -2647,6 +2652,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735875175}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1817091746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7807943510705362993, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
+  m_PrefabInstance: {fileID: 8957056005855450488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1831744916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8052229190169332891, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
@@ -2811,6 +2821,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861726345}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1913480831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5438828826495048362, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
+  m_PrefabInstance: {fileID: 8957056005855450488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1974919856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3886,6 +3901,22 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 410266327}
+    - target: {fileID: 3924497290673972115, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
+      propertyPath: faces.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3924497290673972115, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
+      propertyPath: 'faces.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1817091746}
+    - target: {fileID: 3924497290673972115, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
+      propertyPath: 'faces.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1913480831}
+    - target: {fileID: 3924497290673972115, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
+      propertyPath: 'faces.Array.data[2]'
+      value: 
+      objectReference: {fileID: 466223665}
     - target: {fileID: 5109958801550233946, guid: 2df504a11fee7d88ca949c71f6726202, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
