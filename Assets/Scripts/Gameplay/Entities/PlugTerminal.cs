@@ -51,6 +51,9 @@ public class PlugTerminal : MonoBehaviour, IInteractable
     [SerializeField] private GameManager gameManager;
     [SerializeField] private PuzzleController puzzleController;
 
+    [Header("Puzzle Config")]
+    [SerializeField] private PuzzleLayoutType layoutType = PuzzleLayoutType.Grid2x2;
+
     [Header("Puzzle state and events")]
     [SerializeField] private bool isSolved = false;
     [SerializeField] private UnityEvent onUnlocked;
@@ -73,7 +76,6 @@ public class PlugTerminal : MonoBehaviour, IInteractable
     {
         if (isSolved)
         {
-            Debug.Log("[PlugTerminal] is already solved.");
             return;
         }
 
@@ -89,7 +91,7 @@ public class PlugTerminal : MonoBehaviour, IInteractable
 
         if (targetController != null)
         {
-            targetController.SetupCurrentPuzzle(this);
+            targetController.SetupCurrentPuzzle(this, layoutType);
             targetController.ChooseRandomFace();
         }
         else
