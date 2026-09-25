@@ -53,11 +53,13 @@ public class PuzzleNode : MonoBehaviour
     private int _currentStep = 0;
     private Button _button;
     public bool IsConnected {get; private set;}
+    private PuzzleController _controller;
     #endregion
 
     #region Unity Methods
     private void Awake()
     {
+        _controller = GetComponentInParent<PuzzleController>();
         _button = GetComponent<Button>();
         _button.onClick.AddListener(Rotate);
     }
@@ -88,6 +90,7 @@ public class PuzzleNode : MonoBehaviour
         ApplyRotation();
         Evaluate();
         PuzzleController.Instance.CheckState();
+        ChangeFaceRandomly();
     }
 
     private void ApplyRotation()
@@ -107,6 +110,12 @@ public class PuzzleNode : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void ChangeFaceRandomly()
+    {
+        int random = Random.Range(0, 11);
+        if (random <= 3) _controller.ChooseRandomFace();
     }
     #endregion
 }

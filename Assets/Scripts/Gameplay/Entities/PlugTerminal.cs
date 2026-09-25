@@ -90,6 +90,7 @@ public class PlugTerminal : MonoBehaviour, IInteractable
         if (targetController != null)
         {
             targetController.SetupCurrentPuzzle(this);
+            targetController.ChooseRandomFace();
         }
         else
         {

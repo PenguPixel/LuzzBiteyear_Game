@@ -60,7 +60,9 @@ public class PuzzleController : MonoBehaviour
 
     [Header("Dependencies")]
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private List<PuzzleNode> nodes = new List<PuzzleNode>();    
+
+    [SerializeField] private List<PuzzleNode> nodes = new List<PuzzleNode>();  
+    [SerializeField] private List<GameObject> faces = new List<GameObject>();  
     #endregion
 
     #region Internal
@@ -80,6 +82,16 @@ public class PuzzleController : MonoBehaviour
         {
             node.Scramble();
         }
+    }
+
+    public void ChooseRandomFace()
+    {   
+        foreach (var face in faces)
+        {
+            face.SetActive(false);
+        }
+        var randomFace = faces[Random.Range(0, faces.Count)];
+        randomFace.SetActive(true);
     }
 
     public void CheckState()

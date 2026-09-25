@@ -52,6 +52,7 @@ public class InputComponent : MonoBehaviour
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;
     [SerializeField] private InteractionComponent interactionComponent;
+    [SerializeField] private GameManager gameManager;
 
     [Header("Movement Actions")]
     [SerializeField] private InputActionProperty MoveAction;
@@ -63,6 +64,7 @@ public class InputComponent : MonoBehaviour
     [SerializeField] private InputActionProperty TargetPreviousAction;
     [Header("Interaction Actions")]
     [SerializeField] private InputActionProperty InteractAction;
+    [SerializeField] private InputActionProperty PauseAction;
 
     #endregion
     #region Internal
@@ -80,6 +82,7 @@ public class InputComponent : MonoBehaviour
         TargetNextAction.action?.Enable();
         TargetPreviousAction.action?.Enable();
         InteractAction.action?.Enable();
+        PauseAction.action?.Enable();
     }
 
     public void OnDisable()
@@ -91,10 +94,13 @@ public class InputComponent : MonoBehaviour
         TargetNextAction.action?.Disable();
         TargetPreviousAction.action?.Disable();
         InteractAction.action?.Disable();
+        PauseAction.action?.Disable();
     }
 
     public void Update()
     {
+        HandlePauseInput();
+
         if (currentGameState != null && currentGameState.Value != GameState.Exploration && currentGameState.Value != GameState.Combat)
         {
             movementComponent?.SetMoveValue(Vector3.zero);
@@ -119,6 +125,7 @@ public class InputComponent : MonoBehaviour
         // Handle targeting input
         HandleNextTargetInput();
         HandlePreviousTargetInput();
+
         
     }
 
@@ -186,6 +193,15 @@ public class InputComponent : MonoBehaviour
         if (TargetPreviousAction.action != null && TargetPreviousAction.action.WasPressedThisFrame())
         {
             playerTargeting.CyclePreviousTarget();
+        }
+    }
+
+    private void HandlePauseInput()
+    {
+        if (gameManager == null) return;
+        if (PauseAction.action != null && PauseAction.action.WasPressedThisFrame())
+        {
+            gameManager.TogglePause();
         }
     }
 
