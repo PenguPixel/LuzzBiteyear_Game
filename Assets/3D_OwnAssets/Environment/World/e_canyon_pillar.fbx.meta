@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 913b2f50bc9a4db49ade11b6e7fca0db
+guid: 0231a5a125b1dd4449afff758b1229df
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rock Stone Surface Lichen Scan PBR PLACEHOLDER
+    second: {fileID: 2100000, guid: 5957f283022805d49a6d8bbf3f41f2ca, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 01_rock_a_Normal
+    second: {fileID: 2800000, guid: 08b8e75935ada0840ab18f909a01c6c3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 01_rock_a_roughness
+    second: {fileID: 2800000, guid: b3f8acad92be84b48a89ced86f7754ff, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -254,7 +254,7 @@ MonoBehaviour:
     variable: {fileID: 11400000, guid: 9c181e654a912b42ebaef8c307b1ab4f, type: 2}
   cooldownTime:
     useConstant: 0
-    constantValue: 0.25
+    constantValue: 0
     variable: {fileID: 11400000, guid: dbe665a5702317be49cb429a7e69f9d2, type: 2}
   energyCost: 1
   firePoint: {fileID: 13578401550929105}
@@ -596,7 +596,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
