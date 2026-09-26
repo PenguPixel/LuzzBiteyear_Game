@@ -47,6 +47,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EncounterManager
   DeveloperDescription: 
   poolManager: {fileID: 0}
+  prewarmPools:
+  - enemyPrefab: {fileID: 7861746617232219612, guid: 9a908f4aafbeabb4db14984fc2a130f1, type: 3}
+    count: 10
+  - enemyPrefab: {fileID: 8954793955909187131, guid: a7384cbfe081bd8409b600bf1de4bb08, type: 3}
+    count: 20
+  - enemyPrefab: {fileID: 1927975433779613519, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
+    count: 20
+  spawnRadius: 10
+  minEnemyDistance: 1.5
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   onEncounterCompleted: {fileID: 11400000, guid: d5303e3a9bcc1f346a7e096ab92ce5a0, type: 2}
 --- !u!114 &6138711918894272124
 MonoBehaviour:

@@ -72,10 +72,10 @@ public class MeleeAttack : MonoBehaviour
         if (((1 << other.gameObject.layer) & targetLayers) == 0) return;
         if (hitTargets.Contains(other)) return;
 
-        if (other.TryGetComponent<Health>(out var health))
+        if (other.TryGetComponent<IDamageable>(out var health))
         {
             hitTargets.Add(other);
-            DamageContext ctx = new DamageContext(
+            DamageContext ctx = new(
                 damageAmount.Value,
                 DamageType.Melee,
                 attacker

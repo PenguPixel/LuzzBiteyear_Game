@@ -137,16 +137,16 @@ public class ShootingComponent : MonoBehaviour
     }
     private void SpawnProjectile()
     {
+        if (targetingComponent == null || !targetingComponent.HasValidTarget) return;
+        Transform targetTransform = targetingComponent.TargetTransform;
+        if (targetTransform == null || !targetingComponent.gameObject.activeInHierarchy) return;    // Keeps breaking here for some reason
+
         Transform origin = firePoint != null ? firePoint : transform;
         Quaternion spawnRotation = origin.rotation; // default fallback, in case the targeting is just chanigng in any way.
 
-        if (targetingComponent != null && targetingComponent.HasValidTarget)
-        {
-            Vector3 targetDir = (targetingComponent.TargetTransform.position - origin.position).normalized;
-            if (targetDir != Vector3.zero)            
-                spawnRotation = Quaternion.LookRotation(targetDir);
-            
-        }
+        Vector3 targetDir = (targetingComponent.TargetTransform.position - origin.position).normalized;
+        if (targetDir != Vector3.zero)            
+            spawnRotation = Quaternion.LookRotation(targetDir);    
 
         if (_spawnDelegate != null)
         {
