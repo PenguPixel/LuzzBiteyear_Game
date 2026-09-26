@@ -34,6 +34,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 
 using UnityEngine;
+using UnityEngine.UI;
 
 [AddComponentMenu("Combat/Targeting Component")]
 public class TargetingComponent : MonoBehaviour
@@ -45,6 +46,11 @@ public class TargetingComponent : MonoBehaviour
     [Header("Detection Setup")]
     [SerializeField] protected FloatReference detectionRange;
     [SerializeField] protected LayerMask targetLayerMask;
+
+    [Header("Visual Feedback")]
+    [SerializeField] private Canvas worldCanvas;
+    [SerializeField] Image cursorImage;
+    [SerializeField] private float worldOffset;
     
 
     [Header("Output Data")]
@@ -94,10 +100,18 @@ public class TargetingComponent : MonoBehaviour
         if (CurrentTarget == newTarget) return;
         bool hadTarget = CurrentTarget != null;
         CurrentTarget = newTarget;
+
         if (CurrentTarget != null)
         {
             if (onTargetAquired != null && !hadTarget) onTargetAquired.Raise();
-
+            if (worldCanvas != null)
+            {
+                worldCanvas.transform.position = new Vector3(CurrentTarget.TargetTransform.position.x, CurrentTarget.TargetTransform.position.y + worldOffset);
+                if (cursorImage != null)
+                {
+                    cursorImage.enabled = true;  
+                }
+            }
             // DEBUGGING
             Debug.Log($"[TargetingComponent] Target acquired: {newTarget}"); 
 
@@ -105,6 +119,7 @@ public class TargetingComponent : MonoBehaviour
         else
         {
             if (onTargetLost != null && hadTarget) onTargetLost.Raise();
+            if (cursorImage != null) cursorImage.enabled = false;
         }
     }
     public void ClearTarget() => SetTarget(null);
