@@ -45,13 +45,7 @@ public class TargetingComponent : MonoBehaviour
 #endif
     [Header("Detection Setup")]
     [SerializeField] protected FloatReference detectionRange;
-    [SerializeField] protected LayerMask targetLayerMask;
-
-    [Header("Visual Feedback")]
-    [SerializeField] private Canvas worldCanvas;
-    [SerializeField] Image cursorImage;
-    [SerializeField] private float worldOffset;
-    
+    [SerializeField] protected LayerMask targetLayerMask;    
 
     [Header("Output Data")]
     [SerializeField] protected GameEvent onTargetAquired;
@@ -104,14 +98,6 @@ public class TargetingComponent : MonoBehaviour
         if (CurrentTarget != null)
         {
             if (onTargetAquired != null && !hadTarget) onTargetAquired.Raise();
-            if (worldCanvas != null)
-            {
-                worldCanvas.transform.position = new Vector3(CurrentTarget.TargetTransform.position.x, CurrentTarget.TargetTransform.position.y + worldOffset);
-                if (cursorImage != null)
-                {
-                    cursorImage.enabled = true;  
-                }
-            }
             // DEBUGGING
             Debug.Log($"[TargetingComponent] Target acquired: {newTarget}"); 
 
@@ -119,7 +105,6 @@ public class TargetingComponent : MonoBehaviour
         else
         {
             if (onTargetLost != null && hadTarget) onTargetLost.Raise();
-            if (cursorImage != null) cursorImage.enabled = false;
         }
     }
     public void ClearTarget() => SetTarget(null);

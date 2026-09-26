@@ -40,9 +40,25 @@ using UnityEngine.UI;
 [AddComponentMenu("Combat/Player Targeting Component")]
 public class PlayerTargeting : TargetingComponent
 {
+    [Header("Visual Feedback")]
+    [SerializeField] private Canvas worldCanvas;
+    [SerializeField] Image cursorImage;
+    [SerializeField] private float worldOffset;
+
     #region Internal
     private readonly List<ITargetable> _availableTargets = new();
     private int _currentTargetIndex = -1;
+    private void LateUpdate()
+    {
+        if (!HasValidTarget || worldCanvas == null) return;
+
+        worldCanvas.transform.position = new Vector3(CurrentTarget.TargetTransform.position.x, CurrentTarget.TargetTransform.position.y + worldOffset, CurrentTarget.TargetTransform.position.z);
+
+        if (Camera.main != null)
+        {
+            worldCanvas.transform.rotation = Camera.main.transform.rotation;
+        }    
+    }
     #endregion
 
 

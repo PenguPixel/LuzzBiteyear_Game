@@ -22,18 +22,17 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles GameState communication. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: It holds an enum to define valid game states. It handles the communication in our EventSystem for other components.
+/// Coordination: The GameManager decides the current GameState and sets the value on demand. Then all Listeners will be informed on the change as per usual with any other Variable.
+/// Deployment: GameStates are defined once in the folder ScriptableObjects/GameStates.
 /// </summary>
 #endregion
 
 
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public enum GameState
@@ -41,8 +40,8 @@ public enum GameState
     Exploration,
     Combat,
     Paused,
-    GameOver,
-    Puzzle
+    Puzzle,
+    GameOver
 }
 
 [CreateAssetMenu(menuName = "Variables/GameState")]
