@@ -75,7 +75,10 @@ public class ResourceUI : MonoBehaviour
         previousResourceValue = currentResource != null ? currentResource.Value : 0;
         UpdateResoureUI();
     }
-
+    private void OnEnable()
+    {
+        UpdateResoureUI();
+    }
     #endregion
 
 

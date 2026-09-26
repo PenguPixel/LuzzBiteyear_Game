@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f28c99351d79f1b41a76305daa20216a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.55
+      value: 18.87
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f28c99351d79f1b41a76305daa20216a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.09
+      value: 0.71
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f28c99351d79f1b41a76305daa20216a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -43.57
+      value: -43.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f28c99351d79f1b41a76305daa20216a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
   DeveloperDescription: 
-  animationBridge: {fileID: 0}
-  doorCollider: {fileID: 0}
+  animationBridge: {fileID: 6315842705193699674}
+  doorCollider: {fileID: 8472181231114380992}
   startsOpen: 0
   disableColliderImmediately: 1
 --- !u!65 &8472181231114380992

@@ -33,6 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.Collections;
 using UnityEngine;
 
 
@@ -46,13 +47,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameStateVariable currentGameState;
 
     [Header("Broadcasting Events")]
-    [SerializeField] private GameEvent onGameStateChanged;    
+    [SerializeField] private GameEvent onGameStateChanged; 
+    [SerializeField] private GameEvent onRequestRespawn;
+    [SerializeField] private FloatReference gameOverDuration;  
     #endregion
 
     
     #region Internal
     private GameState previousState;
     private int activeAggroCount = 0;
+    private Coroutine gameOverRoutine;
+    private bool isProcessingGameOver = false;
     #endregion
 
     #region Unity Methods
@@ -74,6 +79,7 @@ public class GameManager : MonoBehaviour
     public void SetGameState(GameState newState)
     {
         if (currentGameState == null) return;
+        if (isProcessingGameOver && newState != GameState.GameOver) return;
         if (currentGameState.Value == newState) return;
 
         previousState = currentGameState.Value;
@@ -114,7 +120,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("Leave Puzzle State");
     }
 
-
+    public void OnPlayerDied()
+    {
+        if (gameOverRoutine != null) StopCoroutine(gameOverRoutine);
+        gameOverRoutine = StartCoroutine(GameOverSequenceRoutine());
+    }
+    private IEnumerator GameOverSequenceRoutine()
+    {
+        isProcessingGameOver = true;
+        GameOver(); // I know this seems absolutely redundant, BUT If we define a win condition we need this.
+        yield return new WaitForSecondsRealtime(gameOverDuration.Value);
+        onRequestRespawn.Raise();
+        isProcessingGameOver = false;
+        EnterExploration();
+        gameOverRoutine = null;
+    }
     public void OnQuit()
     {
         Application.Quit();
