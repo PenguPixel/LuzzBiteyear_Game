@@ -74,7 +74,7 @@ public class MovementComponent : MonoBehaviour
 
     #region Public Getters
     public bool IsGrounded => _isGrounded;
-    public bool DoubleJumpUnlocked => doubleJumpUnlocked;
+    // public bool DoubleJumpUnlocked => doubleJumpUnlocked;
     #endregion
 
     #region Internal   
@@ -147,7 +147,7 @@ public class MovementComponent : MonoBehaviour
 
     private void Update()
     {
-        _totalAvailableJumps = doubleJumpUnlocked ? 2 : 1;
+        _totalAvailableJumps = doubleJumpUnlocked ? 1 : 1;
 
 
         // check if Grounded

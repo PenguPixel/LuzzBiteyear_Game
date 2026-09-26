@@ -141,7 +141,7 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     variable: {fileID: 11400000, guid: 748a20cbf68b4e040bcc956fdbe79aa1, type: 2}
-  doubleJumpUnlocked: 1
+  doubleJumpUnlocked: 0
   GroundCheckTransform: {fileID: 4104935267064650684}
   GroundCheckRadius: 0.2
   GroundLayer:
