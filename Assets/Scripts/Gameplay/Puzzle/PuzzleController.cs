@@ -36,6 +36,11 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum PuzzleLayoutType
+{
+    Grid2x2,
+    Grid3x3
+}
 
 public class PuzzleController : MonoBehaviour
 {
@@ -61,12 +66,21 @@ public class PuzzleController : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private GameManager gameManager;
 
-    [SerializeField] private List<PuzzleNode> nodes = new List<PuzzleNode>();  
+    [Header("2x2 Layout Setup")]
+    [SerializeField] private GameObject container2x2;
+    [SerializeField] private List<PuzzleNode> nodes2x2 = new List<PuzzleNode>();  
+
+    [Header("3x3 Layout Setup")]
+    [SerializeField] private GameObject container3x3;
+    [SerializeField] private List<PuzzleNode> nodes3x3 = new List<PuzzleNode>();
+
+    [Header("Faces")]
     [SerializeField] private List<GameObject> faces = new List<GameObject>();  
     #endregion
 
     #region Internal
     private PlugTerminal _activeTerminal;
+    private List<PuzzleNode> _currentActiveNodes = new List<PuzzleNode>();
     #endregion    
     
     #region Methods
@@ -74,11 +88,17 @@ public class PuzzleController : MonoBehaviour
     /// Brief description of the method.
     /// </summary>
     /// <param name = "parameters">What this parameter represents </param>
-    public void SetupCurrentPuzzle(PlugTerminal terminal)
+    public void SetupCurrentPuzzle(PlugTerminal terminal, PuzzleLayoutType layoutType)
     {
         _activeTerminal = terminal;
 
-        foreach (var node in nodes)
+        bool is2x2 = layoutType == PuzzleLayoutType.Grid2x2;
+        if (container2x2 != null) container2x2.SetActive(is2x2);
+        if (container3x3 != null) container3x3.SetActive(!is2x2);
+
+        _currentActiveNodes = is2x2 ? nodes2x2 : nodes3x3;
+
+        foreach (var node in _currentActiveNodes)
         {
             node.Scramble();
         }
@@ -96,7 +116,7 @@ public class PuzzleController : MonoBehaviour
 
     public void CheckState()
     {
-        foreach (var node in nodes)
+        foreach (var node in _currentActiveNodes)
         {
             if (!node.IsConnected) return;
         }
