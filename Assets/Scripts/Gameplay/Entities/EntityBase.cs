@@ -43,24 +43,34 @@ public class EntityBase : MonoBehaviour, ITargetable
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
+    [Header("Dependencies")]
+    [SerializeField] private Transform targetTransform;
+    [SerializeField] private CharacterAnimationBridge animationBridge;
+
     [Header("Events")]
     [SerializeField] private GameEvent onEntitySpawned;
     [SerializeField] private GameEvent onEntityDied;
-    
     #endregion
 
 
     #region Internal
     private PoolManager poolManager;
     private GameObject sourcePrefab;
-    public Transform TargetTransform => transform;
+    public Transform TargetTransform => targetTransform;
 
     public bool IsTargetable => gameObject.activeInHierarchy;
 
+    private void Awake()
+    {
+        if (animationBridge == null) animationBridge = GetComponent<CharacterAnimationBridge>();
+    }
+    private void OnEnable()
+    {
+        animationBridge.OnDeathComplete += OnDeath;
+    }
     private void OnDisable()
     {
-        if (onEntityDied != null)
-            onEntityDied.Raise();
+        animationBridge.OnDeathComplete -= OnDeath;
     }
     #endregion
 
@@ -76,6 +86,7 @@ public class EntityBase : MonoBehaviour, ITargetable
     }
     public void OnDeath()
     {
+        onEntityDied.Raise();
         if (poolManager != null && sourcePrefab != null)
         {
             poolManager.Release(sourcePrefab, gameObject);

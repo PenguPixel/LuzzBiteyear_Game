@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6502815378062849555}
   - component: {fileID: 6562597241184683362}
+  - component: {fileID: 5708111486663927174}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -49,3 +50,33 @@ MonoBehaviour:
   HUDPanel: {fileID: 0}
   MenuPanel: {fileID: 0}
   GameOverPanel: {fileID: 0}
+  PuzzlePanel: {fileID: 0}
+--- !u!114 &5708111486663927174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979661095492610267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9285137fac79849ac786cc4d0fd251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
+  DeveloperDescription: 
+  gameEvent: {fileID: 11400000, guid: 52462f3ba9028554cb3768fb5e491947, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6562597241184683362}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HandleGameStateChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

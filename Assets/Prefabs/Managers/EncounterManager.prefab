@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
   DeveloperDescription: 
-  gameEvent: {fileID: 11400000, guid: dfde68c3552434240a5307ab99d7ffd8, type: 2}
+  gameEvent: {fileID: 11400000, guid: 80b4e2a826b7db44aae24aa91890f305, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:

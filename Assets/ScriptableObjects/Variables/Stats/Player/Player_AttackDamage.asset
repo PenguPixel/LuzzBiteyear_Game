@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player_AttackDamage
   m_EditorClassIdentifier: Assembly-CSharp::IntVariable
   DeveloperDescription: 
-  value: 2
+  value: 1

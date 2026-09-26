@@ -50,6 +50,7 @@ public class NarratorUI : MonoBehaviour
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
     [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject faceImage;
     [SerializeField] private TextMeshProUGUI bodyText;
     
     [SerializeField] private Sprite defaultSprite;
@@ -63,7 +64,7 @@ public class NarratorUI : MonoBehaviour
     private void Awake()
     {
         panel.SetActive(false);
-        image = panel.GetComponent<Image>();
+        image = faceImage.GetComponent<Image>();
     }
     #endregion
 
