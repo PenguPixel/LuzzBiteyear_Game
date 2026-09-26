@@ -48,6 +48,7 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] private Rigidbody Rigidbody;
     [SerializeField] private CharacterAnimationBridge animationBridge;
     [SerializeField] private TargetingComponent targetingComponent;
+    [SerializeField] private Transform cameraTransform;
 
     [Header("Movement Settings")]
     [SerializeField] private FloatReference MaxMoveSpeed;
@@ -63,6 +64,12 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] private float GroundCheckRadius = 0.2f;
     [SerializeField] private LayerMask GroundLayer;
 
+    [Header("Environment Slide Settings")]
+    [SerializeField] private LayerMask EnvironmentLayer;
+    [SerializeField] private float MaxSlopeAngle = 55f;
+    [SerializeField] private float ObstacleCheckHeight = 0.5f;
+    [SerializeField] private float ObstacleCheckDistance = 0.4f;
+
     #endregion
 
     #region Public Getters
@@ -73,7 +80,7 @@ public class MovementComponent : MonoBehaviour
     #region Internal   
 
     // Movement cache fed with values from InputComponent
-    private Vector3 _currentMoveInput;
+    private Vector2 _currentMoveInput;
     
     // Jumping
     private bool _isGrounded = true;
@@ -107,6 +114,11 @@ public class MovementComponent : MonoBehaviour
             {
                 animationBridge = GetComponentInChildren<CharacterAnimationBridge>();
             }
+        }
+
+        if (cameraTransform == null && Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
         }
 
         Rigidbody.useGravity = true;
@@ -164,9 +176,26 @@ public class MovementComponent : MonoBehaviour
         }
     }
 
-    private Vector3 SetMoveDirection(Vector3 moveInputValue)
+    private Vector3 SetMoveDirection(Vector2 moveInputValue)
     {
-        Vector3 moveDirection = moveInputValue;
+        Vector3 moveDirection = Vector3.zero;
+
+        if (cameraTransform != null)
+        {
+            Vector3 camForward = cameraTransform.forward;
+            Vector3 camRight = cameraTransform.right;
+
+            camForward.y = 0f;
+            camRight.y = 0f;
+            camForward.Normalize();
+            camRight.Normalize();
+
+            moveDirection = (camForward * moveInputValue.y) + (camRight * moveInputValue.x);
+        }
+        else
+        {
+            moveDirection = new Vector3(moveInputValue.x, 0f, moveInputValue.y);
+        }
 
         float targetSpeed = MaxMoveSpeed != null ? MaxMoveSpeed.Value : 5f;
 
@@ -196,6 +225,24 @@ public class MovementComponent : MonoBehaviour
             if (CurrentMoveSpeed != null)
             {
                 CurrentMoveSpeed.Value = targetSpeed;
+            }
+        }
+
+        // Environment Check
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            Vector3 checkOrigin = transform.position + Vector3.up * ObstacleCheckHeight;
+
+            if (Physics.SphereCast(checkOrigin, 0.25f, moveDirection, out RaycastHit hit, ObstacleCheckDistance, EnvironmentLayer))
+            {
+                float surfaceAngle = Vector3.Angle(hit.normal, Vector3.up);
+
+                if (surfaceAngle > MaxSlopeAngle)
+                {
+                    moveDirection = Vector3.ProjectOnPlane(moveDirection, hit.normal);
+                    moveDirection.y = 0f;
+                    moveDirection.Normalize();
+                }
             }
         }
         
@@ -270,7 +317,7 @@ public class MovementComponent : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void SetMoveValue(Vector3 moveInputValue)
+    public void SetMoveValue(Vector2 moveInputValue)
     {
         _currentMoveInput = moveInputValue;
     }
