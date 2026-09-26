@@ -1,5 +1,4 @@
 #region Project Details
-using System.Net.Sockets;
 /*
 * Project: MyProjectName
 * Author:Christof Kloninger / kloningerchristof@gmail.com
@@ -78,6 +77,7 @@ public class InteractableCactus : MonoBehaviour, IInteractable
     }
     private void OnEnable()
     {
+        isInteractable = true;
         UpdateVisuals();
     }
     #endregion
@@ -88,8 +88,8 @@ public class InteractableCactus : MonoBehaviour, IInteractable
     {
         if (!isInteractable) return;
 
-        if (interactor.CompareTag("Player") && interactor.TryGetComponent(out Health health))
-            health.Heal(healAmount);
+        if (interactor.TryGetComponent<IHealable>(out var health))
+            health.Heal(healAmount, gameObject);
 
         if (audioChannel != null && soundData != null)
             audioChannel.RaiseSFX(soundData, transform.position);
