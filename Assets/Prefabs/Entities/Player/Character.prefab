@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4077784448564141129}
   - component: {fileID: 5028715261551232349}
   - component: {fileID: 3001382210784067441}
+  - component: {fileID: 4671420308455227485}
   m_Layer: 3
   m_Name: Character
   m_TagString: Player
@@ -123,6 +124,7 @@ MonoBehaviour:
   Rigidbody: {fileID: 7336654473404397482}
   animationBridge: {fileID: 5028715261551232349}
   targetingComponent: {fileID: 2407647279697084181}
+  cameraTransform: {fileID: 0}
   MaxMoveSpeed:
     useConstant: 0
     constantValue: 0
@@ -139,12 +141,18 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     variable: {fileID: 11400000, guid: 748a20cbf68b4e040bcc956fdbe79aa1, type: 2}
-  doubleJumpUnlocked: 1
+  doubleJumpUnlocked: 0
   GroundCheckTransform: {fileID: 4104935267064650684}
   GroundCheckRadius: 0.2
   GroundLayer:
     serializedVersion: 2
     m_Bits: 512
+  EnvironmentLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  MaxSlopeAngle: 55
+  ObstacleCheckHeight: 0.5
+  ObstacleCheckDistance: 0.4
 --- !u!114 &6820797177002138492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +266,7 @@ MonoBehaviour:
     variable: {fileID: 11400000, guid: dbe665a5702317be49cb429a7e69f9d2, type: 2}
   energyCost: 1
   firePoint: {fileID: 13578401550929105}
-  projectilePrefab: {fileID: 4272611791047314864, guid: ceac3888e72116c4895f7a791d46d74d, type: 3}
+  projectilePrefab: {fileID: 3630569505607164923, guid: b8fcdd030e8afcf54afcf0d25acf1c81, type: 3}
   audioChannel: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
   shotSO: {fileID: 11400000, guid: 66a55fd4395d97a4e8ac681e1f1a138f, type: 2}
 --- !u!114 &4538471961920880641
@@ -421,6 +429,9 @@ MonoBehaviour:
     m_Bits: 64
   onTargetAquired: {fileID: 0}
   onTargetLost: {fileID: 0}
+  worldCanvas: {fileID: 0}
+  cursorImage: {fileID: 0}
+  worldOffset: 2.5
 --- !u!114 &370112988476147090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,6 +511,23 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.89, z: 0}
+--- !u!114 &4671420308455227485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4894687331590702382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949e3e4f59ee9d0448ef40f65f986ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityBase
+  DeveloperDescription: 
+  targetTransform: {fileID: 0}
+  animationBridge: {fileID: 5028715261551232349}
+  onEntitySpawned: {fileID: 0}
+  onEntityDied: {fileID: 11400000, guid: e8e53cae27523a4448155d90cf63313f, type: 2}
 --- !u!1 &5388613418282316932
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +553,7 @@ Transform:
   m_GameObject: {fileID: 5388613418282316932}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 1.208, z: 0.566}
+  m_LocalPosition: {x: -0.03, y: 1.208, z: 0.6761}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

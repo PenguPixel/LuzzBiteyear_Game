@@ -1343,6 +1343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityBase
   DeveloperDescription: 
+  targetTransform: {fileID: 0}
+  animationBridge: {fileID: 0}
   onEntitySpawned: {fileID: 0}
   onEntityDied: {fileID: 0}
 --- !u!114 &1283318059
@@ -1827,6 +1829,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 942488898936006765, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
+      propertyPath: validSteps.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 942488898936006765, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
+      propertyPath: 'validSteps.Array.data[1]'
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1003236085805714569, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1906,6 +1916,10 @@ PrefabInstance:
     - target: {fileID: 6721880015325760318, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648443824570746811, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
+      propertyPath: 'validSteps.Array.data[0]'
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7678269243455408254, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2114,6 +2128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityBase
   DeveloperDescription: 
+  targetTransform: {fileID: 0}
+  animationBridge: {fileID: 0}
   onEntitySpawned: {fileID: 0}
   onEntityDied: {fileID: 0}
 --- !u!114 &1411272368

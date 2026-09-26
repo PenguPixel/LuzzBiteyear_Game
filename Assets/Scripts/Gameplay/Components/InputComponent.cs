@@ -68,7 +68,7 @@ public class InputComponent : MonoBehaviour
 
     #endregion
     #region Internal
-    private Vector3 _currentMoveInput;
+    private Vector2 _currentMoveInput;
     #endregion
 
     #region UnityMethods  
@@ -172,8 +172,11 @@ public class InputComponent : MonoBehaviour
     {
         if (MoveAction.action != null)
         {
-            Vector2 moveActionValue = MoveAction.action.ReadValue<Vector2>();
-            _currentMoveInput = new Vector3(moveActionValue.x, 0f, moveActionValue.y);
+            // OLD VERSION FOR FIXED CAM
+            // Vector2 moveActionValue = MoveAction.action.ReadValue<Vector2>();
+            // _currentMoveInput = new Vector3(moveActionValue.x, 0f, moveActionValue.y);
+            
+            _currentMoveInput = MoveAction.action.ReadValue<Vector2>();
             movementComponent?.SetMoveValue(_currentMoveInput);
         }
     }

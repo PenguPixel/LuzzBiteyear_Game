@@ -36,6 +36,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public enum CactusType
 {
@@ -56,6 +57,7 @@ public class InteractableCactus : MonoBehaviour, IInteractable
 
     [Header("Visuals")]
     [SerializeField] private List<GameObject> fruitObjects = new();
+    [SerializeField] private GameObject pointLight;
 
     [Header("Audio Feedback")]
     [SerializeField] private AudioEventChannel audioChannel;
@@ -78,6 +80,7 @@ public class InteractableCactus : MonoBehaviour, IInteractable
     private void OnEnable()
     {
         isInteractable = true;
+        if(pointLight != null) pointLight.SetActive(true);
         UpdateVisuals();
     }
     #endregion
@@ -100,6 +103,7 @@ public class InteractableCactus : MonoBehaviour, IInteractable
         else
         {
             isInteractable = false;
+            if (pointLight != null) pointLight.SetActive(false);
             if (cooldownRoutine != null) StopCoroutine(cooldownRoutine);
             cooldownRoutine = StartCoroutine(CooldownRoutine());
         }
