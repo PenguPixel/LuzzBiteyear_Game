@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6326916467296641578}
   - component: {fileID: 6285245325624771549}
   - component: {fileID: 7666445789079739039}
+  - component: {fileID: 4604063274989187881}
   m_Layer: 7
   m_Name: Cactus_01
   m_TagString: Untagged
@@ -103,9 +104,25 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 3.58
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!208 &4604063274989187881
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659460947452897260}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &5092052767210790732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,39 +182,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 607fc573651453f4ba72b8b1655a66ea, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6131729749546530153}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 607fc573651453f4ba72b8b1655a66ea, type: 3}
 --- !u!4 &4692788737113438375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 607fc573651453f4ba72b8b1655a66ea, type: 3}
   m_PrefabInstance: {fileID: 5092052767210790732}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5362646767943410205 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 607fc573651453f4ba72b8b1655a66ea, type: 3}
-  m_PrefabInstance: {fileID: 5092052767210790732}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &6131729749546530153
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5362646767943410205}
-  m_Material: {fileID: 13400000, guid: 41256a0025192a40799bf59b2a30b8c8, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.007941487, y: 0.014191282, z: 0.03211198}
-  m_Center: {x: 0.0013456293, y: -0.0011510947, z: 0.016055986}

@@ -46,10 +46,13 @@ public class GameManager : MonoBehaviour
     [Header("State Data")]
     [SerializeField] private GameStateVariable currentGameState;
 
+    [Header("StateTransition")]
+    [SerializeField] private float aggroLostBufferTime = 1.5f;
+
     [Header("Broadcasting Events")]
     [SerializeField] private GameEvent onGameStateChanged; 
     [SerializeField] private GameEvent onRequestRespawn;
-    [SerializeField] private FloatReference gameOverDuration;  
+    [SerializeField] private FloatReference gameOverDuration;
     #endregion
 
     
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
     private GameState previousState;
     private int activeAggroCount = 0;
     private Coroutine gameOverRoutine;
+    private Coroutine aggroLostRoutine;
     private bool isProcessingGameOver = false;
     #endregion
 
@@ -122,6 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDied()
     {
+        if (isProcessingGameOver) return;
         if (gameOverRoutine != null) StopCoroutine(gameOverRoutine);
         gameOverRoutine = StartCoroutine(GameOverSequenceRoutine());
     }
@@ -145,13 +150,36 @@ public class GameManager : MonoBehaviour
     #region Helpers
     public void OnEnemyAggroAcquired()
     {
+        if (isProcessingGameOver) return;
         activeAggroCount++;
-        if (activeAggroCount > 0) EnterCombat();
+        if (aggroLostRoutine != null)
+        {
+            StopCoroutine(aggroLostRoutine);
+            aggroLostRoutine = null;
+        }
+        if (currentGameState.Value != GameState.Combat) 
+            EnterCombat();
     }
     public void OnEnemyAggroLost()
     {
         activeAggroCount = Mathf.Max(0, activeAggroCount -1);
-        if (activeAggroCount == 0) EnterExploration();
+        if (isProcessingGameOver) return;
+
+
+        if (activeAggroCount == 0)
+        {
+            if (aggroLostRoutine != null) StopCoroutine(aggroLostRoutine);
+            aggroLostRoutine = StartCoroutine(AggroLostRoutine());
+        } 
+    }
+    private IEnumerator AggroLostRoutine()
+    {
+        yield return new WaitForSeconds(aggroLostBufferTime);
+
+        if (activeAggroCount == 0 && !isProcessingGameOver)
+            EnterExploration();
+        
+        aggroLostRoutine = null;
     }
     #endregion
 }

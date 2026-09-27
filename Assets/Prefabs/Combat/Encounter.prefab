@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 6348293155339683968}
   - component: {fileID: 3989845770310933813}
   - component: {fileID: 1058307629280769429}
+  - component: {fileID: 7135634849300080559}
   m_Layer: 0
   m_Name: Encounter
   m_TagString: Untagged
@@ -271,8 +272,7 @@ MonoBehaviour:
   DeveloperDescription: 
   isOneShot: 0
   waves:
-  - enemyPrefab: {fileID: 1927975433779613519, guid: 1fed41510cedd1545a04db3aac97491f, type: 3}
-    count: 3
+  - enemyGroups: []
     spawnInterval: 1
   spawnPoints:
   - {fileID: 2796383371487369101}
@@ -303,6 +303,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 5, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7135634849300080559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772657040545781606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9285137fac79849ac786cc4d0fd251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
+  DeveloperDescription: 
+  gameEvent: {fileID: 11400000, guid: e8e53cae27523a4448155d90cf63313f, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3989845770310933813}
+        m_TargetAssemblyTypeName: EncounterTrigger, Assembly-CSharp
+        m_MethodName: ToggleBarriers
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6833028766139636851
 GameObject:
   m_ObjectHideFlags: 0
