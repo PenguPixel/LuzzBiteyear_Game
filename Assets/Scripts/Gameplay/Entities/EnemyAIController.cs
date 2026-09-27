@@ -70,7 +70,7 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] private CharacterAnimationBridge animationBridge;
     [SerializeField] private AudioEventChannel audioChannel;
 
-    [Header("Optional Executioon Components")]
+    [Header("Optional Execution Components")]
 //    [SerializeField] private MovementComponent movementComponent;
     [SerializeField] private AttackComponent attackComponent;
     [SerializeField] private ShootingComponent shootingComponent;

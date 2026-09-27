@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7131962393294309674}
   - component: {fileID: 7906178775196379300}
   - component: {fileID: 5005523321593519381}
+  - component: {fileID: 7667996273013134759}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,7 +49,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   DeveloperDescription: Handles states and enforces rules.
   currentGameState: {fileID: 11400000, guid: 603ee1f057edf8248887ad5aa0ee2281, type: 2}
+  aggroLostBufferTime: 1.5
   onGameStateChanged: {fileID: 11400000, guid: 52462f3ba9028554cb3768fb5e491947, type: 2}
+  onRequestRespawn: {fileID: 11400000, guid: 426a8d055ea47644faee3c122fd9463a, type: 2}
+  gameOverDuration:
+    useConstant: 1
+    constantValue: 5
+    variable: {fileID: 0}
 --- !u!114 &7906178775196379300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +105,35 @@ MonoBehaviour:
       - m_Target: {fileID: 7131962393294309674}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnEnemyAggroLost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7667996273013134759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906837328803071984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9285137fac79849ac786cc4d0fd251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventListener
+  DeveloperDescription: 
+  gameEvent: {fileID: 11400000, guid: e8e53cae27523a4448155d90cf63313f, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7131962393294309674}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnPlayerDied
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

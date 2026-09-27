@@ -102,6 +102,7 @@ public class ResourceUI : MonoBehaviour
     }
     public void UpdateResoureUI()
     {
+        if (fillImages == null || fillImages.Count == 0) return;
         float ratio = maxResource.Value > 0 ? (float)currentResource.Value / maxResource.Value : 0;
         Color targetColor = GetThresholdColor(ratio);
         for (int i = 0; i < fillImages.Count; i++)
@@ -109,7 +110,7 @@ public class ResourceUI : MonoBehaviour
             fillImages[i].color = targetColor;
             fillImages[i].gameObject.SetActive(i < currentResource.Value);
         }
-        if (currentResource.Value != previousResourceValue)
+        if (currentResource.Value != previousResourceValue && currentResource.Value >= 0 && currentResource.Value < fillImages.Count)
         {
             int affectedIndex = Mathf.Clamp(Mathf.Min(currentResource.Value, previousResourceValue), 0, fillImages.Count -1);
             if (activeBlinkRoutine != null)

@@ -65,6 +65,13 @@ public class Projectile : MonoBehaviour
         targetLayers = mask;
         currentLifetime = 0f;
         
+        if (target == null)
+        {
+            if (poolManager != null && sourcePrefab != null)
+                poolManager.Release(sourcePrefab, gameObject);
+            else
+                gameObject.SetActive(false);
+        }
         flyDirection = (target.position - transform.position).normalized;
         if (flyDirection != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(flyDirection);
@@ -87,7 +94,7 @@ public class Projectile : MonoBehaviour
 
         if (other.TryGetComponent<Health>(out var health))
         {
-            DamageContext ctx = new DamageContext(
+            DamageContext ctx = new(
                 damageAmount.Value,
                 DamageType.Ranged,
                 gameObject
