@@ -50,6 +50,7 @@ public class StartSceneManager : MonoBehaviour
 
     [Header("Sequence Settings")]
     [SerializeField] private float fadeDuration = 0.8f;
+    [SerializeField] private float initialBlackholdTime = 0.8f;
     #endregion
 
     #region Internal
@@ -68,16 +69,16 @@ public class StartSceneManager : MonoBehaviour
         StartCoroutine(WelcomeIntroRoutine());
     }
 
-    private void Update()
-    {
-        if (_isLevelReady && !_transitionStarted)
-        {
-            if (WasAnyStartTriggerPressed())
-            {
-                TriggerGameStart();
-            }
-        }
-    }
+    // <private void Update()
+    // {
+    //     if (_isLevelReady && !_transitionStarted)
+    //     {
+    //         if (WasAnyStartTriggerPressed())
+    //         {
+    //             TriggerGameStart();
+    //         }
+    //     }
+    // }>
 
     private void OnDestroy()
     {
@@ -118,6 +119,16 @@ public class StartSceneManager : MonoBehaviour
     private IEnumerator WelcomeIntroRoutine()
     {
         if (gameManager != null)
+        {
+            gameManager.SetGameState(GameState.StartScene);
+        }
+
+        if (initialBlackholdTime > 0f)
+        {
+            yield return new WaitForSecondsRealtime(initialBlackholdTime);
+        }
+
+        if (uiManager != null)
         {
             yield return StartCoroutine(uiManager.FadeInFromBlack(fadeDuration));
         }

@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject PuzzlePanel;
     [Header("Start Screen")]
-    [SerializeField] private GameObject WelcomePanel;
+    [SerializeField] private GameObject StartScenePanel;
     [SerializeField] private CanvasGroup blackFaderCanvasGroup;
     [SerializeField] private GameObject readyPrompt;
     #endregion
@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
         if (HUDPanel != null) HUDPanel.SetActive(false);
         if (GameOverPanel != null) GameOverPanel.SetActive(false);
         if (PuzzlePanel != null) PuzzlePanel.SetActive(false);
-        if (WelcomePanel != null) WelcomePanel.SetActive(false);
+        if (StartScenePanel != null) StartScenePanel.SetActive(false);
     }
     #endregion
 
@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameState.StartScene:
-                if (WelcomePanel != null) WelcomePanel.SetActive(true);
+                if (StartScenePanel != null) StartScenePanel.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 break;

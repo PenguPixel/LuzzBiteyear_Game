@@ -81473,7 +81473,7 @@ Camera:
     height: 1
   near clip plane: 1
   far clip plane: 1000
-  field of view: 62.3
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -81499,8 +81499,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636323501}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21025507, y: 0.028899899, z: -0.0062181265, w: 0.97719955}
-  m_LocalPosition: {x: -54.890003, y: 8.38, z: -3.83}
+  m_LocalRotation: {x: 0.29316425, y: 1.2655088e-15, z: -3.880521e-16, w: 0.9560621}
+  m_LocalPosition: {x: -54.15, y: 7.13, z: 2.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -260612,31 +260612,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -54.890003
+      value: -54.15
       objectReference: {fileID: 0}
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.38
+      value: 7.13
       objectReference: {fileID: 0}
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.83
+      value: 2.17
       objectReference: {fileID: 0}
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97719955
+      value: 0.95606214
       objectReference: {fileID: 0}
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.21025507
+      value: 0.29316422
       objectReference: {fileID: 0}
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0288999
+      value: 1.2988223e-15
       objectReference: {fileID: 0}
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0062181274
+      value: -4.9669387e-16
       objectReference: {fileID: 0}
     - target: {fileID: 82454521821857013, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -260651,6 +260651,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 482905066248325279, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: Lens.FieldOfView
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 482905066248325279, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 1503947007}
@@ -260660,11 +260664,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984778008252780478, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: Decollision.Damping
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1984778008252780478, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: TerrainResolution.Damping
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984778008252780478, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: TerrainResolution.Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984778008252780478, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: Decollision.UseFollowTarget.YOffset
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: FollowOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: FollowOffset.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: FollowOffset.z
+      value: -6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
+      propertyPath: TrackerSettings.PositionDamping.z
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: TrackerSettings.RotationDamping.x
