@@ -49,7 +49,6 @@ public class EncounterTrigger : MonoBehaviour
     [Header("Trigger Setup")]
     [SerializeField] private bool isOneShot = true;
     [SerializeField] List<WaveData> waves = new();
-    [SerializeField] Transform[] spawnPoints;
     [SerializeField] private float cooldownTime = 180f;
     [SerializeField] private Collider triggerCollider;
 
@@ -66,7 +65,6 @@ public class EncounterTrigger : MonoBehaviour
     #region Internal
     private bool hasTriggered;
     public IReadOnlyList<WaveData> Waves => waves;
-    public Transform[] SpawnPoints => spawnPoints;
     #endregion
 
 

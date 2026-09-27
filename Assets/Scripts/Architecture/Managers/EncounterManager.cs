@@ -174,7 +174,13 @@ public class EncounterManager : MonoBehaviour
                 }
             }
         }
-        if (!foundValidPosition) return false;
+        if (!foundValidPosition)
+        {
+            if (NavMesh.SamplePosition(centrePoint, out NavMeshHit hit, 5.0f, NavMesh.AllAreas))
+                validSpawnPos = hit.position;
+            else 
+                return false;
+        }
 
         var spawnDelegate = poolManager.GetSpawnDelegate(enemyprefab);
         GameObject enemyObj = spawnDelegate.Invoke(validSpawnPos, Quaternion.identity);
@@ -183,6 +189,10 @@ public class EncounterManager : MonoBehaviour
         {
             agent.Warp(validSpawnPos);
             agent.enabled = true;
+        }
+        if (enemyObj.TryGetComponent<EnemyAIController>(out var aIController))
+        {
+            aIController.ResetAISpawn(validSpawnPos);
         }
         if (enemyObj.TryGetComponent<EntityBase>(out var entity))
         {
