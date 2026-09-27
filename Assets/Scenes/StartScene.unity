@@ -140,11 +140,6 @@ CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 8341521744134115524, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
   m_PrefabInstance: {fileID: 4529223288302398270}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &629032464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8739604033861041533, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
-  m_PrefabInstance: {fileID: 4529223288302398270}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &711875918
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +575,7 @@ PrefabInstance:
     - target: {fileID: 6562597241184683362, guid: 3e2923eec45098847a35c6a8823dabc5, type: 3}
       propertyPath: readyPrompt
       value: 
-      objectReference: {fileID: 629032464}
+      objectReference: {fileID: 1501051035}
     - target: {fileID: 6562597241184683362, guid: 3e2923eec45098847a35c6a8823dabc5, type: 3}
       propertyPath: WelcomePanel
       value: 
@@ -648,6 +643,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1501051035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3414149228750463166, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
+  m_PrefabInstance: {fileID: 4529223288302398270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1624964720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -835,10 +835,30 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1117429119}
-    - target: {fileID: 2620002057154370126, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
+    - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1456919430}
+    - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TriggerGameStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StartSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3414149228750463166, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772945234852755767, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4941486855808268278, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -849,7 +869,7 @@ PrefabInstance:
       objectReference: {fileID: 1117429119}
     - target: {fileID: 5335028169039044713, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: StartCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 7223579277129068982, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
       propertyPath: m_Pivot.x
