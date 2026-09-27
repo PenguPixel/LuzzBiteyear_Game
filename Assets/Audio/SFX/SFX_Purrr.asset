@@ -19,4 +19,4 @@ MonoBehaviour:
   maxPitch: 1.1
   spatialBlend: 1
   minDistance: 1
-  maxDistance: 10
+  maxDistance: 15
