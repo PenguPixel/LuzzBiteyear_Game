@@ -60,7 +60,6 @@ public class NarratorTrigger : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (hasTriggered && isOneShot) return;
-        if ()
         if (other.CompareTag("Player"))
         {
             NarratorUI narratorUI = FindFirstObjectByType<NarratorUI>();
