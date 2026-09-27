@@ -62,6 +62,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private SoundData explorationMusic;
     [SerializeField] private SoundData combatMusic;
     [SerializeField] private SoundData mainMenuMusic;
+    [SerializeField] private SoundData startMusic;
     #endregion
 
 
@@ -128,6 +129,7 @@ public class AudioManager : MonoBehaviour
             GameState.Exploration => explorationMusic,
             GameState.Combat => combatMusic,
             GameState.Paused => mainMenuMusic,
+            GameState.StartScene => startMusic,
             _ => null
         };
         if (targetMusic != null)
