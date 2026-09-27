@@ -326,19 +326,20 @@ public class MovementComponent : MonoBehaviour
     {
         // if (!_isGrounded) return;
 
-        if (_isGrounded && !_isJumping)
+        if (_isGrounded)
         {
             _remainingJumps = _totalAvailableJumps; // Reset remaining jumps when grounded
             _jumpRequested = true;
             _remainingJumps--;
-            _isJumping = true;
+            // _isJumping = true;
         }
-        else if (_isJumping && _remainingJumps >= 1)
-        {
-            _jumpRequested = true;
-            _remainingJumps--;
-            _isJumping = false; // Reset jumping state after double jump
-        }
+        // Double Jump - placeholder for further development of the game
+        // else if (_isJumping && _remainingJumps >= 1)
+        // {
+        //     _jumpRequested = true;
+        //     _remainingJumps--;
+        //     _isJumping = false; // Reset jumping state after double jump
+        // }
     }
 
     public void UnlockDoubleJump()
