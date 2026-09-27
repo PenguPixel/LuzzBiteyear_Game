@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f6e1fb556b9d793889ab73b850245fbc
+guid: 5cc69f18469bcbe069af2cef1efbc927
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1734204699672526721
-    second: FINALLY_itch.io_cover_0
+      213: 5328112681699122641
+    second: hero_cover_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FINALLY_itch.io_cover_0
+      name: hero_cover_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2625
-        height: 2084
+        width: 8000
+        height: 4500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f70c43c830edee7e0800000000000000
-      internalID: -1734204699672526721
+      spriteID: 1dd1ee3214241f940800000000000000
+      internalID: 5328112681699122641
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      FINALLY_itch.io_cover_0: -1734204699672526721
+      hero_cover_0: 5328112681699122641
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -32,8 +32,9 @@ Use side comments in line to describe lines that obfuscate their function as exp
 /// </summary>
 #endregion
 
-
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class StartSceneManager : MonoBehaviour
@@ -44,12 +45,47 @@ public class StartSceneManager : MonoBehaviour
 #endif
     [Header("Dependencies")]
     [SerializeField] private GameManager gameManager;
-    
-    [Header("Canvas Elements")]
-    [SerializeField] private GameObject fadingPanel;
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private ScenePreloader preloader;
+
+    [Header("Sequence Settings")]
+    [SerializeField] private float fadeDuration = 0.8f;
     #endregion
+
     #region Internal
-    private int someValue;
+    private bool _isLevelReady = false;
+    private bool _transitionStarted = false;
+    #endregion
+
+    #region Unity Methods
+    private void Start()
+    {
+        if (preloader != null)
+        {
+            preloader.OnPreloadComplete += HandleLevelready;
+        }
+
+        StartCoroutine(WelcomeIntroRoutine());
+    }
+
+    private void Update()
+    {
+        if (_isLevelReady && !_transitionStarted)
+        {
+            if (WasAnyStartTriggerPressed())
+            {
+                TriggerGameStart();
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (preloader != null)
+        {
+            preloader.OnPreloadComplete -= HandleLevelready;
+        }
+    }
     #endregion
 
     
@@ -58,11 +94,72 @@ public class StartSceneManager : MonoBehaviour
     /// Brief description of the method.
     /// </summary>
     /// <param name = "parameters">What this parameter represents </param>
-    public void GoodMethod(int parameters)
+    private bool WasAnyStartTriggerPressed()
     {
-        /* --- CodeBlock: Logic Execution --- */
-        // Description: Describe the intent of this specific block
-        var value = parameters * 2;   // Descriptive comment for specific line, if necessary
+        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame) return true;
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.rightButton.wasPressedThisFrame) return true;
+        if (Gamepad.current != null)
+        {
+            if (Gamepad.current.buttonSouth.wasPressedThisFrame ||
+               Gamepad.current.buttonEast.wasPressedThisFrame ||
+               Gamepad.current.buttonWest.wasPressedThisFrame ||
+               Gamepad.current.buttonNorth.wasPressedThisFrame)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Brief description of the method.
+    /// </summary>
+    /// <param name = "parameters">What this parameter represents </param>
+    private IEnumerator WelcomeIntroRoutine()
+    {
+        if (gameManager != null)
+        {
+            yield return StartCoroutine(uiManager.FadeInFromBlack(fadeDuration));
+        }
+    }
+
+    /// <summary>
+    /// Brief description of the method.
+    /// </summary>
+    /// <param name = "parameters">What this parameter represents </param>
+    private void HandleLevelready()
+    {
+        _isLevelReady = true;
+
+        if (uiManager != null)
+        {
+            uiManager.ShowReadyPrompt(true);
+        }
+    }
+
+    public void TriggerGameStart()
+    {
+        if (_transitionStarted) return;
+        _transitionStarted = true;
+
+        StartCoroutine(TransitionToGameplayRoutine());
+    }
+
+    private IEnumerator TransitionToGameplayRoutine()
+    {
+        if (uiManager != null)
+        {
+            yield return StartCoroutine(uiManager.FadeToBlack(fadeDuration));
+        }
+
+        if (preloader != null)
+        {
+            preloader.ActivateScene();
+        }
+        else
+        {
+            Debug.Log("[StartSceneManager] Scene preloader reference missing!");
+        }
     }
     #endregion
 }

@@ -38,7 +38,6 @@ using UnityEngine;
 public enum GameState
 {
     StartScene,
-    Loading,
     Exploration,
     Combat,
     Paused,

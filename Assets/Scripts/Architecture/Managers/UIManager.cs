@@ -33,8 +33,8 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 public class UIManager : MonoBehaviour
@@ -51,6 +51,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject MenuPanel;
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject PuzzlePanel;
+    [Header("Start Screen")]
+    [SerializeField] private GameObject WelcomePanel;
+    [SerializeField] private CanvasGroup blackFaderCanvasGroup;
+    [SerializeField] private GameObject readyPrompt;
     #endregion
 
 
@@ -61,6 +65,7 @@ public class UIManager : MonoBehaviour
         if (HUDPanel != null) HUDPanel.SetActive(false);
         if (GameOverPanel != null) GameOverPanel.SetActive(false);
         if (PuzzlePanel != null) PuzzlePanel.SetActive(false);
+        if (WelcomePanel != null) WelcomePanel.SetActive(false);
     }
     #endregion
 
@@ -95,7 +100,57 @@ public class UIManager : MonoBehaviour
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 break;
+
+            case GameState.StartScene:
+                if (WelcomePanel != null) WelcomePanel.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                break;
         }
+    }
+
+    public void ShowReadyPrompt(bool show)
+    {
+        if (readyPrompt != null) readyPrompt.SetActive(true);
+    }
+    #endregion
+
+    #region Coroutines
+    public IEnumerator FadeInFromBlack(float duration = 1.0f)
+    {
+        if (blackFaderCanvasGroup == null) yield break;
+        blackFaderCanvasGroup.gameObject.SetActive(true);
+        blackFaderCanvasGroup.alpha = 1f;
+        blackFaderCanvasGroup.blocksRaycasts = true;
+
+        yield return null;
+
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+            blackFaderCanvasGroup.alpha = Mathf.Lerp(1f, 0f, timer / duration);
+            yield return null;
+        }
+        blackFaderCanvasGroup.alpha = 0f;
+        blackFaderCanvasGroup.blocksRaycasts = false;
+    }
+
+    public IEnumerator FadeToBlack(float duration = 0.8f)
+    {
+        if (blackFaderCanvasGroup == null) yield break;
+
+        blackFaderCanvasGroup.gameObject.SetActive(true);
+        blackFaderCanvasGroup.blocksRaycasts = true;
+
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+            blackFaderCanvasGroup.alpha = Mathf.Lerp(0f, 1f, timer / duration);
+            yield return null;
+        }
+        blackFaderCanvasGroup.alpha = 1f;
     }
     #endregion
 }
