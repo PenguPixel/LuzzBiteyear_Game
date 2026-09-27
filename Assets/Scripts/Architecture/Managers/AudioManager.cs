@@ -110,7 +110,7 @@ public class AudioManager : MonoBehaviour
     #region Volume Settings Logic
     public void SetMasterVolume(float linearVolume)
     {
-        float db = linearVolume > 0.0001f ? Mathf.Log10(linearVolume) * 20f : -80f;
+        float db = linearVolume > 0.0001f ? Mathf.Log10(linearVolume) * 20f : -30f;
         mainMixer.SetFloat("MasterVolume", db);
     }
 
