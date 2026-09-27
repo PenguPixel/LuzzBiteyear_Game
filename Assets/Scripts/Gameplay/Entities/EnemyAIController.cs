@@ -35,6 +35,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -98,6 +99,7 @@ public class EnemyAIController : MonoBehaviour
     private AIState currentState = AIState.Idle;
     private Vector3 homePosition;
     private Vector3 currentDestination;
+    private Vector3 lastDestination;
     private float idleTimer;
     private float decisionTimer;
     private bool isPerformingAction;
@@ -105,16 +107,13 @@ public class EnemyAIController : MonoBehaviour
 
     private void Start()
     {
-        homePosition = transform.position;
-
-        if (navMeshAgent != null && navMeshAgent.isOnNavMesh)
-            navMeshAgent.Warp(transform.position);
-        
         SetState(AIState.Idle);
     }
     private void OnEnable()
     {
-        navMeshAgent.enabled = true;
+        if (navMeshAgent != null && navMeshAgent.isOnNavMesh)
+            navMeshAgent.enabled = true;
+            
         if (animationBridge != null)
         {
             animationBridge.OnAttackComplete += HandleActionCompleted;
@@ -129,6 +128,13 @@ public class EnemyAIController : MonoBehaviour
             animationBridge.OnAttackComplete -= HandleActionCompleted;
             animationBridge.OnHitReactionComplete -= HandleActionCompleted;
         }
+    }
+    public void ResetAISpawn(Vector3 spawnPosition)
+    {
+        homePosition = spawnPosition;
+        lastDestination = spawnPosition;
+        isPerformingAction = false;
+        SetState(AIState.Idle);
     }
     private void Update()
     {
@@ -253,10 +259,14 @@ public class EnemyAIController : MonoBehaviour
 
     private void MoveToDestination(Vector3 destination)
     {
-        if (navMeshAgent == null || !navMeshAgent.isActiveAndEnabled) return;
-
-        navMeshAgent.isStopped = false;
-        navMeshAgent.SetDestination(destination);
+        if (navMeshAgent == null || !navMeshAgent.isActiveAndEnabled || !navMeshAgent.isOnNavMesh) return;
+        if (Vector3.SqrMagnitude(destination - lastDestination) < 0.1f && navMeshAgent.hasPath) return;
+        if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 3.0f, NavMesh.AllAreas))
+        {
+            lastDestination = hit.position;
+            if (navMeshAgent.isStopped) navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(destination);
+        }
     }
 
     private void StopMovement()
