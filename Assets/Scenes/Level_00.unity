@@ -23553,17 +23553,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6648310227511039946, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6648310227511039946, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 121470314}
-    - target: {fileID: 6648310227511039946, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMasterVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 6721880015325760318, guid: 48d04bf74ce44784f9d247f00fa21bb9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
