@@ -33,6 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,13 +50,20 @@ public class NarratorUI : MonoBehaviour
 #if UNITY_EDITOR
     [TextArea] public string DeveloperDescription = string.Empty ;
 #endif
+    [Header("Dependencies")]
     [SerializeField] private GameObject panel;
+    [SerializeField] private CanvasGroup panelCanvasGrp;
     [SerializeField] private GameObject faceImage;
     [SerializeField] private TextMeshProUGUI bodyText;
     
+    [Header("Faces")]
     [SerializeField] private Sprite defaultSprite;
     [SerializeField] private Sprite happySprite;
     [SerializeField] private Sprite smirkSprite;
+
+    [Header("Timer")]
+    [SerializeField] private float panelFadeDuration = 0.3f;
+    [SerializeField] private float messageDisplayTime = 3.0f;
     #endregion
 
 
@@ -72,7 +80,6 @@ public class NarratorUI : MonoBehaviour
     #region Methods
     public void DisplayMessage(string text, NarratorExpression state)
     {
-        panel.SetActive(true);
         bodyText.text = text;
         switch (state)
         {
@@ -86,9 +93,50 @@ public class NarratorUI : MonoBehaviour
                 image.sprite = defaultSprite;
                 break;
         }
+        StartCoroutine(NarratorFadeIn(panelFadeDuration));
     }
     public void HidePanel()
     {
+        StartCoroutine(NarratorFadeOut(panelFadeDuration));
+        // panel.SetActive(false);
+    }
+    #endregion
+
+    #region Coroutines
+    private IEnumerator NarratorFadeIn(float duration = 0.8f)
+    {
+        panelCanvasGrp.alpha = 0f;
+        panel.SetActive(true);
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+            panelCanvasGrp.alpha = Mathf.Lerp(0f, 1f, timer / duration);
+            yield return null;
+        }
+        panelCanvasGrp.alpha = 1f;
+    } 
+
+    private IEnumerator NarratorFadeOut(float duration = 0.8f)
+    {
+        if (panelCanvasGrp == null) yield break;
+
+        panelCanvasGrp.alpha = 1f;
+        panel.SetActive(true);
+
+        if (messageDisplayTime > 0)
+        {
+            yield return new WaitForSecondsRealtime(messageDisplayTime);
+        }
+
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+            panelCanvasGrp.alpha = Mathf.Lerp(1f, 0f, timer / duration);
+            yield return null;
+        }
+        panelCanvasGrp.alpha = 0f;
         panel.SetActive(false);
     }
     #endregion

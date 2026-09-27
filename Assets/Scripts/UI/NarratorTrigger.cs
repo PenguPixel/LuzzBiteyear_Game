@@ -57,9 +57,10 @@ public class NarratorTrigger : MonoBehaviour
 
 
     #region Methods
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (hasTriggered && isOneShot) return;
+        if ()
         if (other.CompareTag("Player"))
         {
             NarratorUI narratorUI = FindFirstObjectByType<NarratorUI>();
