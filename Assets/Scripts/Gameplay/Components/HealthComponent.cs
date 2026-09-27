@@ -86,7 +86,10 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         }
         
         if (animationBridge != null)
+        {
             animationBridge.OnDeathComplete += HandleDeathAnimation;
+            animationBridge.SetDeath(false);
+        }
     }
     private void OnDisable()
     {

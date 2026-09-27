@@ -138,8 +138,7 @@ public class EncounterManager : MonoBehaviour
 
                 for (int i = 0; i < group.count; i++)
                 {
-                    if (SpawnEnemy(group.enemyPrefab, trigger.transform.position))
-                        activeEnemyCount++;
+                    SpawnEnemy(group.enemyPrefab, trigger.transform.position);
                 }
                 yield return new WaitForSeconds(wave.spawnInterval);
             }
@@ -189,6 +188,7 @@ public class EncounterManager : MonoBehaviour
         {
             entity.InitializeEntity(poolManager, enemyprefab);
         }
+        activeEnemyCount++;
         return true;
     }
     #endregion

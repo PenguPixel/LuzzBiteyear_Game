@@ -1,11 +1,19 @@
 fileFormatVersion: 2
 guid: 5d2f23d2af9d54c07aef3ed24f1df257
+AssetOrigin:
+  serializedVersion: 1
+  productId: 309577
+  packageName: Outlaw Loops - Modern Western Music
+  packageVersion: 1.0
+  assetPath: Assets/Outlaw Loops - Modern Western Music/End of the Rope B 172 BPM
+    Loop.wav
+  uploadId: 730717
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
   defaultSettings:
     serializedVersion: 2
-    loadType: 0
+    loadType: 2
     sampleRateSetting: 0
     sampleRateOverride: 44100
     compressionFormat: 1
@@ -15,17 +23,9 @@ AudioImporter:
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
-  loadInBackground: 0
+  loadInBackground: 1
   ambisonic: 0
   3D: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 309577
-  packageName: Outlaw Loops - Modern Western Music
-  packageVersion: 1.0
-  assetPath: Assets/Outlaw Loops - Modern Western Music/End of the Rope B 172 BPM
-    Loop.wav
-  uploadId: 730717
