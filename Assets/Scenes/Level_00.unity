@@ -196770,46 +196770,6 @@ PrefabInstance:
       propertyPath: worldCanvas
       value: 
       objectReference: {fileID: 257476705}
-    - target: {fileID: 2508873009500500008, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2508873009500500008, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2508873009500500008, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2508873009500500008, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2508873009500500008, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2508873009500500008, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2508873009500500008, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2994864869301178049, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2994864869301178049, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2994864869301178049, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
-      propertyPath: m_Size.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4538471961920880641, guid: 38fe5a201b318b949b75c7ff303bf361, type: 3}
       propertyPath: gameManager
       value: 
