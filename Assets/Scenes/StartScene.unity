@@ -836,29 +836,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1117429119}
     - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1456919430}
-    - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TriggerGameStart
-      objectReference: {fileID: 0}
-    - target: {fileID: 3037976581125193998, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: StartSceneManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3414149228750463166, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4772945234852755767, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4941486855808268278, guid: 08577c35cc37909808b6c2e523e7c0f8, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
