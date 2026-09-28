@@ -114,6 +114,8 @@ public class EnemyAIController : MonoBehaviour
         if (navMeshAgent != null)
             navMeshAgent.enabled = true;
 
+        // safeguard against stupid enemies
+        ResetAISpawn(transform.position);
         // This is just as safeguard, usually enemies spawn on nav mesh after validation, this is for the scattered NPC placeholders
         if (!navMeshAgent.isOnNavMesh)
         {
@@ -130,6 +132,7 @@ public class EnemyAIController : MonoBehaviour
             animationBridge.OnAttackComplete += HandleActionCompleted;
             animationBridge.OnHitReactionComplete += HandleActionCompleted;
         }
+        SetState(AIState.Patrol);
     }
     private void OnDisable()
     {
@@ -142,10 +145,18 @@ public class EnemyAIController : MonoBehaviour
     }
     public void ResetAISpawn(Vector3 spawnPosition)
     {
-        homePosition = spawnPosition;
-        lastDestination = spawnPosition;
+        Vector3 groundedPos = spawnPosition;
+        if (NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+            groundedPos = hit.position;
+        homePosition = groundedPos;
+        lastDestination = groundedPos;
+        currentDestination = groundedPos;
         isPerformingAction = false;
-        SetState(AIState.Idle);
+        idleTimer = 0f;
+        decisionTimer = 0f;
+        if (navMeshAgent != null)
+            navMeshAgent.Warp(groundedPos);
+        SetState(AIState.Patrol);
     }
     private void Update()
     {
@@ -221,7 +232,10 @@ public class EnemyAIController : MonoBehaviour
             switch (currentState)
             {
                 case AIState.Idle:
-                    idleTimer += Time.deltaTime;
+                    float waitTime = (idleWaitTime != null && idleWaitTime.Value > 0f) ? idleWaitTime.Value : 2f;
+
+                    idleTimer += decisionInterval;
+
                     if (idleTimer >= idleWaitTime.Value)
                     {
                         GetNextPatrolDestination();
@@ -386,7 +400,7 @@ public class EnemyAIController : MonoBehaviour
         }
         else
         {
-            currentDestination = homePosition + new Vector3(randomPoint.x, 0, randomPoint.y);
+            currentDestination = homePosition;
         }
     }
     private void CalculateRepositionDesination(Vector3 targetPos)

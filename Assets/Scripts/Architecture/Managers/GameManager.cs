@@ -92,7 +92,16 @@ public class GameManager : MonoBehaviour
         if(onGameStateChanged != null) onGameStateChanged.Raise();
     }
     public void EnterCombat() => SetGameState(GameState.Combat);
-    public void EnterExploration() => SetGameState(GameState.Exploration);
+    public void EnterExploration()
+    {
+        activeAggroCount = 0;
+        if (aggroLostRoutine != null)
+        {
+            StopCoroutine(aggroLostRoutine);
+            aggroLostRoutine = null;
+        }
+        SetGameState(GameState.Exploration);
+    } 
     public void GameOver() => SetGameState(GameState.GameOver);
     public void TogglePause()
     {
@@ -164,7 +173,6 @@ public class GameManager : MonoBehaviour
     {
         activeAggroCount = Mathf.Max(0, activeAggroCount -1);
         if (isProcessingGameOver) return;
-
 
         if (activeAggroCount == 0)
         {

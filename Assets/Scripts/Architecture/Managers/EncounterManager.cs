@@ -201,5 +201,17 @@ public class EncounterManager : MonoBehaviour
         activeEnemyCount++;
         return true;
     }
+
+    public void PreSpawnEncounter(EncounterTrigger trigger)
+    {
+        if (trigger == null || trigger.Waves.Count == 0) return;
+        WaveData firstWave = trigger.Waves[0];
+        foreach (var group in firstWave.enemyGroups)
+        {
+            if (group.enemyPrefab == null || group.count <= 0) continue;
+            for (int i = 0; i < group.count; i++)
+                SpawnEnemy(group.enemyPrefab, trigger.transform.position);
+        }
+    }
     #endregion
 }

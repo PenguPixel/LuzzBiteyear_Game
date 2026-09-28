@@ -88,6 +88,8 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         if (currentHealth != null && maxHealth != null)
         {
             currentHealth.Value = maxHealth.Value;
+            if (CompareTag("Player"))
+                currentHealth.Value = Mathf.RoundToInt(maxHealth.Value * 2/3);
         }
         
         if (animationBridge != null)

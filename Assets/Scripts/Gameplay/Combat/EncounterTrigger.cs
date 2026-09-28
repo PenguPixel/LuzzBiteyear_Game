@@ -48,6 +48,7 @@ public class EncounterTrigger : MonoBehaviour
 
     [Header("Trigger Setup")]
     [SerializeField] private bool isOneShot = true;
+    [SerializeField] private bool isPreSetEncounter = false;
     [SerializeField] List<WaveData> waves = new();
     [SerializeField] private float cooldownTime = 180f;
     [SerializeField] private Collider triggerCollider;
@@ -65,13 +66,21 @@ public class EncounterTrigger : MonoBehaviour
     #region Internal
     private bool hasTriggered;
     public IReadOnlyList<WaveData> Waves => waves;
+    private void Start()
+    {
+        if (isPreSetEncounter)
+        {
+            EncounterManager manager = FindAnyObjectByType<EncounterManager>();
+            if (manager != null) manager.PreSpawnEncounter(this);
+        }
+    }
     #endregion
 
 
     #region Methods
     public void OnTriggerEnter(Collider other)
     {
-        if (hasTriggered && isOneShot) return;
+        if (hasTriggered) return;
         if (other.CompareTag("Player"))
         {
             hasTriggered = true;
@@ -82,8 +91,6 @@ public class EncounterTrigger : MonoBehaviour
             if (manager != null)
             {
                 manager.StartTriggerEncounter(this);
-                if (!isOneShot)
-                    StartCoroutine(ResetEncounter());
             }
         }
     }
@@ -91,6 +98,8 @@ public class EncounterTrigger : MonoBehaviour
     public void CompleteTrigger()
     {
         ToggleBarriers(false);
+        if (!isOneShot)
+            StartCoroutine(ResetEncounter());
     }
     public void ToggleBarriers(bool state)
     {
@@ -102,9 +111,9 @@ public class EncounterTrigger : MonoBehaviour
     }
     public IEnumerator ResetEncounter()
     {
-        triggerCollider.enabled = false;
+    //    triggerCollider.enabled = false;
         yield return new WaitForSeconds(cooldownTime);
-        triggerCollider.enabled = true;
+    //    triggerCollider.enabled = true;
         hasTriggered = false;
     }
     #endregion
