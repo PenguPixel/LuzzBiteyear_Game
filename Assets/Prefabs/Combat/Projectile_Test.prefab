@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9113035617492357955}
   - component: {fileID: 1718665713712876250}
   - component: {fileID: 7436943306978661478}
-  - component: {fileID: 2541496193252000506}
   - component: {fileID: 5302874211056203535}
   - component: {fileID: 5857897167971910482}
+  - component: {fileID: 5891641927360912893}
   m_Layer: 0
   m_Name: Projectile_Test
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5, y: 1.05, z: 1.5}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,27 +93,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2541496193252000506
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4272611791047314864}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5302874211056203535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,17 +110,13 @@ MonoBehaviour:
     useConstant: 1
     constantValue: 1
     variable: {fileID: 0}
-  moveSpeed:
-    useConstant: 1
-    constantValue: 10
-    variable: {fileID: 0}
-  maxLifetime:
-    useConstant: 1
-    constantValue: 10
-    variable: {fileID: 0}
+  moveSpeed: 15
+  maxLifetime: 5
   targetLayers:
     serializedVersion: 2
     m_Bits: 0
+  vFXEventChannel: {fileID: 11400000, guid: 3595d3eb4bb05db44818dc1c17466a25, type: 2}
+  impactVFX: {fileID: 0}
 --- !u!54 &5857897167971910482
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -169,3 +144,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &5891641927360912893
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4272611791047314864}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.49999997
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}

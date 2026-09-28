@@ -183,6 +183,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   animationBridge: {fileID: 5028715261551232349}
+  vFXEventChannel: {fileID: 11400000, guid: 3595d3eb4bb05db44818dc1c17466a25, type: 2}
+  hitReactionVFX: {fileID: 11400000, guid: 0325503eb80eb2b4c99ce6396ab65219, type: 2}
+  healVFX: {fileID: 11400000, guid: 9bdff7fc0f8aa2e4c93ebac6dc5b7dc7, type: 2}
   audioChannel: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
   hitSO: {fileID: 11400000, guid: 45c7019cf5cd81c48b1bf02aa6c36a87, type: 2}
   healSO: {fileID: 11400000, guid: 24c304f8564f975478c2745d935df786, type: 2}
@@ -237,6 +240,8 @@ MonoBehaviour:
     variable: {fileID: 0}
   activeHitboxDuration: 0.3
   onAttackExecuted: {fileID: 0}
+  vFXEventChannel: {fileID: 11400000, guid: 3595d3eb4bb05db44818dc1c17466a25, type: 2}
+  attackVFX: {fileID: 11400000, guid: 3816bd98f3407db4c8726b48986e32c2, type: 2}
   audioChannel: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
   attackSO: {fileID: 11400000, guid: f7768b0a3b192c34593e99152af23a89, type: 2}
 --- !u!114 &4143200333060449473
@@ -267,8 +272,10 @@ MonoBehaviour:
   energyCost: 1
   firePoint: {fileID: 13578401550929105}
   projectilePrefab: {fileID: 3630569505607164923, guid: b8fcdd030e8afcf54afcf0d25acf1c81, type: 3}
+  vFXEventChannel: {fileID: 11400000, guid: 3595d3eb4bb05db44818dc1c17466a25, type: 2}
+  muzzleFlashVFX: {fileID: 11400000, guid: 61d56de4e0a0ce64b86e7cf2b2a74f81, type: 2}
   audioChannel: {fileID: 11400000, guid: 4827e820007d8f14d95834e0d26905c4, type: 2}
-  shotSO: {fileID: 11400000, guid: 66a55fd4395d97a4e8ac681e1f1a138f, type: 2}
+  shotSO: {fileID: 11400000, guid: fc61429d9aaae70449e7c5797889cd53, type: 2}
 --- !u!114 &4538471961920880641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityBase
   DeveloperDescription: 
-  targetTransform: {fileID: 0}
+  targetTransform: {fileID: 5068594025508640670}
   animationBridge: {fileID: 5028715261551232349}
   onEntitySpawned: {fileID: 0}
   onEntityDied: {fileID: 11400000, guid: e8e53cae27523a4448155d90cf63313f, type: 2}

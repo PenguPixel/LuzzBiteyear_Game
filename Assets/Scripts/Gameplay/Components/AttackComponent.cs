@@ -59,6 +59,10 @@ public class AttackComponent : MonoBehaviour
     [Header("Events Configuration")]
     [SerializeField] private GameEvent onAttackExecuted; // maybe redundant
 
+    [Header("VFX")]
+    [SerializeField] private VFXEventChannel vFXEventChannel;
+    [SerializeField] private VFXData attackVFX;
+
     [Header("Audio")]
     [SerializeField] private AudioEventChannel audioChannel;
     [SerializeField] private SoundData attackSO;
@@ -96,7 +100,10 @@ public class AttackComponent : MonoBehaviour
         LastTimeAttack = Time.time;
         if (animationBridge != null)
             animationBridge.TriggerAttack();
-        if (onAttackExecuted != null) onAttackExecuted.Raise();
+        if (onAttackExecuted != null) 
+            onAttackExecuted.Raise();
+        if (vFXEventChannel != null && attackVFX != null)
+            vFXEventChannel.RaiseVFX(attackVFX, attackPayLoad.transform.position, attackPayLoad.transform.rotation);
         if (audioChannel != null && attackSO != null)
             audioChannel.RaiseSFX(attackSO, transform.position);
     }

@@ -57,6 +57,11 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     [SerializeField] private UnityEvent onDiedLocal;
     [SerializeField] private CharacterAnimationBridge animationBridge;
 
+    [Header("VFX")]
+    [SerializeField] private VFXEventChannel vFXEventChannel;
+    [SerializeField] private VFXData hitReactionVFX;
+    [SerializeField] private VFXData healVFX;
+
     [Header("Audio")]
     [SerializeField] private AudioEventChannel audioChannel;
     [SerializeField] private SoundData hitSO;
@@ -109,7 +114,8 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
         if (animationBridge != null)
             animationBridge.TriggerHit();
-
+        if (vFXEventChannel != null && hitReactionVFX != null)
+            vFXEventChannel.RaiseVFX(hitReactionVFX, gameObject.transform.position, Quaternion.identity);
         if (onHealthChanged != null)
             onHealthChanged.Raise();
         onThisHealthChanged?.Invoke(currentHealth.Value);
@@ -131,6 +137,8 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         OnHealed?.Invoke(amount);
         if (onHealthChanged != null)
             onHealthChanged.Raise();
+        if (vFXEventChannel != null && healVFX != null)
+            vFXEventChannel.RaiseVFX(healVFX, gameObject.transform.position, Quaternion.identity);
         onThisHealthChanged?.Invoke(currentHealth.Value);
         if (audioChannel != null && healSO != null)
             audioChannel.RaiseSFX(healSO, transform.position);

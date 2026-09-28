@@ -60,6 +60,10 @@ public class ShootingComponent : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject projectilePrefab;
 
+    [Header("VFX")]
+    [SerializeField] private VFXEventChannel vFXEventChannel;
+    [SerializeField] private VFXData muzzleFlashVFX;
+
     [Header("Audio")]
     [SerializeField] private AudioEventChannel audioChannel;
     [SerializeField] private SoundData shotSO;
@@ -161,6 +165,8 @@ public class ShootingComponent : MonoBehaviour
 
         if (audioChannel != null && shotSO != null)
             audioChannel.RaiseSFX(shotSO, origin.position);
+        if (vFXEventChannel != null && muzzleFlashVFX != null)
+            vFXEventChannel.RaiseVFX(muzzleFlashVFX, firePoint.position, firePoint.rotation);
     }
     #endregion
 }

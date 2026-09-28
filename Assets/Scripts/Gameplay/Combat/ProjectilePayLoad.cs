@@ -47,8 +47,14 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float moveSpeed = 15f;
     [SerializeField] private float maxLifetime = 5f;
     [SerializeField] private LayerMask targetLayers;
+
+    [Header("VFX")]
+    [SerializeField] private VFXEventChannel vFXEventChannel;
+    [SerializeField] private VFXData impactVFX;
     
     #endregion
+
+
     #region Internal
     private Vector3 flyDirection;
     private PoolManager poolManager;
@@ -101,7 +107,11 @@ public class Projectile : MonoBehaviour
             );
             health.TakeDamage(ctx);
         }
-
+        if (vFXEventChannel != null && impactVFX != null)
+        {
+            Quaternion hitRotation = Quaternion.LookRotation(-transform.forward);
+            vFXEventChannel.RaiseVFX(impactVFX, transform.position, hitRotation);
+        }
         ReleaseToPool();
     }
     #endregion

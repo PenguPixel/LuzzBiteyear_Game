@@ -50,8 +50,15 @@ public class PlayerTargeting : TargetingComponent
     private int _currentTargetIndex = -1;
     private void LateUpdate()
     {
-        if (!HasValidTarget || worldCanvas == null) return;
-
+        if (!HasValidTarget || worldCanvas == null)
+        {
+            cursorImage.enabled = false;
+            return;
+        } 
+        else
+        {
+            cursorImage.enabled = true;
+        }
         worldCanvas.transform.position = new Vector3(CurrentTarget.TargetTransform.position.x, CurrentTarget.TargetTransform.position.y + worldOffset, CurrentTarget.TargetTransform.position.z);
 
         if (Camera.main != null)

@@ -111,9 +111,20 @@ public class EnemyAIController : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (navMeshAgent != null && navMeshAgent.isOnNavMesh)
+        if (navMeshAgent != null)
             navMeshAgent.enabled = true;
-            
+
+        // This is just as safeguard, usually enemies spawn on nav mesh after validation, this is for the scattered NPC placeholders
+        if (!navMeshAgent.isOnNavMesh)
+        {
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+            {
+                navMeshAgent.Warp(hit.position);
+                homePosition = hit.position;
+                lastDestination = hit.position;
+            }
+        }
+
         if (animationBridge != null)
         {
             animationBridge.OnAttackComplete += HandleActionCompleted;
@@ -264,8 +275,8 @@ public class EnemyAIController : MonoBehaviour
         if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 3.0f, NavMesh.AllAreas))
         {
             lastDestination = hit.position;
-            if (navMeshAgent.isStopped) navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(destination);
+            navMeshAgent.isStopped = false;
         }
     }
 
