@@ -267637,7 +267637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: TrackerSettings.PositionDamping.y
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4830929346356521629, guid: ceb185295cc8f3243b276b0cdddf558b, type: 3}
       propertyPath: TrackerSettings.PositionDamping.z
