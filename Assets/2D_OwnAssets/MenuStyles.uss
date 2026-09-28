@@ -1,0 +1,14 @@
+:root {
+}
+
+.standard-button {
+}
+
+.standard-button:hover {
+}
+
+.standard-button:focus {
+}
+
+.standard-button:active {
+}

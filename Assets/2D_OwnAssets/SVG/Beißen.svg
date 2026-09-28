@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_2" data-name="Ebene 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50.85 36.5">
+  <defs>
+    <linearGradient id="Unbenannter_Verlauf_30" data-name="Unbenannter Verlauf 30" x1="-57034.63" y1="68303.88" x2="-56409.33" y2="68303.88" gradientTransform="translate(1674.8971 -1363.5825) rotate(-90) scale(.0244 -.0244)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cfcfdb"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="Unbenannter_Verlauf_30-2" data-name="Unbenannter Verlauf 30" y1="69114.37" y2="69114.37" gradientTransform="translate(1706.8971 -1363.5825) rotate(-90) scale(.0244 -.0244)" xlink:href="#Unbenannter_Verlauf_30"/>
+    <linearGradient id="Unbenannter_Verlauf_30-3" data-name="Unbenannter Verlauf 30" x1="-57008.48" y1="67266.72" x2="-56383.19" y2="67266.72" xlink:href="#Unbenannter_Verlauf_30"/>
+    <linearGradient id="Unbenannter_Verlauf_30-4" data-name="Unbenannter Verlauf 30" x1="-57008.48" y1="68077.21" x2="-56383.19" y2="68077.21" gradientTransform="translate(1706.8971 -1363.5825) rotate(-90) scale(.0244 -.0244)" xlink:href="#Unbenannter_Verlauf_30"/>
+    <linearGradient id="Unbenannter_Verlauf_30-5" data-name="Unbenannter Verlauf 30" x1="-39859.68" y1="68010.98" x2="-39311.39" y2="68010.98" gradientTransform="translate(1674.8971 981.9724) rotate(90) scale(.0244)" xlink:href="#Unbenannter_Verlauf_30"/>
+    <linearGradient id="Unbenannter_Verlauf_30-6" data-name="Unbenannter Verlauf 30" x1="-39859.68" y1="68395.68" x2="-39311.39" y2="68395.68" gradientTransform="translate(1674.8971 981.9724) rotate(90) scale(.0244)" xlink:href="#Unbenannter_Verlauf_30"/>
+    <linearGradient id="Unbenannter_Verlauf_30-7" data-name="Unbenannter Verlauf 30" x1="-39859.68" y1="68883.07" x2="-39311.39" y2="68883.07" gradientTransform="translate(1706.8971 981.9724) rotate(90) scale(.0244)" xlink:href="#Unbenannter_Verlauf_30"/>
+    <linearGradient id="Unbenannter_Verlauf_30-8" data-name="Unbenannter Verlauf 30" x1="-39836.75" y1="67101.55" x2="-39288.47" y2="67101.55" gradientTransform="translate(1674.8971 981.9724) rotate(90) scale(.0244)" xlink:href="#Unbenannter_Verlauf_30"/>
+    <linearGradient id="Unbenannter_Verlauf_30-9" data-name="Unbenannter Verlauf 30" x1="-39836.75" y1="67973.65" x2="-39288.47" y2="67973.65" gradientTransform="translate(1706.8971 981.9724) rotate(90) scale(.0244)" xlink:href="#Unbenannter_Verlauf_30"/>
+  </defs>
+  <g id="UI_Variante_1">
+    <g>
+      <path d="M48.69,2.67H2.16c-.92,0-1.66.73-1.66,1.63v5.7c0,.9.74,1.63,1.66,1.63h46.54c.92,0,1.66-.73,1.66-1.63v-5.7c0-.9-.74-1.63-1.66-1.63Z" style="fill: #fff; stroke: #d8d6d6; stroke-width: .99px;"/>
+      <path d="M11.3,4.09l2.17-3.54,2.17,3.54h-4.34Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .57px;"/>
+      <path d="M22.14,4.09l2.17-3.54,2.17,3.54h-4.34Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .57px;"/>
+      <path d="M32.98,4.09l2.17-3.54,2.17,3.54h-4.34Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .57px;"/>
+      <path d="M2.16,5.11h46.54" style="fill: #fff; stroke: #bfbfbf; stroke-width: .43px;"/>
+      <path d="M2.81,9.18h45.89" style="fill: none; stroke: #bfbfbf; stroke-width: .36px;"/>
+      <path d="M48.69,26.27H2.16c-.92,0-1.66.73-1.66,1.63v5.7c0,.9.74,1.63,1.66,1.63h46.54c.92,0,1.66-.73,1.66-1.63v-5.7c0-.9-.74-1.63-1.66-1.63Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .99px;"/>
+      <path d="M3.82,32.38c.92,0,1.66-.73,1.66-1.63s-.74-1.63-1.66-1.63-1.66.73-1.66,1.63.74,1.63,1.66,1.63Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .58px;"/>
+      <path d="M47.03,32.38c.92,0,1.66-.73,1.66-1.63s-.74-1.63-1.66-1.63-1.66.73-1.66,1.63.74,1.63,1.66,1.63Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .58px;"/>
+      <path d="M11.3,32.41l2.17,3.54,2.17-3.54h-4.34Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .57px;"/>
+      <path d="M22.14,32.41l2.17,3.54,2.17-3.54h-4.34Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .57px;"/>
+      <path d="M32.98,32.41l2.17,3.54,2.17-3.54h-4.34Z" style="fill: #fff; stroke: #bfbfbf; stroke-width: .57px;"/>
+      <path d="M6.31,29.53h38.23" style="fill: none; stroke: #bfbfbf; stroke-width: .66px;"/>
+      <path d="M6.31,31.65h38.23" style="fill: none; stroke: #bfbfbf; stroke-width: .66px;"/>
+      <path d="M5.8,16.65v12.21l-3.05-3.05,3.05-9.16" style="fill: #fff;"/>
+      <path d="M5.8,16.65l3.05,9.16-3.05,3.05v-12.21" style="fill: url(#Unbenannter_Verlauf_30);"/>
+      <path d="M18.01,16.65v12.21l-3.05-3.05,3.05-9.16" style="fill: #fff;"/>
+      <path d="M18.01,16.65l3.05,9.16-3.05,3.05v-12.21" style="fill: url(#Unbenannter_Verlauf_30-2);"/>
+      <path d="M31.12,16.01v12.21l-3.05-3.05,3.05-9.16" style="fill: #fff;"/>
+      <path d="M31.12,16.01l3.05,9.16-3.05,3.05v-12.21" style="fill: url(#Unbenannter_Verlauf_30-3);"/>
+      <path d="M43.33,16.01v12.21l-3.05-3.05,3.05-9.16" style="fill: #fff;"/>
+      <path d="M43.33,16.01l3.05,9.16-3.05,3.05v-12.21" style="fill: url(#Unbenannter_Verlauf_30-4);"/>
+      <path d="M13.13,19.54l-2.68-8.03,2.68-2.68v10.71" style="fill: #fff;"/>
+      <path d="M13.13,19.54v-10.71l2.68,2.68-2.68,8.03" style="fill: url(#Unbenannter_Verlauf_30-5);"/>
+      <path d="M3.74,19.54L1.06,11.51l2.68-2.68v10.71" style="fill: #fff;"/>
+      <path d="M3.74,19.54v-10.71l2.68,2.68-2.68,8.03" style="fill: url(#Unbenannter_Verlauf_30-6);"/>
+      <path d="M23.84,19.54l-2.68-8.03,2.68-2.68v10.71" style="fill: #fff;"/>
+      <path d="M23.84,19.54v-10.71l2.68,2.68-2.68,8.03" style="fill: url(#Unbenannter_Verlauf_30-7);"/>
+      <path d="M35.34,20.1l-2.68-8.03,2.68-2.68v10.71" style="fill: #fff;"/>
+      <path d="M35.34,20.1v-10.71l2.68,2.68-2.68,8.03" style="fill: url(#Unbenannter_Verlauf_30-8);"/>
+      <path d="M46.05,20.1v-10.71l2.68,2.68-2.68,8.03" style="fill: url(#Unbenannter_Verlauf_30-9);"/>
+      <path d="M46.03,20.1l-2.68-8.03,2.68-2.68v10.71" style="fill: #fff;"/>
+    </g>
+  </g>
+</svg>

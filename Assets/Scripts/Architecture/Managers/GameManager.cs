@@ -1,0 +1,194 @@
+#region Project Details
+/*
+* Project: MyProjectName
+* Author:Christof Kloninger / kloningerchristof@gmail.com
+* Issue: Link: https://github.com/Wasted-Resources/MyProjectName/issues/[ID]
+* Date: 2026-09-07
+*/
+#endregion
+
+
+#region Basic Instruction
+/*
+Structure the class into regions as appropriate for their use case.
+The regions should separate what is viewed or used in an inspector, class intern relevant fields, Public Getters if necessary, 
+Use top comments above methods to describe them and explain their parameters.
+TODO comments above a method or codeblock
+Use side comments in line to describe lines that obfuscate their function as explanation
+*/
+#endregion
+
+
+#region Development remarks
+/// <remarks>
+/// <para>
+/// This class handles state of the game and enforces rules. It must maintain [Architecture Constraint, e.g., Singleton].
+/// </para>
+/// </remarks>
+/// <summary>
+/// Description: Tracks the state of the game. Communicates to other components if needed.
+/// Coordination: [How it communicates with APIs or other Components].
+/// Deployment: Sits as a global object on start.
+/// </summary>
+#endregion
+
+
+using System.Collections;
+using UnityEngine;
+
+
+public class GameManager : MonoBehaviour
+{
+    #region Inspector
+#if UNITY_EDITOR
+    [TextArea] public string DeveloperDescription = string.Empty ;
+#endif
+    [Header("State Data")]
+    [SerializeField] private GameStateVariable currentGameState;
+
+    [Header("StateTransition")]
+    [SerializeField] private float aggroLostBufferTime = 1.5f;
+
+    [Header("Broadcasting Events")]
+    [SerializeField] private GameEvent onGameStateChanged; 
+    [SerializeField] private GameEvent onRequestRespawn;
+    [SerializeField] private FloatReference gameOverDuration;
+    #endregion
+
+    
+    #region Internal
+    private GameState previousState;
+    private int activeAggroCount = 0;
+    private Coroutine gameOverRoutine;
+    private Coroutine aggroLostRoutine;
+    private bool isProcessingGameOver = false;
+    #endregion
+
+    #region Unity Methods
+    private void Awake()
+    {
+        if (currentGameState != null)
+        {
+            EnterExploration();
+            if(onGameStateChanged != null) onGameStateChanged.Raise();
+        }
+    }
+    #endregion
+
+    #region Methods
+    /// <summary>
+    /// Sets the current game state. Raises the broadcasting Event.
+    /// </summary>
+    /// <param name = "GameState"> Reference to a validated Game State</param>
+    public void SetGameState(GameState newState)
+    {
+        if (currentGameState == null) return;
+        if (isProcessingGameOver && newState != GameState.GameOver) return;
+        if (currentGameState.Value == newState) return;
+
+        previousState = currentGameState.Value;
+        currentGameState.SetValue(newState);
+
+        if(onGameStateChanged != null) onGameStateChanged.Raise();
+    }
+    public void EnterCombat() => SetGameState(GameState.Combat);
+    public void EnterExploration()
+    {
+        activeAggroCount = 0;
+        if (aggroLostRoutine != null)
+        {
+            StopCoroutine(aggroLostRoutine);
+            aggroLostRoutine = null;
+        }
+        SetGameState(GameState.Exploration);
+    } 
+    public void GameOver() => SetGameState(GameState.GameOver);
+    public void TogglePause()
+    {
+        if (currentGameState.Value == GameState.Paused)
+        {
+            SetGameState(previousState);
+            Time.timeScale = 1f;
+            if (onGameStateChanged != null) onGameStateChanged.Raise();
+        }
+        else
+        {
+            SetGameState(GameState.Paused);
+            Time.timeScale = 0f;
+            if (onGameStateChanged != null) onGameStateChanged.Raise();
+        }
+    }
+
+    public void EnterPuzzle()
+    {
+        SetGameState(GameState.Puzzle);
+        Time.timeScale = 0f;
+        Debug.Log("Enter Puzzle State");
+    }
+
+    public void ExitPuzzle()
+    {
+        Time.timeScale = 1f;
+        SetGameState(previousState == GameState.Combat ? GameState.Combat : GameState.Exploration);
+        Debug.Log("Leave Puzzle State");
+    }
+
+    public void OnPlayerDied()
+    {
+        if (isProcessingGameOver) return;
+        if (gameOverRoutine != null) StopCoroutine(gameOverRoutine);
+        gameOverRoutine = StartCoroutine(GameOverSequenceRoutine());
+    }
+    private IEnumerator GameOverSequenceRoutine()
+    {
+        isProcessingGameOver = true;
+        GameOver(); // I know this seems absolutely redundant, BUT If we define a win condition we need this.
+        yield return new WaitForSecondsRealtime(gameOverDuration.Value);
+        onRequestRespawn.Raise();
+        isProcessingGameOver = false;
+        EnterExploration();
+        gameOverRoutine = null;
+    }
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
+
+
+
+    #region Helpers
+    public void OnEnemyAggroAcquired()
+    {
+        if (isProcessingGameOver) return;
+        activeAggroCount++;
+        if (aggroLostRoutine != null)
+        {
+            StopCoroutine(aggroLostRoutine);
+            aggroLostRoutine = null;
+        }
+        if (currentGameState.Value != GameState.Combat) 
+            EnterCombat();
+    }
+    public void OnEnemyAggroLost()
+    {
+        activeAggroCount = Mathf.Max(0, activeAggroCount -1);
+        if (isProcessingGameOver) return;
+
+        if (activeAggroCount == 0)
+        {
+            if (aggroLostRoutine != null) StopCoroutine(aggroLostRoutine);
+            aggroLostRoutine = StartCoroutine(AggroLostRoutine());
+        } 
+    }
+    private IEnumerator AggroLostRoutine()
+    {
+        yield return new WaitForSeconds(aggroLostBufferTime);
+
+        if (activeAggroCount == 0 && !isProcessingGameOver)
+            EnterExploration();
+        
+        aggroLostRoutine = null;
+    }
+    #endregion
+}
+#endregion
