@@ -82,13 +82,17 @@ public class UIManager : MonoBehaviour
         {
             case GameState.Exploration:
                 if (HUDPanel != null) HUDPanel.SetActive(true);
+                Cursor.visible = false;
                 break;
             case GameState.Combat:
                 if (HUDPanel != null) HUDPanel.SetActive(true);
+                Cursor.visible = false;
                 break;
             
             case GameState.Paused:
                 if (MenuPanel != null) MenuPanel.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 break;
 
             case GameState.GameOver:

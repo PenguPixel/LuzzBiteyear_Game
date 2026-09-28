@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VFXData
   Prefabs:
   - {fileID: 4999962288943552185, guid: 4bc2a24ef2036ee4a8dd9ee34768fb33, type: 3}
-  Lifetime: 0.1
+  Lifetime: 0.5
   spawnOffset: {x: 0, y: 0, z: 0}
