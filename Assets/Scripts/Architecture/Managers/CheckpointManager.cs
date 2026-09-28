@@ -86,11 +86,6 @@ public class CheckpointManager : MonoBehaviour
         Quaternion spawnRot = hasCheckpoint ? lastCheckpointRotation : (defaultSpawnPoint != null ? defaultSpawnPoint.rotation : Quaternion.identity);
 
         playerObject.transform.SetPositionAndRotation(spawnPos, spawnRot);
-
-        if (playerObject.TryGetComponent<Health>(out var health))
-        {
-            health.Heal(3); // why it still heals to full life is beyond what i can fix now
-        }
     }
     #endregion
 }

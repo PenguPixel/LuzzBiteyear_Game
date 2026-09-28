@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1441188573497534586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3647190411788195054}
+  m_Layer: 0
+  m_Name: CanvasAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3647190411788195054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441188573497534586}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5613575587773018200}
+  m_Father: {fileID: 40015168290659338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3893862735459979620
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,9 +211,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3838181439884545617}
-  - {fileID: 5613575587773018200}
   - {fileID: 3505022390474025993}
   - {fileID: 4130999249145646386}
+  - {fileID: 3647190411788195054}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7714297046647356638
@@ -275,6 +307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityBase
   DeveloperDescription: 
+  targetTransform: {fileID: 0}
+  animationBridge: {fileID: 0}
   onEntitySpawned: {fileID: 0}
   onEntityDied: {fileID: 0}
 --- !u!114 &4179795895449798594
@@ -294,6 +328,7 @@ MonoBehaviour:
   entityBase: {fileID: 2510369717543955719}
   navMeshAgent: {fileID: 4311295856651566101}
   animationBridge: {fileID: 3970875267753730810}
+  audioChannel: {fileID: 0}
   attackComponent: {fileID: 757451357001838803}
   shootingComponent: {fileID: 9156622167900997294}
   decisionInterval: 1
@@ -310,6 +345,7 @@ MonoBehaviour:
   minRangeRatio: 0.3
   meleeWeight: 20
   rangedWeight: 80
+  soundData: {fileID: 0}
 --- !u!114 &3970875267753730810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +447,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   animationBridge: {fileID: 3970875267753730810}
+  vFXEventChannel: {fileID: 0}
+  hitReactionVFX: {fileID: 0}
+  healVFX: {fileID: 0}
+  audioChannel: {fileID: 0}
+  hitSO: {fileID: 0}
+  healSO: {fileID: 0}
 --- !u!114 &757451357001838803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +479,10 @@ MonoBehaviour:
     variable: {fileID: 0}
   activeHitboxDuration: 0.3
   onAttackExecuted: {fileID: 0}
+  vFXEventChannel: {fileID: 0}
+  attackVFX: {fileID: 0}
+  audioChannel: {fileID: 0}
+  attackSO: {fileID: 0}
 --- !u!114 &9156622167900997294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,8 +508,13 @@ MonoBehaviour:
     useConstant: 1
     constantValue: 2
     variable: {fileID: 0}
+  energyCost: 1
   firePoint: {fileID: 4130999249145646386}
   projectilePrefab: {fileID: 4272611791047314864, guid: ceac3888e72116c4895f7a791d46d74d, type: 3}
+  vFXEventChannel: {fileID: 0}
+  muzzleFlashVFX: {fileID: 0}
+  audioChannel: {fileID: 0}
+  shotSO: {fileID: 0}
 --- !u!114 &1326297382405296421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,7 +707,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 40015168290659338}
+    m_TransformParent: {fileID: 3647190411788195054}
     m_Modifications:
     - target: {fileID: 578620158088439703, guid: 59f79707ed80437468e21d4255a281f4, type: 3}
       propertyPath: m_Pivot.x
@@ -700,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 578620158088439703, guid: 59f79707ed80437468e21d4255a281f4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 578620158088439703, guid: 59f79707ed80437468e21d4255a281f4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -720,11 +771,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 578620158088439703, guid: 59f79707ed80437468e21d4255a281f4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 956.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 578620158088439703, guid: 59f79707ed80437468e21d4255a281f4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 539.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 578620158088439703, guid: 59f79707ed80437468e21d4255a281f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
