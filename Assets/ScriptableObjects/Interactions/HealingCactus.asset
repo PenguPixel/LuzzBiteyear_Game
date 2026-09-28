@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HealingCactus
   m_EditorClassIdentifier: Assembly-CSharp::InteractionData
   DeveloperDescription: 
-  promptMessage: Harvest
+  promptMessage: '[F] Harvest'
   holdDuration: 0

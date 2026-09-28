@@ -63,7 +63,6 @@ public class PlugTerminal : MonoBehaviour, IInteractable
     #region Public Getters / IInteractable
     public InteractionData InteractionData => interactionData;
     public bool IsSolved => isSolved;
-
     #endregion
 
 

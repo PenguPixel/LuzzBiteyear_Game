@@ -33,6 +33,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #endregion
 
 
+using System.IO;
 using UnityEngine;
 
 
@@ -46,6 +47,10 @@ public class InteractionComponent : MonoBehaviour
     [Header("Detection")]
     [SerializeField] private FloatReference interactionRadius;
     [SerializeField] private LayerMask interactionLayerMask;
+
+    [Header("UI Fedback")]
+    [SerializeField] private WorldInteractionUI interactionUI;
+    [SerializeField] private Vector3 uiOffset = new(0f, 2f, 0f);
     #endregion
 
     #region Internal
@@ -72,15 +77,32 @@ public class InteractionComponent : MonoBehaviour
     private void DetectNearbyInteractable()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, interactionRadius.Value, interactionLayerMask);
+        IInteractable foundInteractable = null;
+        Transform targetTransform = null;
 
         foreach (var hit in hits)
         {
             if (hit.TryGetComponent<IInteractable>(out var interactable))
             {
-                _currentNearbyInteractable = interactable;
+                foundInteractable = interactable;
+                targetTransform = hit.transform;
                 Debug.Log("[InteractionComponent] Interactable in Range acquired!");
-                return;
+                break;
             }
+        }
+        if (foundInteractable != _currentNearbyInteractable)
+        {
+            _currentNearbyInteractable = foundInteractable;
+
+            if (_currentNearbyInteractable != null && targetTransform != null)
+            {
+                interactionUI.transform.position = targetTransform.position + uiOffset;
+                interactionUI.Show(_currentNearbyInteractable.InteractionData.PromptMessage);
+            }
+        }
+        else
+        {
+            interactionUI.Hide();
         }
 
         _currentNearbyInteractable = null;
