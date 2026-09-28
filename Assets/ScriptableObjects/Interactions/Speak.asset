@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4138c23a5e9953145ac9bd61023df875, type: 3}
-  m_Name: PlugTerminal
+  m_Name: Speak
   m_EditorClassIdentifier: Assembly-CSharp::InteractionData
   DeveloperDescription: 
-  promptMessage: '[F] Activate Terminal'
+  promptMessage: '[F] Speak'
   holdDuration: 0
