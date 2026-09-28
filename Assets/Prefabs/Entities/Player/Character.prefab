@@ -459,6 +459,8 @@ MonoBehaviour:
   interactionLayerMask:
     serializedVersion: 2
     m_Bits: 8192
+  interactionUI: {fileID: 0}
+  uiOffset: {x: 0, y: 2.2, z: 1}
 --- !u!95 &4077784448564141129
 Animator:
   serializedVersion: 7
