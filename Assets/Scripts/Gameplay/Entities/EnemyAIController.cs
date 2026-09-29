@@ -35,7 +35,6 @@ Use side comments in line to describe lines that obfuscate their function as exp
 
 
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -349,10 +348,17 @@ public class EnemyAIController : MonoBehaviour
     }
     private void UpdateLocomotiveVisual()
     {
-        if (animationBridge != null && navMeshAgent != null)
+
+        if (animationBridge == null && navMeshAgent == null) return;
+
+        if (navMeshAgent.isActiveAndEnabled && navMeshAgent.isOnNavMesh)
         {
             float speed = navMeshAgent.isStopped ? 0f : navMeshAgent.velocity.magnitude;
             animationBridge.UpdateLocomotion(speed);
+        }
+        else
+        {
+            animationBridge.UpdateLocomotion(0f);
         }
     }
     private void HandleActionCompleted()
@@ -366,6 +372,19 @@ public class EnemyAIController : MonoBehaviour
         yield return new WaitForSeconds(attackRecoveryTime);
         isPerformingAction = false;
         SetState(AIState.Chase);
+    }
+    public void HandleDeath()
+    {
+        isPerformingAction = true;
+
+        if (navMeshAgent != null && navMeshAgent.isActiveAndEnabled)
+        {
+            navMeshAgent.velocity = Vector3.zero;
+            navMeshAgent.isStopped = true;
+            navMeshAgent.enabled = false;
+        }
+        if (recoveryRoutine != null)
+            recoveryRoutine = null;
     }
     #endregion
 
