@@ -159,8 +159,10 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
         if (animationBridge != null)
             animationBridge.SetDeath(true);
-        if (TryGetComponent<NavMeshAgent>(out var controller))
-            controller.isStopped = true;
+        if (TryGetComponent<EnemyAIController>(out var controller))
+        {
+            controller.HandleDeath();
+        }
     }
     private void HandleDeathAnimation()
     {
