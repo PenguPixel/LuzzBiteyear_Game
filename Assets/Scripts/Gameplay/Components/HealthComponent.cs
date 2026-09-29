@@ -37,6 +37,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 [AddComponentMenu("Resources/Health Resource")]
 public class Health : MonoBehaviour, IDamageable, IHealable
 {
@@ -158,7 +159,8 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
         if (animationBridge != null)
             animationBridge.SetDeath(true);
-
+        if (TryGetComponent<NavMeshAgent>(out var controller))
+            controller.isStopped = true;
     }
     private void HandleDeathAnimation()
     {

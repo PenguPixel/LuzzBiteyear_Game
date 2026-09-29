@@ -131,6 +131,7 @@ public class EnemyAIController : MonoBehaviour
         {
             animationBridge.OnAttackComplete += HandleActionCompleted;
             animationBridge.OnHitReactionComplete += HandleActionCompleted;
+            animationBridge.OnDeathComplete += HandleDeathCompleted;
         }
         SetState(AIState.Patrol);
     }
@@ -141,6 +142,7 @@ public class EnemyAIController : MonoBehaviour
         {
             animationBridge.OnAttackComplete -= HandleActionCompleted;
             animationBridge.OnHitReactionComplete -= HandleActionCompleted;
+            animationBridge.OnDeathComplete += HandleDeathCompleted;
         }
     }
     public void ResetAISpawn(Vector3 spawnPosition)
@@ -366,6 +368,11 @@ public class EnemyAIController : MonoBehaviour
         yield return new WaitForSeconds(attackRecoveryTime);
         isPerformingAction = false;
         SetState(AIState.Chase);
+    }
+    private void HandleDeathCompleted()
+    {
+        if (navMeshAgent != null)
+            navMeshAgent.enabled = false;
     }
     #endregion
 
