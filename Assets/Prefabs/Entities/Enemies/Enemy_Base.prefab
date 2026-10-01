@@ -310,7 +310,7 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   animationBridge: {fileID: 0}
   onEntitySpawned: {fileID: 0}
-  onEntityDied: {fileID: 0}
+  onEntityDied: {fileID: 11400000, guid: 80b4e2a826b7db44aae24aa91890f305, type: 2}
 --- !u!114 &4179795895449798594
 MonoBehaviour:
   m_ObjectHideFlags: 0

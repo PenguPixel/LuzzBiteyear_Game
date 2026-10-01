@@ -70,6 +70,7 @@ public class EntityBase : MonoBehaviour, ITargetable
     }
     private void OnDisable()
     {
+        OnDeath();
         animationBridge.OnDeathComplete -= OnDeath;
     }
     #endregion
@@ -86,6 +87,11 @@ public class EntityBase : MonoBehaviour, ITargetable
     }
     public void OnDeath()
     {
+        if (CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         onEntityDied.Raise();
         if (poolManager != null && sourcePrefab != null)
         {
