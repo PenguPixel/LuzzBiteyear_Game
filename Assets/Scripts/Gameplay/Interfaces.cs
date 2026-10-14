@@ -49,6 +49,10 @@ public interface IInteractable
     InteractionData InteractionData { get; }
     void Interact(GameObject interactor);
 }
+public interface IPoolable
+{
+    int PrewarmCount { get; }
+}
 #endregion
 
 

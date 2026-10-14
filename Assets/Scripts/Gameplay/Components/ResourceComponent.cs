@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles a generalized approach to handle resource management. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: It offers configuration and wiring interfaces in the inspector for every kind of Int or float Components.
+/// Coordination: Works with the established EventSystem.
+/// Deployment: Scripts/Gameplay/Components.
 /// </summary>
 #endregion
 

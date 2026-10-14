@@ -46,6 +46,8 @@ public class InteractionData : ScriptableObject
     [SerializeField] private string promptMessage = "Interact" ;
     [SerializeField] private float holdDuration = 0f; // OnClick
     #endregion
+
+
     #region Internal
     public string PromptMessage => promptMessage;
     public float HoldDuration => holdDuration;

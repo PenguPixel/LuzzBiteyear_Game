@@ -27,8 +27,8 @@ Use side comments in line to describe lines that obfuscate their function as exp
 /// </remarks>
 /// <summary>
 /// Description: Defines GameEvent.
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Coordination: Whenever a game event is raised it communicates that to all listeners which react to them in their own configuration. Enables decoupled broadcasting.
+/// Deployment: Lives in assets. Create new Events and configure them. Objects can subscribe to this.
 /// </summary>
 #endregion
 

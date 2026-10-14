@@ -36,7 +36,7 @@ Use side comments in line to describe lines that obfuscate their function as exp
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Tumbleweed : MonoBehaviour
+public class Tumbleweed : MonoBehaviour, IPoolable
 {
     #region Inspector
     [Header("Wind Direction & Multipliers")]
@@ -48,6 +48,8 @@ public class Tumbleweed : MonoBehaviour
     #region Internal
     private Rigidbody rb;
     private Terrain activeTerrain;
+
+    public int PrewarmCount => 10;
 
     private void Awake()
     {

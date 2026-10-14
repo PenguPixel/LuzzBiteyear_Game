@@ -22,18 +22,17 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles the configuration of a GO subscribed to GameEvents.
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: Used to dynamically couple responses to GameEvents.
+/// Coordination: It serves the automatic subscription service of an object to the GameEvent Bus.
+/// Deployment: For every GameEvent the object has to subscribe to it requires a GameEventListener to connect the event it listens to and the response.
 /// </summary>
 #endregion
 
 
-// using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
 

@@ -22,13 +22,13 @@ Use side comments in line to describe lines that obfuscate their function as exp
 #region Development remarks
 /// <remarks>
 /// <para>
-/// This class handles [Core Responsibility]. It must maintain [Architecture Constraint, e.g., Singleton].
+/// This class handles the passiing of information between Entitites and AudioManager. It must maintain [Architecture Constraint, e.g., Singleton].
 /// </para>
 /// </remarks>
 /// <summary>
-/// Description: [Describe what this class does].
-/// Coordination: [How it communicates with APIs or other Components].
-/// Deployment: [Where it should live in the Scene, Project, Assets'].
+/// Description: Acts as the Event BUS for Audio.
+/// Coordination: .
+/// Deployment: Lives as an asset. Wire this to AudioManager, EntityAudios or other similar components
 /// </summary>
 #endregion
 
