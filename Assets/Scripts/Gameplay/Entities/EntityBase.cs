@@ -87,12 +87,12 @@ public class EntityBase : MonoBehaviour, ITargetable
     }
     public void OnDeath()
     {
+        onEntityDied.Raise();
         if (CompareTag("Player"))
         {
             gameObject.SetActive(false);
             return;
         }
-        onEntityDied.Raise();
         if (poolManager != null && sourcePrefab != null)
         {
             poolManager.Release(sourcePrefab, gameObject);
