@@ -42,6 +42,7 @@ Geleitet vom digitalen Begleiter **Albyte** (Narrator-Tablet) lernt Luzz Biteyea
 ## Steuerung
 
 | **Aktion** | **Tastatur & Maus** |
+|:---|---:|
 | **Bewegung** | `W` `A` `S` `D` |
 | **Kamera / Blick** | Maus |
 | **Springen** | `Leertaste` |
