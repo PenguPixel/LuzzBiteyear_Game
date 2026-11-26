@@ -91,7 +91,7 @@ Entstanden im Rahmen des Moduls **PIP** (Projektarbeit):
 
   * **Philipp Locher** (pengupixels.de) - Lead Dev: Character Locomotion, Input Decoupling, Puzzle/Terminal Integration, Scene Architecture
 
-  * **Christof Kloninger** - Core State Management, Interfaces, Combat/Audio Architecture, Targeting
+  * [**Christof Kloninger**](https://github.com/Chris-gamedev-operator) - Core State Management, Interfaces, Combat/Audio Architecture, Targeting
 
 * **3D Art & Modeling (3DE):**
 
